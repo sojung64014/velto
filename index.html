@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VELTO — High-End Strategy Partner</title>
+  <meta name="description" content="비즈니스·브랜딩·라이프스타일의 복잡한 문제를 데이터 시각화와 구조화된 논리로 정렬하는 하이엔드 전략 파트너." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">VELTO</a>
+      <div class="nav-center mono">HIGH-END STRATEGY PARTNER</div>
+      <nav class="nav-right">
+        <a href="#about"   class="nl">About</a>
+        <a href="#process" class="nl">Process</a>
+        <a href="#intake"  class="nav-cta" id="navCta">Start ↗</a>
+      </nav>
+      <button class="burger" id="burger" aria-label="메뉴">
+        <span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-rule"></div>
+  </header>
+
+  <div class="mob-menu" id="mobMenu">
+    <a href="#about"   class="mob-l">About</a>
+    <a href="#process" class="mob-l">Process</a>
+    <a href="#intake"  class="mob-l mob-cta">Start ↗</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow mono">[ VELTO STRATEGY SYSTEM ]</p>
+      <p class="hero-body">
+        비즈니스·브랜딩·라이프스타일의 얽힌 문제를
+        철저한 데이터 시각화와 구조화된 논리로 연결하고
+        가장 빠른 성장의 궤적을 설계합니다.
+      </p>
+      <div class="hero-metrics">
+        <div class="hm-item">
+          <span class="hm-n mono" data-target="94">0</span><span class="hm-u mono">%</span>
+          <p class="mono">목표 달성률</p>
+        </div>
+        <div class="hm-sep"></div>
+        <div class="hm-item">
+          <span class="hm-n mono" data-target="3">0</span><span class="hm-u mono">×</span>
+          <p class="mono">브랜드 가속</p>
+        </div>
+        <div class="hm-sep"></div>
+        <div class="hm-item">
+          <span class="hm-n mono" data-target="48">0</span><span class="hm-u mono">h</span>
+          <p class="mono">리포트 발행</p>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <a href="#intake" class="btn-primary" id="heroBtn">Trajectory 시작하기</a>
+        <a href="#process" class="btn-text">프로세스 보기 →</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="canvas-wrap">
+        <canvas id="netCanvas"></canvas>
+        <div class="canvas-label mono">ALIGNMENT IN PROGRESS</div>
+        <div class="canvas-status">
+          <span class="status-dot"></span>
+          <span class="mono">LIVE</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTEXT -->
+  <section class="context" id="about">
+    <div class="ctx-inner">
+      <div class="ctx-header">
+        <p class="section-label mono">[ 우리가 다루는 문제 ]</p>
+        <h2 class="section-h2">세 가지 영역,<br />하나의 정렬된 궤적</h2>
+      </div>
+      <div class="ctx-grid">
+        <div class="ctx-card reveal" id="cc1">
+          <div class="cc-num mono">01</div>
+          <h3>Business<br />Strategy</h3>
+          <p>매출 구조, 시장 포지셔닝, 성장 병목—비즈니스의 복잡한 변수를 데이터로 구조화합니다.</p>
+        </div>
+        <div class="ctx-card reveal" id="cc2">
+          <div class="cc-num mono">02</div>
+          <h3>Brand<br />Identity</h3>
+          <p>브랜드 아이덴티티, 경쟁 포지셔닝, 퍼셉션 갭—감각이 아닌 논리로 브랜드를 정렬합니다.</p>
+        </div>
+        <div class="ctx-card reveal" id="cc3">
+          <div class="cc-num mono">03</div>
+          <h3>Lifestyle<br />Design</h3>
+          <p>라이프스타일 전략, 퍼스널 브랜딩, 성장 사이클—개인의 궤적도 설계의 대상입니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process" id="process">
+    <div class="prc-inner">
+      <div class="prc-header">
+        <p class="section-label mono">[ PURE CONSULTING SYSTEM ]</p>
+        <h2 class="section-h2">두 단계의 정밀한 궤적 설계</h2>
+      </div>
+
+      <div class="prc-table">
+        <!-- Step 01 -->
+        <div class="prc-row reveal" id="pr1">
+          <div class="prc-index">
+            <span class="mono pi-num">01</span>
+            <div class="pi-line"></div>
+          </div>
+          <div class="prc-content">
+            <div class="prc-top">
+              <h3 class="prc-title">VELTO TRAJECTORY</h3>
+              <span class="prc-tag mono">분석 및 리포트 발행</span>
+            </div>
+            <p class="prc-desc">
+              미니멀 인터랙티브 폼을 통해 브랜드 지표·스타일 데이터·당면 과제를 접수합니다.
+              데이터 분석을 거쳐 Axis Map, 구조화된 다이어그램, 옐로우 데이터 그래픽으로
+              시각화된 <strong>Trajectory Report (PDF)</strong>를 48시간 이내에 발행합니다.
+            </p>
+            <div class="prc-items">
+              <span class="pi-item mono">브랜드 Axis Map 시각화</span>
+              <span class="pi-item mono">경쟁 포지셔닝 다이어그램</span>
+              <span class="pi-item mono">성장 병목 구조 분석</span>
+              <span class="pi-item mono">48h PDF 리포트 발행</span>
+            </div>
+            <a href="#intake" class="prc-cta">리포트 신청 →</a>
+          </div>
+        </div>
+
+        <div class="prc-connector">
+          <div class="conn-l"></div>
+          <div class="conn-arrow mono">↓</div>
+          <div class="conn-l"></div>
+        </div>
+
+        <!-- Step 02 -->
+        <div class="prc-row reveal" id="pr2">
+          <div class="prc-index">
+            <span class="mono pi-num">02</span>
+            <div class="pi-line"></div>
+          </div>
+          <div class="prc-content">
+            <div class="prc-top">
+              <h3 class="prc-title">ALTO ACCELERATION</h3>
+              <span class="prc-tag mono">실행 및 가속</span>
+            </div>
+            <p class="prc-desc">
+              Trajectory Report의 진단 결과를 바탕으로 최고 정점(Alto)까지 속도를 붙이는
+              1:1 딥다이브 매니징 세션입니다. 플랫폼 구축·브랜드 정체성 확립·성장 사이클의
+              모든 병목을 해결하고 실행 가속 페달을 밟아드립니다.
+            </p>
+            <div class="prc-items">
+              <span class="pi-item mono">1:1 딥다이브 전략 세션</span>
+              <span class="pi-item mono">플랫폼 & 브랜드 정체성 구축</span>
+              <span class="pi-item mono">성장 사이클 병목 해소</span>
+              <span class="pi-item mono">실행 가속 페달 전담 관리</span>
+            </div>
+            <a href="#intake" class="prc-cta">가속 세션 신청 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTAKE -->
+  <section class="intake" id="intake">
+    <div class="intake-inner">
+      <div class="intake-head reveal">
+        <p class="section-label mono light">[ START YOUR TRAJECTORY ]</p>
+        <h2 class="intake-h2">지금 궤적을 정렬하세요.</h2>
+        <p class="intake-sub">48시간 이내 Trajectory Report를 발행해 드립니다.</p>
+      </div>
+
+      <form class="form" id="intakeForm" novalidate>
+        <div class="f-row">
+          <div class="fg" id="fg-name">
+            <label for="f-name" class="mono">NAME / BRAND <span class="req">*</span></label>
+            <input type="text" id="f-name" placeholder="홍길동 / 브랜드명" required />
+          </div>
+          <div class="fg" id="fg-email">
+            <label for="f-email" class="mono">EMAIL <span class="req">*</span></label>
+            <input type="email" id="f-email" placeholder="hello@example.com" required />
+          </div>
+        </div>
+
+        <div class="fg full" id="fg-domain">
+          <label class="mono">DOMAIN <span class="req">*</span></label>
+          <div class="chips">
+            <button type="button" class="chip" data-val="business"  id="ch1">비즈니스 전략</button>
+            <button type="button" class="chip" data-val="branding"  id="ch2">브랜딩 & 아이덴티티</button>
+            <button type="button" class="chip" data-val="lifestyle" id="ch3">라이프스타일 설계</button>
+            <button type="button" class="chip" data-val="platform"  id="ch4">플랫폼 & 퍼널</button>
+          </div>
+          <input type="hidden" id="f-domain" />
+        </div>
+
+        <div class="fg full" id="fg-cur">
+          <label for="f-cur" class="mono">CURRENT STATE <span class="req">*</span></label>
+          <textarea id="f-cur" rows="4" placeholder="현재 브랜드/사업의 상태, 매출 규모, 가장 막히는 지점을 구체적으로 서술해 주세요." required></textarea>
+        </div>
+
+        <div class="fg full" id="fg-goal">
+          <label for="f-goal" class="mono">TARGET TRAJECTORY <span class="req">*</span></label>
+          <textarea id="f-goal" rows="3" placeholder="6개월 후, 1년 후 도달하고 싶은 명확한 목표 지점을 적어 주세요." required></textarea>
+        </div>
+
+        <div class="f-row">
+          <div class="fg" id="fg-rev">
+            <label for="f-rev" class="mono">MONTHLY REVENUE</label>
+            <select id="f-rev">
+              <option value="" disabled selected>선택해 주세요</option>
+              <option value="pre">Pre-revenue</option>
+              <option value="u100">1,000만원 미만</option>
+              <option value="m">1,000 – 5,000만원</option>
+              <option value="h">5,000만원 – 1억원</option>
+              <option value="o">1억원 이상</option>
+            </select>
+          </div>
+          <div class="fg" id="fg-svc">
+            <label class="mono">SERVICE</label>
+            <div class="radios">
+              <label class="radio-r">
+                <input type="radio" name="svc" value="trajectory" id="r1" checked />
+                <span class="rb"></span> VELTO TRAJECTORY
+              </label>
+              <label class="radio-r">
+                <input type="radio" name="svc" value="acceleration" id="r2" />
+                <span class="rb"></span> ALTO ACCELERATION
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="f-footer">
+          <button type="submit" class="btn-submit" id="submitBtn">궤적 정렬 시작하기 ↗</button>
+          <span class="mono f-note">접수 후 24h 이내 검토 연락</span>
+        </div>
+
+        <div class="form-ok" id="formOk">
+          <div class="ok-icon">✓</div>
+          <h3>접수 완료.</h3>
+          <p class="mono">48시간 이내 Trajectory Report와 함께 연락 드립니다.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="ft-inner">
+      <div class="ft-top">
+        <div>
+          <span class="ft-logo">VELTO</span>
+          <p class="mono ft-sub">Velocity × Alto — 가장 빠른 성장의 궤적</p>
+        </div>
+        <div class="ft-links">
+          <a href="#about">About</a>
+          <a href="#process">Process</a>
+          <a href="#intake">Start</a>
+        </div>
+      </div>
+      <div class="ft-rule"></div>
+      <div class="ft-bottom">
+        <span class="mono">© 2025 VELTO. All rights reserved.</span>
+        <span class="mono ft-tag">HIGH-END STRATEGY PARTNER</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
