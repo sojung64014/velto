@@ -18,7 +18,7 @@
       <a href="#" class="nav-logo">VELTO</a>
       <div class="nav-center mono">HIGH-END STRATEGY PARTNER</div>
       <nav class="nav-right">
-        <a href="#about"   class="nl">About</a>
+        <a href="about.html" class="nl">About</a>
         <a href="#process" class="nl">Process</a>
         <a href="#intake"  class="nav-cta" id="navCta">Start ↗</a>
       </nav>
@@ -30,51 +30,71 @@
   </header>
 
   <div class="mob-menu" id="mobMenu">
-    <a href="#about"   class="mob-l">About</a>
+    <a href="about.html" class="mob-l">About</a>
     <a href="#process" class="mob-l">Process</a>
     <a href="#intake"  class="mob-l mob-cta">Start ↗</a>
   </div>
 
   <!-- HERO -->
   <section class="hero" id="hero">
-    <div class="hero-left">
-      <p class="hero-eyebrow mono">[ VELTO STRATEGY SYSTEM ]</p>
-      <p class="hero-body">
-        비즈니스·브랜딩·라이프스타일의 얽힌 문제를
-        철저한 데이터 시각화와 구조화된 논리로 연결하고
-        가장 빠른 성장의 궤적을 설계합니다.
-      </p>
-      <div class="hero-metrics">
-        <div class="hm-item">
-          <span class="hm-n mono" data-target="94">0</span><span class="hm-u mono">%</span>
-          <p class="mono">목표 달성률</p>
+
+    <!-- ① Dark metrics band -->
+    <div class="hero-band">
+      <span class="hb-logo">VELTO</span>
+      <div class="hb-metrics">
+        <div class="hb-m">
+          <span class="hb-val mono">94%</span>
+          <span class="hb-lbl mono">GOAL RATE</span>
         </div>
-        <div class="hm-sep"></div>
-        <div class="hm-item">
-          <span class="hm-n mono" data-target="3">0</span><span class="hm-u mono">×</span>
-          <p class="mono">브랜드 가속</p>
+        <div class="hb-m">
+          <span class="hb-val mono">3×</span>
+          <span class="hb-lbl mono">VELOCITY</span>
         </div>
-        <div class="hm-sep"></div>
-        <div class="hm-item">
-          <span class="hm-n mono" data-target="48">0</span><span class="hm-u mono">h</span>
-          <p class="mono">리포트 발행</p>
+        <div class="hb-m">
+          <span class="hb-val mono">48h</span>
+          <span class="hb-lbl mono">REPORT</span>
         </div>
       </div>
-      <div class="hero-actions">
+      <div class="hb-status">
+        <span class="sdot"></span>
+        <span class="mono">SYSTEM ACTIVE</span>
+      </div>
+    </div>
+
+    <!-- ② Centered statement -->
+    <div class="hero-statement">
+      <p class="hs-eyebrow mono">[ HIGH-END STRATEGY PARTNER ]</p>
+      <p class="hs-main">
+        비즈니스·브랜딩·라이프스타일의<br />복잡한 문제를 정렬합니다.
+      </p>
+      <p class="hs-sub">철저한 데이터 시각화와 구조화된 논리로<br />가장 빠른 성장의 궤적을 설계합니다.</p>
+    </div>
+
+    <!-- ③ Full-width trajectory chart -->
+    <div class="hero-viz">
+      <div class="viz-ylabels">
+        <span class="mono">ALTO</span>
+        <span class="mono">75</span>
+        <span class="mono">50</span>
+        <span class="mono">25</span>
+        <span class="mono">BASE</span>
+      </div>
+      <canvas id="trajCanvas"></canvas>
+      <div class="viz-xlabels">
+        <span class="mono">BEFORE VELTO</span>
+        <span class="mono">ALTO REACHED ↑</span>
+      </div>
+    </div>
+
+    <!-- ④ CTA row -->
+    <div class="hero-bottom">
+      <div class="hbot-actions">
         <a href="#intake" class="btn-primary" id="heroBtn">Trajectory 시작하기</a>
         <a href="#process" class="btn-text">프로세스 보기 →</a>
       </div>
+      <span class="mono hbot-scroll">SCROLL ↓</span>
     </div>
-    <div class="hero-right">
-      <div class="canvas-wrap">
-        <canvas id="netCanvas"></canvas>
-        <div class="canvas-label mono">ALIGNMENT IN PROGRESS</div>
-        <div class="canvas-status">
-          <span class="status-dot"></span>
-          <span class="mono">LIVE</span>
-        </div>
-      </div>
-    </div>
+
   </section>
 
   <!-- CONTEXT -->
@@ -264,9 +284,10 @@
         <div>
           <span class="ft-logo">VELTO</span>
           <p class="mono ft-sub">Velocity × Alto — 가장 빠른 성장의 궤적</p>
+          <p class="mono ft-addr">서울특별시 영등포구 여의대로 108 파크원타워1</p>
         </div>
         <div class="ft-links">
-          <a href="#about">About</a>
+          <a href="about.html">About</a>
           <a href="#process">Process</a>
           <a href="#intake">Start</a>
         </div>
