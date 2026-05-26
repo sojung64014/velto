@@ -18,7 +18,13 @@
       <a href="index.html" class="nav-logo">VELTO</a>
       <div class="nav-center mono">HIGH-END STRATEGY PARTNER</div>
       <nav class="nav-right">
-        <a href="about.html" class="nl active-nav">About</a>
+        <div class="nav-item-dropdown">
+          <a href="about.html" class="nl active-nav">About <span class="arrow">↓</span></a>
+          <div class="dropdown-menu">
+            <a href="about.html#story" class="dm-link">VELTO 스토리</a>
+            <a href="about.html#philosophy" class="dm-link">기업 이념</a>
+          </div>
+        </div>
         <a href="index.html#process" class="nl">Process</a>
         <a href="index.html#intake" class="nav-cta" id="navCta">Start ↗</a>
       </nav>
@@ -31,6 +37,8 @@
 
   <div class="mob-menu" id="mobMenu">
     <a href="about.html" class="mob-l">About</a>
+    <a href="about.html#story" class="mob-l mob-sub-l">└ VELTO 스토리</a>
+    <a href="about.html#philosophy" class="mob-l mob-sub-l">└ 기업 이념</a>
     <a href="index.html#process" class="mob-l">Process</a>
     <a href="index.html#intake" class="mob-l mob-cta">Start ↗</a>
   </div>
@@ -49,7 +57,7 @@
   </section>
 
   <!-- ORIGIN SECTION -->
-  <section class="origin-section">
+  <section class="origin-section" id="story">
     <div class="origin-inner">
       <div class="origin-grid">
         <div class="origin-desc">
@@ -75,7 +83,7 @@
   </section>
 
   <!-- PILLARS SECTION -->
-  <section class="pillars-section">
+  <section class="pillars-section" id="philosophy">
     <div class="pillars-inner">
       <div class="pillars-header">
         <p class="section-label mono">[ OUR CORE VALUES ]</p>
