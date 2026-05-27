@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VELTO — Application Status</title>
+  <meta name="description" content="VELTO VIP Membership Trajectory status page." />
+  <link rel="canonical" href="https://veltosystems.site/status.html" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* Applications History Styles */
+    .app-history-card {
+      background: var(--W);
+      border: 1px solid var(--BD);
+      border-radius: 4px;
+      padding: 32px 40px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
+      transition: transform 0.3s var(--ease), border-color 0.3s var(--ease);
+      animation: fadeIn 0.5s ease-out;
+    }
+    .app-history-card:hover {
+      border-color: var(--C);
+      transform: translateY(-2px);
+    }
+    .app-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--BD);
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+    }
+    .app-card-title {
+      font-family: var(--man);
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--C);
+    }
+    .app-card-status {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 6px 12px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      background: rgba(0,0,0,0.05);
+      color: var(--M);
+    }
+    .app-card-status.analyzing {
+      background: rgba(255, 59, 48, 0.08);
+      color: #ff3b30;
+    }
+    .app-card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+    }
+    .app-grid-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .app-item-label {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--L);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .app-item-value {
+      font-size: 0.85rem;
+      color: var(--C);
+      font-weight: 600;
+    }
+    .app-history-empty {
+      border: 1px dashed var(--BD);
+      border-radius: 4px;
+      padding: 80px;
+      text-align: center;
+      color: var(--L);
+      font-family: var(--man);
+      font-size: 0.95rem;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 960px) {
+      .app-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .app-card-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SECURITY AUTH GATEWAY -->
+  <script>
+    (function checkPageAuth() {
+      const isLogged = localStorage.getItem('veltoMember') === 'true';
+      if (!isLogged) {
+        alert('로그인이 필요한 프라이빗 멤버십 전용 신청 현황 페이지입니다.');
+        location.href = 'index.html';
+        return;
+      }
+      
+      const loginTime = parseInt(localStorage.getItem('veltoLoginTime') || '0', 10);
+      const now = Date.now();
+      const oneHour = 60 * 60 * 1000; // 3,600,000 ms
+      
+      if (now - loginTime > oneHour) {
+        localStorage.removeItem('veltoMember');
+        localStorage.removeItem('veltoLoginTime');
+        alert('보안 정책에 따라 로그인 1시간 후 자동 로그아웃 되었습니다. 다시 로그인해 주세요.');
+        location.href = 'index.html';
+      }
+    })();
+  </script>
+
+  <!-- NAV -->
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">VELTO</a>
+      <div class="nav-center mono">HIGH-END STRATEGY PARTNER</div>
+      <nav class="nav-right">
+        <a href="about.html" class="nl">About</a>
+        <a href="track.html" class="nl">Track</a>
+        <a href="b2b.html" class="nl">B2B</a>
+        <a href="community.html" class="nl">Community</a>
+      </nav>
+      <button class="nav-mob-btn" id="mobMenuBtn">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE MENU -->
+  <div class="mob-menu-overlay" id="mobMenu">
+    <a href="about.html" class="mob-l">About</a>
+    <a href="track.html" class="mob-l">Track</a>
+    <a href="b2b.html" class="mob-l">B2B</a>
+    <a href="community.html" class="mob-l">Community</a>
+  </div>
+
+  <!-- HERO BANNER -->
+  <section style="padding: 140px 0 60px 0; border-bottom: 1px solid var(--BD); background: var(--BG);">
+    <div style="max-width: var(--max); margin: 0 auto; padding: 0 48px;">
+      <p class="section-label mono">[ MEMBERS PORTAL ]</p>
+      <h1 style="font-family: var(--man); font-size: 2.8rem; font-weight: 800; color: var(--C); letter-spacing: -0.03em; margin-top: 10px;">
+        나의 입과 신청 내역 현황
+      </h1>
+      <p style="font-size: 0.95rem; color: var(--M); margin-top: 12px; max-width: 600px; line-height: 1.6;">
+        제출하신 프라이빗 트랙 프로그램의 심층 진단 분석 상태와 예약 일정이 실시간으로 안전하게 보관 및 추적됩니다.
+      </p>
+    </div>
+  </section>
+
+  <!-- LIST SECTION -->
+  <section style="padding: 80px 0 120px 0; background: var(--BG);">
+    <div style="max-width: var(--max); margin: 0 auto; padding: 0 48px;">
+      <div style="margin-bottom: 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+        <span style="font-size: 0.9rem; font-weight: 600; color: var(--C);">
+          접수된 스케줄 리스트
+        </span>
+        <button id="clearHistoryBtn" style="background: transparent; border: 1px solid #ff3b30; color: #ff3b30; padding: 10px 18px; font-family: var(--man); font-size: 0.75rem; font-weight: 700; cursor: pointer; border-radius: 2px; transition: all 0.2s;">
+          신청 내역 전체 삭제
+        </button>
+      </div>
+
+      <div id="applicationsContainer">
+        <!-- Dynamic applications will be rendered here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="ft-inner">
+      <div class="ft-top">
+        <div>
+          <span class="ft-logo">VELTO</span>
+          <p class="mono ft-sub">Velocity × Alto — 가장 빠른 성장의 궤적</p>
+          <p class="mono ft-addr">서울특별시 영등포구 여의대로 108 파크원타워1</p>
+        </div>
+        <div class="ft-links">
+          <a href="about.html">About</a>
+          <a href="track.html">Track</a>
+          <a href="b2b.html">B2B</a>
+          <a href="community.html">Community</a>
+        </div>
+      </div>
+      <div class="ft-rule"></div>
+      <div class="ft-bottom">
+        <span class="mono">© 2025 VELTO. All rights reserved.</span>
+        <span class="mono ft-tag">HIGH-END STRATEGY PARTNER</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    (function initStatusPage() {
+      const applicationsContainer = document.getElementById('applicationsContainer');
+      const clearHistoryBtn = document.getElementById('clearHistoryBtn');
+
+      function getTrackTitle(trackKey) {
+        switch(trackKey) {
+          case 'process': return 'Track 01 — Process Optimization (E)';
+          case 'friction': return 'Track 02 — Friction Alignment (S)';
+          case 'governance': return 'Track 03 — Strategic Decision-Making (G)';
+          default: return 'Custom Trajectory Track';
+        }
+      }
+
+      function getStatusLabel(statusKey) {
+        switch(statusKey) {
+          case 'student': return '대학생';
+          case 'jobseeker': return '취업준비생';
+          case 'worker': return '직장인';
+          default: return '기타';
+        }
+      }
+
+      function getLocationLabel(locKey) {
+        switch(locKey) {
+          case 'mapo': return '마포점';
+          case 'yeouido': return '여의도점';
+          case 'namguro': return '남구로점';
+          default: return locKey;
+        }
+      }
+
+      function renderApplicationsHistory() {
+        if (!applicationsContainer) return;
+        
+        const apps = JSON.parse(localStorage.getItem('veltoApplications') || '[]');
+        applicationsContainer.innerHTML = '';
+
+        if (apps.length === 0) {
+          applicationsContainer.innerHTML = `
+            <div class="app-history-empty">
+              현재 제출된 입과 신청 내역이 없습니다.
+            </div>
+          `;
+          return;
+        }
+
+        apps.forEach(app => {
+          const card = document.createElement('div');
+          card.className = 'app-history-card';
+          
+          // Dates rendering as sub-chips
+          const dateChipsHtml = app.dates.map(d => `
+            <span style="font-family:var(--mono); font-size:0.72rem; background:rgba(0,0,0,0.03); border:1px solid var(--BD); padding:4px 10px; border-radius:4px; display:inline-block; margin-right:6px; margin-bottom:6px;">
+              ${d}
+            </span>
+          `).join('');
+
+          card.innerHTML = `
+            <div class="app-card-header">
+              <div class="app-card-title">${getTrackTitle(app.track)}</div>
+              <div class="app-card-status analyzing">서류 분석 및 처방 중</div>
+            </div>
+            <div class="app-card-grid">
+              <div class="app-grid-item">
+                <span class="app-item-label">신청자 정보</span>
+                <span class="app-item-value">${app.name} (만 ${app.age}세) / ${app.gender === 'male' ? '남성' : app.gender === 'female' ? '여성' : '기타'}</span>
+              </div>
+              <div class="app-grid-item">
+                <span class="app-item-label">현재 상황 & 장소</span>
+                <span class="app-item-value">${getStatusLabel(app.status)} / ${getLocationLabel(app.location)}</span>
+              </div>
+              <div class="app-grid-item" style="grid-column: span 2;">
+                <span class="app-item-label">희망 진단 세션 일정</span>
+                <div style="margin-top:6px;">${dateChipsHtml}</div>
+              </div>
+              <div class="app-grid-item" style="grid-column: span 2; margin-top: 10px; border-top: 1px dashed var(--BD); padding-top: 10px;">
+                <span class="app-item-label">약물 복용 & 추천인</span>
+                <span class="app-item-value" style="font-size:0.78rem; font-weight:500;">
+                  약물 복용 여부: ${app.meds ? '복용 중 (참고 사항 반영)' : '없음'} | 추천인 코드: ${app.referral || '없음'}
+                </span>
+              </div>
+              <div class="app-grid-item" style="text-align: right; justify-content: flex-end; margin-top: 10px; border-top: 1px dashed var(--BD); padding-top: 10px;">
+                <span class="app-item-label">제출 일시</span>
+                <span class="app-item-value" style="font-size:0.75rem; color:var(--L); font-family:var(--mono);">${app.submittedAt}</span>
+              </div>
+            </div>
+          `;
+          
+          applicationsContainer.appendChild(card);
+        });
+      }
+
+      if (clearHistoryBtn) {
+        clearHistoryBtn.addEventListener('click', () => {
+          if (confirm('정말 나의 모든 트랙 입과 신청 내역을 영구히 삭제하시겠습니까?')) {
+            localStorage.removeItem('veltoApplications');
+            renderApplicationsHistory();
+          }
+        });
+      }
+
+      renderApplicationsHistory();
+    })();
+  </script>
+</body>
+</html>

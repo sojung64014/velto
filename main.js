@@ -429,6 +429,16 @@
           navRight.insertBefore(esgBtn, portalBtn);
         }
 
+        // Dynamically add Status link to GNB
+        if (navRight && portalBtn && !document.getElementById('statusNavBtn')) {
+          const statusBtn = document.createElement('a');
+          statusBtn.href = 'status.html';
+          statusBtn.className = 'nl';
+          statusBtn.id = 'statusNavBtn';
+          statusBtn.innerHTML = '신청현황';
+          navRight.insertBefore(statusBtn, portalBtn);
+        }
+
         // Dynamically add ESG link to Mobile Menu
         if (mobMenu && mobPortalBtn && !document.getElementById('mobEsgNavBtn')) {
           const mobEsgBtn = document.createElement('a');
@@ -437,6 +447,16 @@
           mobEsgBtn.id = 'mobEsgNavBtn';
           mobEsgBtn.innerHTML = 'ESG 경영';
           mobMenu.insertBefore(mobEsgBtn, mobPortalBtn);
+        }
+
+        // Dynamically add Status link to Mobile Menu
+        if (mobMenu && mobPortalBtn && !document.getElementById('mobStatusNavBtn')) {
+          const mobStatusBtn = document.createElement('a');
+          mobStatusBtn.href = 'status.html';
+          mobStatusBtn.className = 'mob-l';
+          mobStatusBtn.id = 'mobStatusNavBtn';
+          mobStatusBtn.innerHTML = '신청현황';
+          mobMenu.insertBefore(mobStatusBtn, mobPortalBtn);
         }
       } else {
         if (portalBtn) {
@@ -453,6 +473,13 @@
 
         const existingMobEsgBtn = document.getElementById('mobEsgNavBtn');
         if (existingMobEsgBtn) existingMobEsgBtn.remove();
+
+        // Remove Status GNB links if exists
+        const existingStatusBtn = document.getElementById('statusNavBtn');
+        if (existingStatusBtn) existingStatusBtn.remove();
+
+        const existingMobStatusBtn = document.getElementById('mobStatusNavBtn');
+        if (existingMobStatusBtn) existingMobStatusBtn.remove();
       }
     }
 
