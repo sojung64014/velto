@@ -186,8 +186,10 @@
        pointer-events: auto;
      }
      .private-modal-card {
-       width: 480px;
+       width: 540px;
        max-width: 90%;
+       max-height: 85vh;
+       overflow-y: auto;
        background: var(--W);
        border: 1px solid var(--BD);
        border-radius: 4px;
@@ -195,6 +197,52 @@
        position: relative;
        transform: scale(0.95) translateY(10px);
        transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+     }
+     /* Custom Date Chips */
+     .date-chips-container {
+       display: flex;
+       flex-wrap: wrap;
+       gap: 8px;
+       margin-top: 10px;
+     }
+     .date-chip {
+       font-family: var(--mono);
+       font-size: 0.72rem;
+       font-weight: 500;
+       background: var(--BG);
+       border: 1px solid var(--BD);
+       color: var(--C);
+       padding: 6px 12px;
+       border-radius: 4px;
+       cursor: pointer;
+       display: flex;
+       align-items: center;
+       gap: 6px;
+       transition: all 0.2s var(--ease);
+     }
+     .date-chip:hover {
+       border-color: #ff3b30;
+       color: #ff3b30;
+     }
+     .private-notice {
+       font-size: 0.75rem;
+       line-height: 1.5;
+       color: var(--L);
+       margin-top: 6px;
+       display: block;
+     }
+     .private-radios {
+       display: flex;
+       gap: 16px;
+       margin-top: 6px;
+     }
+     .private-radio-label {
+       display: flex;
+       align-items: center;
+       gap: 8px;
+       font-size: 0.88rem;
+       color: var(--C);
+       cursor: pointer;
      }
      .private-modal-overlay.open .private-modal-card {
        transform: scale(1) translateY(0);
@@ -533,28 +581,107 @@
         <button class="private-modal-close" id="closePrivateApply">&times;</button>
       </div>
       <div class="private-form-title">PRIVATE TRACK PATHWAY</div>
-      <div class="private-form-subtitle">멤버십 전용 고속 성장 트랙 교육과정 신청</div>
+      <div class="private-form-subtitle">프라이빗 매칭 및 진단을 위한 심층 입과 신청서</div>
       <form id="privateApplyForm">
+        
+        <!-- 이름 -->
         <div class="private-fg">
-          <label for="pa-track">SELECTED TRAJECTORY COURSE</label>
+          <label for="pa-name">이름 <span style="color:#ff3b30;">*</span></label>
+          <input type="text" id="pa-name" placeholder="실명을 입력해주세요" required />
+        </div>
+
+        <!-- 나이 (만) -->
+        <div class="private-fg">
+          <label for="pa-age">나이 (만) <span style="color:#ff3b30;">*</span></label>
+          <input type="number" id="pa-age" placeholder="만 나이를 입력해주세요" min="1" max="120" required />
+        </div>
+
+        <!-- 성별 (라디오) -->
+        <div class="private-fg">
+          <label>성별 <span style="color:#ff3b30;">*</span></label>
+          <div class="private-radios">
+            <label class="private-radio-label">
+              <input type="radio" name="pa-gender" value="male" required /> 남성
+            </label>
+            <label class="private-radio-label">
+              <input type="radio" name="pa-gender" value="female" /> 여성
+            </label>
+            <label class="private-radio-label">
+              <input type="radio" name="pa-gender" value="other" /> 기타
+            </label>
+          </div>
+        </div>
+
+        <!-- 연락처 -->
+        <div class="private-fg">
+          <label for="pa-phone">연락처 <span style="color:#ff3b30;">*</span></label>
+          <input type="tel" id="pa-phone" placeholder="010-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" required />
+        </div>
+
+        <!-- 사전 정보 확인 (현재 상태) -->
+        <div class="private-fg">
+          <label for="pa-status">사전 정보 확인 (현재 상태) <span style="color:#ff3b30;">*</span></label>
+          <select id="pa-status" required>
+            <option value="" disabled selected>현재 상황에 가장 가까운 항목을 선택해주세요</option>
+            <option value="student">대학생</option>
+            <option value="jobseeker">취업준비생</option>
+            <option value="worker">직장인</option>
+            <option value="other">기타</option>
+          </select>
+        </div>
+
+        <!-- 희망 장소 -->
+        <div class="private-fg">
+          <label for="pa-location">희망 장소 <span style="color:#ff3b30;">*</span></label>
+          <select id="pa-location" required>
+            <option value="" disabled selected>장소를 선택해주세요</option>
+            <option value="mapo">마포점</option>
+            <option value="yeouido">여의도점</option>
+            <option value="namguro">남구로점</option>
+          </select>
+        </div>
+
+        <!-- 희망 일자 (달력 복수 선택 가능) -->
+        <div class="private-fg">
+          <label for="pa-date-picker">희망 일자 (복수 선택 가능 - 달력 선택) <span style="color:#ff3b30;">*</span></label>
+          <input type="date" id="pa-date-picker" style="cursor: pointer;" />
+          <span class="private-notice">*달력에서 날짜를 선택하시면 하단에 칩으로 추가됩니다. 칩을 클릭하면 해제됩니다.</span>
+          <div class="date-chips-container" id="dateChipsContainer"></div>
+          <!-- 숨겨진 필드로 검증 용도 -->
+          <input type="hidden" id="pa-dates-data" required />
+        </div>
+
+        <!-- 트랙 코스 선택 -->
+        <div class="private-fg">
+          <label for="pa-track">SELECTED TRAJECTORY COURSE <span style="color:#ff3b30;">*</span></label>
           <select id="pa-track" required>
             <option value="process">Track 01 — Process Optimization (E)</option>
             <option value="friction">Track 02 — Friction Alignment (S)</option>
             <option value="governance">Track 03 — Strategic Decision-Making (G)</option>
           </select>
         </div>
-        <div class="private-fg">
-          <label for="pa-member-id">ACTIVE MEMBER ID</label>
-          <input type="text" id="pa-member-id" value="toqn1" readonly required />
+
+        <!-- 약물 복용 여부 (체크박스) -->
+        <div class="private-fg" style="margin-top: 10px;">
+          <label style="display: flex; align-items: flex-start; gap: 8px; cursor: pointer; font-size: 0.85rem; font-family: inherit; color: var(--C);">
+            <input type="checkbox" id="pa-meds" style="width: auto; margin-top: 4px;" />
+            <span>2년 이내 의사의 처방을 받아 복용 중인 정신건강 관련 약물이 있다면 체크해주세요.</span>
+          </label>
+          <span class="private-notice" style="margin-left: 22px;">*해당 정보는 보다 적합한 커넥터 매칭을 위한 참고 용도로만 철저히 보호되어 사용됩니다.</span>
         </div>
-        <div class="private-fg">
-          <label for="pa-bottleneck">CURRENT BUSINESS BOTTLENECK</label>
-          <textarea id="pa-bottleneck" rows="3" placeholder="현재 직면한 비즈니스의 최대 저해 요소를 팩트 중심 기술" required></textarea>
+
+        <!-- 추천인 코드 -->
+        <div class="private-fg" style="margin-top: 16px;">
+          <label for="pa-referral">추천인 코드</label>
+          <input type="text" id="pa-referral" placeholder="추천인 코드가 있다면 입력해주세요 (선택)" />
         </div>
+
+        <!-- Active Member ID -->
         <div class="private-fg">
-          <label for="pa-target">GOAL FOR TARGET INDEX</label>
-          <textarea id="pa-target" rows="2" placeholder="도달하고자 하는 정량적 정점(Alto) 목표 지표 기술" required></textarea>
+          <label>ACTIVE MEMBER ID</label>
+          <input type="text" value="toqn1" readonly style="background: rgba(0,0,0,0.05); color: var(--L);" />
         </div>
+
         <button type="submit" class="private-submit-btn" id="paSubmitBtn">SUBMIT APPLICATION</button>
       </form>
     </div>
@@ -569,6 +696,45 @@
       const trackSelect = document.getElementById('pa-track');
       const submitBtn = document.getElementById('paSubmitBtn');
       const buttons = document.querySelectorAll('.esg-track-apply-btn');
+
+      // 날짜 복수 선택 핸들러
+      const datePicker = document.getElementById('pa-date-picker');
+      const chipsContainer = document.getElementById('dateChipsContainer');
+      const datesDataInput = document.getElementById('pa-dates-data');
+      let selectedDates = [];
+
+      function updateDatesInput() {
+        datesDataInput.value = selectedDates.join(',');
+        // 필수 값 검증 트리거용
+        if (selectedDates.length > 0) {
+          datesDataInput.removeAttribute('required');
+        } else {
+          datesDataInput.setAttribute('required', 'true');
+        }
+      }
+
+      if (datePicker && chipsContainer) {
+        datePicker.addEventListener('change', (e) => {
+          const pickedDate = e.target.value;
+          if (pickedDate && !selectedDates.includes(pickedDate)) {
+            selectedDates.push(pickedDate);
+            
+            // 칩 엘리먼트 생성
+            const chip = document.createElement('div');
+            chip.className = 'date-chip';
+            chip.innerHTML = `${pickedDate} <span style="font-weight:700; margin-left:4px;">&times;</span>`;
+            chip.addEventListener('click', () => {
+              selectedDates = selectedDates.filter(d => d !== pickedDate);
+              chip.remove();
+              updateDatesInput();
+            });
+            
+            chipsContainer.appendChild(chip);
+            updateDatesInput();
+          }
+          datePicker.value = ''; // 선택 초기화
+        });
+      }
 
       buttons.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -597,12 +763,22 @@
       if (form) {
         form.addEventListener('submit', (e) => {
           e.preventDefault();
+          
+          if (selectedDates.length === 0) {
+            alert('희망 일자를 최소 1개 이상 선택해 주세요.');
+            datePicker.focus();
+            return;
+          }
+
           submitBtn.textContent = 'REGISTERING COURSE...';
           submitBtn.disabled = true;
 
           setTimeout(() => {
-            alert('프라이빗 트랙 입과 신청이 성공적으로 접수되었습니다. 담당 위원진이 24시간 이내로 연락을 드리겠습니다.');
+            alert('정보가 전달되어 처방 분석 절차가 개시되었습니다.\n담당 위원진이 24시간 이내로 연락을 드리겠습니다.');
             form.reset();
+            chipsContainer.innerHTML = '';
+            selectedDates = [];
+            updateDatesInput();
             submitBtn.textContent = 'SUBMIT APPLICATION';
             submitBtn.disabled = false;
             modal.classList.remove('open');
