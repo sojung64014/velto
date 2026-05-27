@@ -231,4 +231,103 @@
     );
   }
 
+  /* ── INTERACTIVE STRATEGY BOARD ── */
+  const STRAT_DATA = [
+    {
+      tag: "Friction Bottleneck Detection",
+      title: "Velocity Axis Map<br><span style='font-size: 1.25rem; font-weight: 500; color: var(--M);'>속도 축 지도</span>",
+      desc: "스케일업 과정에서 기업 성장의 흐름을 방해하는 정체 요소(Friction)와 병목(Bottleneck) 노드를 계량적으로 매핑합니다. 불필요한 직관을 거두고, 마케팅 유입부터 거래 종결까지의 핵심 전환율을 정렬선 위에 늘어놓아 '가장 먼저 해체해야 할 정체'를 시각화합니다.",
+      caseText: "<strong>F&B 스케일업 파트너십:</strong> 가맹점 확장 프로세스 중 '물류 리드타임'과 '디지털 계약 체결' 구간의 병목 노드를 식별하여 교정, 계약 성사 속도를 14일 만에 210% 가속화시켰습니다.",
+      visualHtml: `
+        <div class="axis-map-container">
+          <p class="mono" style="font-size:0.6rem; color:var(--L); text-align:center; margin-bottom:8px;">[ REAL-TIME BOTTLENECK DETECTOR ]</p>
+          <div class="axis-row-element">
+            <div class="axis-row-line"></div>
+            <div class="axis-node active">IN</div>
+            <div class="axis-node active">01</div>
+            <div class="axis-node active bottleneck">02</div>
+            <div class="axis-node">03</div>
+            <div class="axis-node">OUT</div>
+          </div>
+          <p class="mono" style="font-size:0.58rem; color:#ff3b30; text-align:center; margin-top:8px; letter-spacing:0.02em;">⚠ NODE 02: 마케팅 리드 이탈 병목 감지 (누수 72%)</p>
+        </div>
+      `
+    },
+    {
+      tag: "럭셔리 포지셔닝 전환 프로젝트",
+      title: "Alto Positioning Matrix<br><span style='font-size: 1.25rem; font-weight: 500; color: var(--M);'>정점 포지셔닝 매트릭스</span>",
+      desc: "저단가 경쟁 레드오션을 탈출하여, 하이엔드 브랜드 자산 가치를 극대화하고 가격 저항을 해소하는 2x2 포지셔닝 맵입니다. 독점적 위치인 Alto-Zone을 획득하기 위한 가격 책정(Pricing), 프리미엄 퍼널 팩터, 핵심 정체성을 수학적으로 좌표 위에 정렬시킵니다.",
+      caseText: "<strong>프리미엄 코스메틱 브랜드:</strong> 중저가 포지셔닝에서 럭셔리 등급 매트릭스로 재편성하여, 브랜드 리뉴얼 직후 객단가 3.8배 상승 및 프리미엄 타겟 구매 전환율 24% 성장을 입증했습니다.",
+      visualHtml: `
+        <div class="matrix-grid">
+          <div class="matrix-quad">Commodity</div>
+          <div class="matrix-quad" style="border-right: none;">Premium</div>
+          <div class="matrix-quad" style="border-bottom: none;">Low Price</div>
+          <div class="matrix-quad" style="border-bottom: none; border-right: none; background: rgba(255,214,0,0.03);">Alto-Zone</div>
+          <div class="matrix-point"></div>
+          <span class="matrix-label-y">Brand Premium ↑</span>
+          <span class="matrix-label-x">Aesthetic Value →</span>
+        </div>
+      `
+    },
+    {
+      tag: "C-Level 인지 격차 해소",
+      title: "Perception Gap Analytics<br><span style='font-size: 1.25rem; font-weight: 500; color: var(--M);'>인지 격차 분석표</span>",
+      desc: "경영진(C-Level)이 바라보는 이상적인 비즈니스 궤적과 실제 시장 고객 및 실무 현장의 원시 데이터(Raw Data) 사이에 존재하는 왜곡 편차를 측정합니다. 주관적 맹신을 해체하고, 양측의 인지 간극(Perception Gap)을 수치화하여 즉각적으로 의사결정의 오차를 복구합니다.",
+      caseText: "<strong>IT 플랫폼 유니콘 스타트업:</strong> 대표의 프로덕트 자신감 수치(92%)와 실제 현업 영업 사원의 마찰 감지율(48%) 사이의 유의미한 간극을 발견, 커뮤니케이션 리포팅 구조 교정으로 리드 유실을 원천 통제했습니다.",
+      visualHtml: `
+        <div class="gap-analytics">
+          <div class="gap-bar-group">
+            <div class="gap-bar-label"><span>C-Level Perception</span><span>92%</span></div>
+            <div class="gap-bar-bg"><div class="gap-bar-fill fill-c" style="width: 92%;"></div></div>
+          </div>
+          <div class="gap-bar-group">
+            <div class="gap-bar-label"><span>Actual Market Raw Data</span><span>48%</span></div>
+            <div class="gap-bar-bg"><div class="gap-bar-fill fill-y" style="width: 48%;"></div></div>
+          </div>
+          <p class="mono" style="font-size:0.58rem; color:var(--Y); text-align:center; letter-spacing:0.02em;">GAP DELTA: 44% (Critical Distortion Zone)</p>
+        </div>
+      `
+    }
+  ];
+
+  window.switchStrat = function (index) {
+    const tabs = document.querySelectorAll('.strat-tab');
+    tabs.forEach((t, idx) => t.classList.toggle('active', idx === index));
+
+    const item = STRAT_DATA[index];
+    const visual = document.getElementById('stratVisualArea');
+    const info = document.getElementById('stratInfoArea');
+
+    if (!visual || !info) return;
+
+    // Apply fade-out
+    visual.style.opacity = '0';
+    info.style.opacity = '0';
+    visual.style.transform = 'translateY(10px)';
+    info.style.transform = 'translateY(10px)';
+    visual.style.transition = 'all 0.25s var(--ease)';
+    info.style.transition = 'all 0.25s var(--ease)';
+
+    setTimeout(() => {
+      // Switch Content
+      visual.innerHTML = item.visualHtml;
+      info.innerHTML = `
+        <span class="strat-tag-small">${item.tag}</span>
+        <h3>${item.title}</h3>
+        <p class="desc">${item.desc}</p>
+        <div class="strat-case">
+          <h4>SUCCESS CASE STUDY</h4>
+          <p>${item.caseText}</p>
+        </div>
+      `;
+
+      // Apply fade-in
+      visual.style.opacity = '1';
+      info.style.opacity = '1';
+      visual.style.transform = 'translateY(0)';
+      info.style.transform = 'translateY(0)';
+    }, 250);
+  };
+
 })();
