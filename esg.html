@@ -446,10 +446,25 @@
 
   <!-- SECURITY AUTH GATEWAY -->
   <script>
-    if (localStorage.getItem('veltoMember') !== 'true') {
-      alert('로그인이 필요한 프라이빗 멤버십 전용 ESG 경영 페이지입니다.');
-      location.href = 'index.html';
-    }
+    (function checkPageAuth() {
+      const isLogged = localStorage.getItem('veltoMember') === 'true';
+      if (!isLogged) {
+        alert('로그인이 필요한 프라이빗 멤버십 전용 ESG 경영 페이지입니다.');
+        location.href = 'index.html';
+        return;
+      }
+      
+      const loginTime = parseInt(localStorage.getItem('veltoLoginTime') || '0', 10);
+      const now = Date.now();
+      const oneHour = 60 * 60 * 1000; // 3,600,000 ms
+      
+      if (now - loginTime > oneHour) {
+        localStorage.removeItem('veltoMember');
+        localStorage.removeItem('veltoLoginTime');
+        alert('보안 정책에 따라 로그인 1시간 후 자동 로그아웃 되었습니다. 다시 로그인해 주세요.');
+        location.href = 'index.html';
+      }
+    })();
   </script>
 
   <!-- NAV -->

@@ -388,7 +388,27 @@
     const portalBtn    = document.getElementById('portalBtn');
     const mobPortalBtn = document.getElementById('mobPortalBtn');
 
+    function checkSessionExpiry() {
+      const isLogged = localStorage.getItem('veltoMember') === 'true';
+      if (isLogged) {
+        const loginTime = parseInt(localStorage.getItem('veltoLoginTime') || '0', 10);
+        const now = Date.now();
+        const oneHour = 60 * 60 * 1000; // 3,600,000 ms
+
+        if (now - loginTime > oneHour) {
+          localStorage.removeItem('veltoMember');
+          localStorage.removeItem('veltoLoginTime');
+          updateAuthState();
+          alert('보안 정책에 따라 로그인 1시간 후 자동 로그아웃 되었습니다. 다시 로그인해 주세요.');
+          location.href = 'index.html';
+        }
+      }
+    }
+
     function updateAuthState() {
+      // Check session expiry before updating GNB states
+      checkSessionExpiry();
+      
       const isLogged = localStorage.getItem('veltoMember') === 'true';
       if (isLogged) {
         if (portalBtn) {
@@ -442,6 +462,7 @@
       if (isLogged) {
         if (confirm('로그아웃 하시겠습니까?')) {
           localStorage.removeItem('veltoMember');
+          localStorage.removeItem('veltoLoginTime');
           updateAuthState();
           alert('로그아웃 되었습니다.');
           location.reload();
@@ -485,6 +506,7 @@
 
           setTimeout(() => {
             localStorage.setItem('veltoMember', 'true');
+            localStorage.setItem('veltoLoginTime', Date.now().toString());
             updateAuthState();
             loginModal.classList.remove('open');
             submitBtn.textContent = 'SECURE SIGN IN';
@@ -497,8 +519,9 @@
       });
     }
 
-    // Initial check
+    // Initial check & continuous check session expiry every 5 seconds
     updateAuthState();
+    setInterval(checkSessionExpiry, 5000);
   })();
 
 })();
