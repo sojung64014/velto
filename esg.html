@@ -641,11 +641,21 @@
           </select>
         </div>
 
-        <!-- 희망 일자 (달력 복수 선택 가능) -->
+        <!-- 희망 일자 및 시간 선택 (중복 선택 가능) -->
         <div class="private-fg">
-          <label for="pa-date-picker">희망 일자 (복수 선택 가능 - 달력 선택) <span style="color:#ff3b30;">*</span></label>
-          <input type="date" id="pa-date-picker" style="cursor: pointer;" />
-          <span class="private-notice">*달력에서 날짜를 선택하시면 하단에 칩으로 추가됩니다. 칩을 클릭하면 해제됩니다.</span>
+          <label>희망 일자 및 시간 선택 (중복 선택 가능) <span style="color:#ff3b30;">*</span></label>
+          <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+            <input type="date" id="pa-date-picker" style="cursor: pointer; flex: 1.2;" />
+            <select id="pa-time-slot" style="flex: 1.2;">
+              <option value="" disabled selected>시간대 선택</option>
+              <option value="10:00 - 12:00">10:00 - 12:00</option>
+              <option value="13:00 - 15:00">13:00 - 15:00</option>
+              <option value="16:00 - 18:00">16:00 - 18:00</option>
+              <option value="19:00 - 21:00">19:00 - 21:00</option>
+            </select>
+            <button type="button" id="pa-add-datetime-btn" style="background: var(--C); color: var(--W); border: none; padding: 0 16px; font-weight: bold; cursor: pointer; border-radius: 2px; font-size: 0.85rem;">추가</button>
+          </div>
+          <span class="private-notice">*날짜와 시간대를 각각 고른 후 [추가]를 클릭하시면 하단에 칩으로 결합되어 누적됩니다.</span>
           <div class="date-chips-container" id="dateChipsContainer"></div>
           <!-- 숨겨진 필드로 검증 용도 -->
           <input type="hidden" id="pa-dates-data" required />
@@ -671,15 +681,9 @@
         </div>
 
         <!-- 추천인 코드 -->
-        <div class="private-fg" style="margin-top: 16px;">
+        <div class="private-fg" style="margin-top: 16px; margin-bottom: 28px;">
           <label for="pa-referral">추천인 코드</label>
           <input type="text" id="pa-referral" placeholder="추천인 코드가 있다면 입력해주세요 (선택)" />
-        </div>
-
-        <!-- Active Member ID -->
-        <div class="private-fg">
-          <label>ACTIVE MEMBER ID</label>
-          <input type="text" value="toqn1" readonly style="background: rgba(0,0,0,0.05); color: var(--L);" />
         </div>
 
         <button type="submit" class="private-submit-btn" id="paSubmitBtn">SUBMIT APPLICATION</button>
@@ -697,42 +701,59 @@
       const submitBtn = document.getElementById('paSubmitBtn');
       const buttons = document.querySelectorAll('.esg-track-apply-btn');
 
-      // 날짜 복수 선택 핸들러
+      // 날짜 & 시간대 복수 선택 핸들러
       const datePicker = document.getElementById('pa-date-picker');
+      const timeSlotSelect = document.getElementById('pa-time-slot');
+      const addDateTimeBtn = document.getElementById('pa-add-datetime-btn');
       const chipsContainer = document.getElementById('dateChipsContainer');
       const datesDataInput = document.getElementById('pa-dates-data');
-      let selectedDates = [];
+      let selectedDateTimes = [];
 
-      function updateDatesInput() {
-        datesDataInput.value = selectedDates.join(',');
+      function updateDateTimesInput() {
+        datesDataInput.value = selectedDateTimes.join(',');
         // 필수 값 검증 트리거용
-        if (selectedDates.length > 0) {
+        if (selectedDateTimes.length > 0) {
           datesDataInput.removeAttribute('required');
         } else {
           datesDataInput.setAttribute('required', 'true');
         }
       }
 
-      if (datePicker && chipsContainer) {
-        datePicker.addEventListener('change', (e) => {
-          const pickedDate = e.target.value;
-          if (pickedDate && !selectedDates.includes(pickedDate)) {
-            selectedDates.push(pickedDate);
-            
-            // 칩 엘리먼트 생성
-            const chip = document.createElement('div');
-            chip.className = 'date-chip';
-            chip.innerHTML = `${pickedDate} <span style="font-weight:700; margin-left:4px;">&times;</span>`;
-            chip.addEventListener('click', () => {
-              selectedDates = selectedDates.filter(d => d !== pickedDate);
-              chip.remove();
-              updateDatesInput();
-            });
-            
-            chipsContainer.appendChild(chip);
-            updateDatesInput();
+      if (addDateTimeBtn && datePicker && timeSlotSelect && chipsContainer) {
+        addDateTimeBtn.addEventListener('click', () => {
+          const dateVal = datePicker.value;
+          const timeVal = timeSlotSelect.value;
+
+          if (!dateVal || !timeVal) {
+            alert('희망 일자와 시간대를 모두 선택해 주세요.');
+            return;
           }
-          datePicker.value = ''; // 선택 초기화
+
+          const combinedVal = `${dateVal} (${timeVal})`;
+
+          if (selectedDateTimes.includes(combinedVal)) {
+            alert('이미 추가된 희망 일정입니다.');
+            return;
+          }
+
+          selectedDateTimes.push(combinedVal);
+
+          // 칩 엘리먼트 생성
+          const chip = document.createElement('div');
+          chip.className = 'date-chip';
+          chip.innerHTML = `${dateVal} [${timeVal}] <span style="font-weight:700; margin-left:4px;">&times;</span>`;
+          chip.addEventListener('click', () => {
+            selectedDateTimes = selectedDateTimes.filter(d => d !== combinedVal);
+            chip.remove();
+            updateDateTimesInput();
+          });
+
+          chipsContainer.appendChild(chip);
+          updateDateTimesInput();
+
+          // 입력 초기화
+          datePicker.value = '';
+          timeSlotSelect.value = '';
         });
       }
 
@@ -764,8 +785,8 @@
         form.addEventListener('submit', (e) => {
           e.preventDefault();
           
-          if (selectedDates.length === 0) {
-            alert('희망 일자를 최소 1개 이상 선택해 주세요.');
+          if (selectedDateTimes.length === 0) {
+            alert('희망 일자와 시간대를 최소 1개 이상 선택해 주세요.');
             datePicker.focus();
             return;
           }
@@ -777,8 +798,8 @@
             alert('정보가 전달되어 처방 분석 절차가 개시되었습니다.\n담당 위원진이 24시간 이내로 연락을 드리겠습니다.');
             form.reset();
             chipsContainer.innerHTML = '';
-            selectedDates = [];
-            updateDatesInput();
+            selectedDateTimes = [];
+            updateDateTimesInput();
             submitBtn.textContent = 'SUBMIT APPLICATION';
             submitBtn.disabled = false;
             modal.classList.remove('open');
