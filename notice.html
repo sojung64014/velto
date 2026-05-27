@@ -22,24 +22,36 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <style>
-    .nt-table {
+    .nt-container {
       max-width: var(--max);
-      margin: 0 auto 100px;
+      margin: 0 auto 120px;
       padding: 0 48px;
     }
-    .nt-row {
-      display: grid;
-      grid-template-columns: 140px 1fr 120px;
-      padding: 32px 0;
-      border-bottom: 1px solid var(--BD);
-      align-items: center;
-      gap: 20px;
+    .nt-list {
+      display: flex;
+      flex-direction: column;
     }
-    .nt-row:first-child {
+    .nt-item {
+      border-bottom: 1px solid var(--BD);
+      transition: background-color 0.25s var(--ease);
+    }
+    .nt-item:first-child {
       border-top: 1px solid var(--BD);
     }
+    .nt-header-row {
+      display: grid;
+      grid-template-columns: 140px 1fr 120px;
+      padding: 28px 20px;
+      align-items: center;
+      gap: 20px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .nt-item:hover {
+      background: var(--AS);
+    }
     .nt-tag {
-      font-size: 0.6rem;
+      font-size: 0.58rem;
       letter-spacing: 0.1em;
       font-weight: 700;
       color: var(--Y);
@@ -50,31 +62,75 @@
       text-align: center;
       width: fit-content;
     }
-    .nt-title {
+    .nt-title-text {
       font-family: var(--man);
-      font-size: 1.05rem;
+      font-size: 0.98rem;
       font-weight: 700;
       color: var(--C);
-      letter-spacing: -0.01em;
-      transition: color 0.25s var(--ease);
-      cursor: pointer;
+      letter-spacing: -0.015em;
+      transition: color 0.2s var(--ease);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-    .nt-title:hover {
+    .nt-item:hover .nt-title-text {
       color: var(--Y);
     }
     .nt-date {
       text-align: right;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--L);
     }
+    
+    /* Expanded Details Box */
+    .nt-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.25, 1, 0.5, 1), padding 0.35s ease;
+      background: rgba(255, 255, 255, 0.4);
+    }
+    .nt-item.active .nt-body {
+      max-height: 800px; /* high enough for body text */
+      border-top: 1px dashed var(--BD);
+    }
+    .nt-body-content {
+      padding: 32px 40px;
+      font-size: 0.88rem;
+      line-height: 1.85;
+      color: var(--M);
+    }
+    .nt-body-content p {
+      margin-bottom: 16px;
+    }
+    .nt-body-content ul {
+      margin-left: 20px;
+      margin-bottom: 16px;
+      list-style-type: square;
+    }
+    .nt-body-content li {
+      margin-bottom: 8px;
+    }
+    .nt-toggle-icon {
+      font-size: 0.8rem;
+      color: var(--L);
+      transition: transform 0.25s var(--ease);
+    }
+    .nt-item.active .nt-toggle-icon {
+      transform: rotate(180deg);
+      color: var(--Y);
+    }
+
     @media (max-width: 768px) {
-      .nt-row {
+      .nt-header-row {
         grid-template-columns: 1fr;
         gap: 12px;
-        padding: 24px 0;
+        padding: 20px 12px;
       }
       .nt-date {
         text-align: left;
+      }
+      .nt-body-content {
+        padding: 24px 20px;
       }
     }
   </style>
@@ -131,47 +187,433 @@
   <!-- NOTICE HERO -->
   <section class="about-hero">
     <div class="ab-hero-inner">
-      <p class="section-label mono">[ VELTO NOTICE ]</p>
-      <h1 class="ab-hero-h1">공지사항 & 전략 소식</h1>
+      <p class="section-label mono">[ VELTO NOTICE BOARD ]</p>
+      <h1 class="ab-hero-h1">전략 공지 및 프레임워크 리포트</h1>
       <p class="ab-hero-lead">
-        벨토의 공식 주요 소식과 고도화된 프레임워크 런칭 소식, 그리고 하이엔드 얼라이언스 일정을 가장 빠르게 전해 드립니다.
+        벨토 시스템즈의 공식 성명, 하이엔드 비즈니스 프레임워크 릴리즈 노트, 그리고 독점적 리더십 얼라이언스의 소식을 정밀하게 공유합니다.<br>
+        *각 항목을 클릭하시면 상세 공지 및 구조화된 기업 전문을 열람하실 수 있습니다.
       </p>
     </div>
     <div class="ab-hero-line"></div>
   </section>
 
-  <!-- NOTICE LIST -->
+  <!-- NOTICE ACCORDION LIST -->
   <section class="notice-section">
-    <div class="nt-table">
-      
-      <!-- Notice 01 -->
-      <div class="nt-row">
-        <div><span class="nt-tag mono">ALLIANCE</span></div>
-        <div class="nt-title">벨토 얼라이언스 2026 연간 스케줄 및 연례 알토 서밋(Alto Summit) 일정 확정 안내</div>
-        <div class="nt-date mono">2026.05.27</div>
-      </div>
+    <div class="nt-container">
+      <div class="nt-list">
 
-      <!-- Notice 02 -->
-      <div class="nt-row">
-        <div><span class="nt-tag mono">UPDATE</span></div>
-        <div class="nt-title">B2B 세일즈 퍼널 가속화 프레임워크 2.0 엔진 배포 완료</div>
-        <div class="nt-date mono">2026.05.15</div>
-      </div>
+        <!-- 01 -->
+        <div class="nt-item">
+          <div class="nt-header-row" onclick="toggleNotice(this)">
+            <div><span class="nt-tag mono">SUMMIT</span></div>
+            <div class="nt-title-text">2026 VELTO ALTO SUMMIT 서울 파크원 개최 일정 및 C-Level 초청 안내 <span class="nt-toggle-icon">↓</span></div>
+            <div class="nt-date mono">2026.05.27</div>
+          </div>
+          <div class="nt-body">
+            <div class="nt-body-content">
+              <p>성장의 최고점(Alto)을 지향하는 기업가들을 위한 2026년 벨토 하이엔드 전략 서밋의 일정이 최종 확정되었습니다. 본 서밋은 비공개로 운영되며, 벨토의 최고전략 파트너 위원진과 클럽 벨로시티 회원 및 초청을 받은 대표이사(CEO)들만 참가 가능합니다.</p>
+              <ul>
+                <li><strong>일시:</strong> 2026년 7월 15일 (수요일) 13:00 - 21:00</li>
+                <li><strong>장소:</strong> 서울 여의도 파크원타워1 48층 그랜드 볼룸</li>
+                <li><strong>핵심 아젠다:</strong> 고금리·저성장 관성을 타파할 6가지 기업 볼륨 압축 퍼널 궤적 분석 및 성공 지표 교차 공유</li>
+                <li><strong>신청 방법:</strong> 멤버 포털 로그인 후 프라이빗 패스 신청(선착순 50개 법인 제한)</li>
+              </ul>
+              <p>감상적인 격려를 넘어 오직 데이터와 정교한 처방 매트릭스만으로 정점을 그릴 수 있도록 최고의 파이프라인을 선사할 것입니다.</p>
+            </div>
+          </div>
+        </div>
 
-      <!-- Notice 03 -->
-      <div class="nt-row">
-        <div><span class="nt-tag mono">MEMBER</span></div>
-        <div class="nt-title">클럽 벨로시티 3기 신규 C-레벨 마스터마인드 입회 예비 심사 개시</div>
-        <div class="nt-date mono">2026.05.02</div>
-      </div>
+        <!-- 02 -->
+        <div class="nt-item">
+          <div class="nt-header-row" onclick="toggleNotice(this)">
+            <div><span class="nt-tag mono">UPDATE</span></div>
+            <div class="nt-title-text">B2B 리드 퍼널 자동 구조 진단 시스템 'V-Audit Engine 2.0' 정식 배포 <span class="nt-toggle-icon">↓</span></div>
+            <div class="nt-date mono">2026.05.18</div>
+          </div>
+          <div class="nt-body">
+            <div class="nt-body-content">
+              <p>벨토의 데이터 분석팀에서 오랜 기간 검증을 거친 B2B 기업 전용 실시간 리드 병목 자가 진단 및 감사 알고리즘인 <strong>V-Audit Engine 2.0</strong> 버전이 전격 업데이트되었습니다.</p>
+              <p>기존 1.0 버전 대비 240% 이상 세분화된 변수로 비즈니스를 정밀 분석하며, 다음과 같은 핵심 기능이 포함됩니다:</p>
+              <ul>
+                <li><strong>자동 병목 검출 알고리즘:</strong> 마케팅 유입부터 최종 영업 미팅 성사까지의 흐름 중 리드 손실이 급증하는 1순위 이탈 구간 즉시 매핑</li>
+                <li><strong>LTV 대비 CAC 최적화 대시보드:</strong> 실시간 광고 비용 및 획득 비용을 분석하여 마진 확보를 극대화하는 예산 최적 비율 역산</li>
+                <li><strong>처방 리포트 자동 추출:</strong> 타협이나 묵인 없는 냉정한 3대 즉시 실행 솔루션 제언서 자동 발행</li>
+              </ul>
+              <p>스케일업 과정에서 발생하는 누수 비용을 0%에 수렴하게 관리할 벨토만의 차별화된 인프라를 직접 확인하시길 권장합니다.</p>
+            </div>
+          </div>
+        </div>
 
-      <!-- Notice 04 -->
-      <div class="nt-row">
-        <div><span class="nt-tag mono">NOTICE</span></div>
-        <div class="nt-title">벨토 시스템즈 본사 서울 여의도 파크원타워1 이전 안내 및 접수처 안내</div>
-        <div class="nt-date mono">2026.04.10</div>
-      </div>
+        <!-- 03 -->
+        <div class="nt-item">
+          <div class="nt-header-row" onclick="toggleNotice(this)">
+            <div><span class="nt-tag mono">ALLIANCE</span></div>
+            <div class="nt-title-text">C-Level 마스터마인드 '클럽 벨로시티 4기' 정기 멤버십 모집 요강 <span class="nt-toggle-icon">↓</span></div>
+            <div class="nt-date mono">2026.05.10</div>
+          </div>
+          <div class="nt-body">
+            <div class="nt-body-content">
+              <p>연매출 50억 이상의 스케일업 단계 리더들을 위한 프라이빗 전략 교류 조직, **클럽 벨로시티(Club Velocity)**의 4기 정기 가입 심사 일정을 공개합니다.</p>
+              <p>우리는 사소한 위로나 소모적인 단순 친목 행위를 지양합니다. 철저하게 기업 성장의 실 지표를 교차 감사하고, 성장의 궤도를 함께 가속하는 고효율의 브레인 트러스트를 형성합니다.</p>
+              <ul>
+                <li><strong>모집 규모:</strong> 최종 선발 12인 정예 구성 (C-Level 창업가 및 CEO)</li>
+                <li><strong>지원 자격:</strong> 연간 결산 매출액 50억 원 이상을 증빙 가능한 법인 대표 또는 이에 준하는 스케일업 투자 유치 스타트업</li>
+                <li><strong>진행 사항:</strong> 분기별 지표 연계 미팅 4회, 무감상 팩트 크리틱 세션 6회, 분기별 1:1 벨토 위원 정렬 프로세스</li>
+              </ul>
+              <p>스케일업 과정에서 발생하는 극심한 고립감과 전략적 결단을 숫자로 증명된 아군들과 함께 정렬할 수 있는 유일한 공간입니다. 예비 심사 양식을 서둘러 작성해 주십시오.</p>
+            </div>
+          </div>
+        </div>
 
+        <!-- 04 -->
+        <div class="nt-item">
+          <div class="nt-header-row" onclick="toggleNotice(this)">
+            <div><span class="nt-tag mono">REPORT</span></div>
+            <div class="nt-title-text">'성장 병목(Bottleneck) 해체 매트릭스' 백서 및 가이드북 다운로드 오픈 <span class="nt-toggle-icon">↓</span></div>
+            <div class="nt-date mono">2026.05.02</div>
+          </div>
+          <div class="nt-body">
+            <div class="nt-body-content">
+              <p>비즈니스의 멈춰버린 바퀴를 강제로 회전시키기 위해 반드시 짚어야 할 실전 지표 교정 가이드북, **[성장 병목 해체 매트릭스]** 백서가 다운로드 포털에 등록되었습니다.</p>
+              <p>수많은 기업들이 매출 상승구간에서 인프라 불균형으로 위기를 겪습니다. 본 보고서는 벨토가 컨설팅한 120개사 데이터를 기반으로 쓰인 가장 날카로운 팩트 분석서입니다.</p>
+              <ul>
+                <li><strong>핵심 챕터 1:</strong> 왜 단순한 마케팅 예산 증액은 LTV를 망치는 악수인가?</li>
+                <li><strong>핵심 챕터 2:</strong> 15단계 세일즈 파이프라인을 4단계로 구조화하여 전환율을 2.8배 늘린 B2B 혁신 사례</li>
+                <li><strong>핵심 챕터 3:</strong> 대표의 인지적 오류를 교정하는 '감정 배제 의사결정 시각 매트릭스' 도입 방법론</li>
+              </ul>
+              <p>지금 멤버 포털의 라이브러리 탭에서 다운로드하실 수 있으며, 기업 재무 관리를 재정의하는 첫걸음이 될 것입니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 05 -->
+        <div class="nt-item">
+          <div class="nt-header-row" onclick="toggleNotice(this)">
+            <div><span class="nt-tag mono">NOTICE</span></div>
+            <div class="nt-title-text">여의도 파크원타워1 신규 거점 오피스 이전 완료 및 등기 주소 고지 <span class="nt-toggle-icon">↓</span></div>
+            <div class="nt-date mono">2026.04.28</div>
+          </div>
+          <div class="nt-body">
+            <div class="nt-body-content">
+              <p>벨토 시스템즈가 최상의 하이엔드 파트너 환경 제공 및 전략 위원진 인프라 확장을 위해 서울 여의도의 상징적인 랜드마크인 **파크원타워1(Parc.1 Tower 1)**로 본사 오피스를 성공적으로 이전 완료하였습니다.</p>
+              <ul>
+                <li><strong>신규 주소:</strong> 서울특별시 영등포구 여의대로 108 파크원타워1</li>
+                <li><strong>우편물 및 제반 서류 접수처:</strong> 본사 경영기획본부 앞</li>
+                <li><strong>이전 영향:</strong> 고객 전략 오디트 및 라운드테이블 세션이 쾌적하고 극비밀이 보장되는 신규 VIP 미팅룸에서 대면 진행됩니다.</li>
+              </ul>
+              <p>고객사의 재무와 브랜드 궤적을 가장 높고 안전한 정점으로 견인하기에 걸맞은 여의도 최고의 인프라에서 벨토만의 타협 없는 전략을 지속적으로 제공하겠습니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 06 -->
+        <div class="nt-item">
+          <div class="nt-header-row" onclick="toggleNotice(this)">
+            <div><span class="nt-tag mono">UPDATE</span></div>
+            <div class="nt-title-text">개인 가치 설계 및 목표 훈련을 위한 '라이프 트랙(Life Track)' 리뉴얼 릴리즈 <span class="nt-toggle-icon">↓</span></div>
+            <div class="nt-date mono">2026.04.15</div>
+          </div>
+          <div class="nt-body">
+            <div class="nt-body-content">
+              <p>삶의 속도와 궤적을 완벽히 교정하는 시그니처 개인 성장 코스, **'라이프 트랙(Life Track)'**의 콘텐츠 및 훈련 워크시트가 리뉴얼되었습니다.</p>
+              <p>자신에 대한 감상적 해석을 철저히 배제하고, 인생의 핵심 강점과 가치관을 철저히 계량화하여 향후 10년의 입체적 실행 목표를 수립하는 과정입니다.</p>
+              <ul>
+                <li><strong>신규 적용 프레임워크:</strong> 'Cognitive Alignment Matrix' (자기 인지 편향 정렬 도표) 추가</li>
+                <li><strong>목표 관리 대시보드 리뉴얼:</strong> 일일 실천 지표와 장기 비전 궤도의 실시간 모니터링 시스템 탑재</li>
+                <li><strong>1:1 전문 가이드 배정:</strong> 자기 진단 팩트를 기반으로 한 날카로운 궤적 가이드 밀착 지원</li>
+              </ul>
+              <p>나를 둘러싼 환경의 관성을 깨트리고 주도적인 궤도를 그리고 싶은 스케일업 리더 및 차세대 임원진의 적극적인 신청을 기다립니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 07 -->
+        <div class="nt-item">
+          <div class="nt-header-row" onclick="toggleNotice(this)">
+            <div><span class="nt-tag mono">REPORT</span></div>
+            <div class="nt-title-text">2025 벨토 파트너십 스케일업 고객사 평균 재무 성장 데이터 인포그래픽 <span class="nt-toggle-icon">↓</span></div>
+            <div class="nt-date mono">2026.04.02</div>
+          </div>
+          <div class="nt-body">
+            <div class="nt-body-content">
+              <p>오직 숫자로만 증명하는 벨토의 기업 철학에 따라, 2025년도 한 해 동안 벨토의 B2B 전략 컨설팅 및 얼라이언스를 수료한 총 84개 고객사의 재무 및 전환율 지표 분석 평균 데이터를 공표합니다.</p>
+              <ul>
+                <li><strong>평균 영업이익 성장률:</strong> 벨토 컨설팅 수료 직후 6개월 기준 평균 **+48.6%** 상승</li>
+                <li><strong>마케팅 효율(ROAS) 개선폭:</strong> 정밀 타겟 퍼널 재구축을 통해 광고 누수 예산 평균 **32%** 감축</li>
+                <li><strong>리드-미팅 전환 비율:</strong> 기존 평균 3.5%의 인바운드 전환율을 전략 오디트 프로세스 정비로 평균 **11.2%**로 증대</li>
+              </ul>
+              <p>위로의 말을 생략하고 오차 없는 논리적 골조만을 주입했을 때, 비즈니스가 얼마나 폭발적이고 견고하게 스케일업될 수 있는지 데이터가 명백히 증명하고 있습니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 08 -->
+        <div class="nt-item">
+          <div class="nt-header-row" onclick="toggleNotice(this)">
+            <div><span class="nt-tag mono">ALLIANCE</span></div>
+            <div class="nt-title-text">격려 없는 피드백 세션 '무감상 살롱' 오프라인 킥오프 일정 공고 <span class="nt-toggle-icon">↓</span></div>
+            <div class="nt-date mono">2026.03.20</div>
+          </div>
+          <div class="nt-body">
+            <div class="nt-body-content">
+              <p>의미 없는 인사치레나 포장을 배제하고 오직 각자의 성장에 방해가 되는 병목과 문제점만을 파괴적으로 크리틱하는 **'무감상 살롱(Consolation-Free Salon)'**의 상반기 정규 시즌이 개최됩니다.</p>
+              <ul>
+                <li><strong>시즌 일정:</strong> 2026년 4월 2일 ~ 6월 18일 (격주 목요일 19:30)</li>
+                <li><strong>세션 형식:</strong> 각 세션당 2명의 멤버 비즈니스를 단상에 올려, 모든 멤버들과 벨토 파트너 위원진이 극도로 날카로운 리스크 해부 및 직무 구조 조정 크리틱 진행</li>
+                <li><strong>참가 요건:</strong> 타인의 차가운 피드백을 수용할 탄탄한 마인드와 데이터에 기반하여 의사소통할 준비가 된 얼라이언스 멤버</li>
+              </ul>
+              <p>성장통은 아프지만, 가짜 위안보다 100배 가치 있는 비즈니스의 '차가운 해결책'을 함께 모색할 준비가 되신 분들만 입장을 허용합니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 09 -->
+        <div class="nt-item">
+          <div class="nt-header-row" onclick="toggleNotice(this)">
+            <div><span class="nt-tag mono">SECURITY</span></div>
+            <div class="nt-title-text">기업 기밀 보호를 위한 군사 등급 보안 서버 인프라 이중화 가동 완료 <span class="nt-toggle-icon">↓</span></div>
+            <div class="nt-date mono">2026.03.11</div>
+          </div>
+          <div class="nt-body">
+            <div class="nt-body-content">
+              <p>벨토의 고객 파트너십 중 다루는 지표들은 기업의 존망과 직결된 극비 재무 및 마케팅 퍼널 데이터입니다. 벨토는 이를 안전하게 격리 보호하기 위해 특수 보안 서버 인프라의 이중화 구성을 완료했습니다.</p>
+              <ul>
+                <li><strong>암호화 알고리즘:</strong> AES-256 군사 등급 암호화를 통한 모든 DB 항목 실시간 인코딩</li>
+                <li><strong>네트워크 격리:</strong> 외부 인터넷망과 원천 분리된 프라이빗 클라우드 아키텍처 및 철저한 제로 트러스트(Zero Trust) 접근 권한 관리</li>
+                <li><strong>법적 무결성:</strong> 미팅 전 작성되는 모든 비밀유지합의서(NDA)의 디지털 등기 보관 처리</li>
+              </ul>
+              <p>가장 안전한 가상 공간 속에서만 리더들은 가장 솔직하고 파괴적인 지표를 투명하게 꺼내놓을 수 있습니다. 벨토는 이 신뢰의 공간을 엄격하게 수호할 의무가 있습니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10 -->
+        <div class="nt-item">
+          <div class="nt-header-row" onclick="toggleNotice(this)">
+            <div><span class="nt-tag mono">REPORT</span></div>
+            <div class="nt-title-text">'낭비 요소 제로(Zero-Waste) 조직 설계' 1차 실행서 발간 <span class="nt-toggle-icon">↓</span></div>
+            <div class="nt-date mono">2026.02.28</div>
+          </div>
+          <div class="nt-body">
+            <div class="nt-body-content">
+              <p>외형 성장에만 치중한 나머지, 내부의 효율이 무너지고 있는 기업들을 위해 벨토의 하이엔드 오퍼레이션 진단 위원회에서 집필한 **'낭비 요소 제로 조직 설계 프레임워크'** 실행서 1차 본이 발간되었습니다.</p>
+              <p>인원이 늘어날 때마다 오히려 커뮤니티 비용이 증가하고 생산성이 하락하는 '브룩스의 법칙'을 극복하기 위한 벨토만의 냉철한 정량적 조직 처방입니다.</p>
+              <ul>
+                <li><strong>주요 내용 1:</strong> 업무 중복을 유발하는 사내 슬랙/메신저 커뮤니티 채널의 70% 과감한 통폐합 규칙</li>
+                <li><strong>주요 내용 2:</strong> 오직 결과 지표(Output Metrics)로만 판단하는 무감상 성과 보상 체계 수립</li>
+                <li><strong>주요 내용 3:</strong> 1명의 하이엔드 인재에게 극대화된 책임과 보상을 부여하는 정예 스태핑 설계 모델</li>
+              </ul>
+              <p>벨토 얼라이언스 회원 포털 내의 '인사이트 허브' 탭에서 한정 수량 실물 책자 배송 신청 및 PDF 다운로드가 가능합니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 11 -->
+        <div class="nt-item">
+          <div class="nt-header-row" onclick="toggleNotice(this)">
+            <div><span class="nt-tag mono">UPDATE</span></div>
+            <div class="nt-title-text">B2B 영업 효율을 위한 '퍼포먼스 궤적 트랙(Performance Track)' 런칭 <span class="nt-toggle-icon">↓</span></div>
+            <div class="nt-date mono">2026.02.15</div>
+          </div>
+          <div class="nt-body">
+            <div class="nt-body-content">
+              <p>개인과 관계(Life & Reconnect) 단계를 넘어, 조직의 비즈니스 퍼포먼스를 폭발적으로 상승시키기 위해 설계된 신규 단체 교육 트랙, **'퍼포먼스 궤적 트랙(Performance Track)'**이 공식 런칭되었습니다.</p>
+              <p>본 트랙은 기업의 핵심 인재 및 관리자 군을 대상으로 하며, 리더십 오차를 줄이고 극단적인 실행력을 배양하는 6주 간의 집중 팀 빌딩 과정입니다.</p>
+              <ul>
+                <li><strong>훈련 대상:</strong> 기업의 핵심 임원진, 실무 전략 리더, 신규 프로젝트 책임자 5-10인 팀 단위</li>
+                <li><strong>훈련 내용:</strong> 객관적 데이터 수립 기법, 타협 없는 타임라인 관리, 부서 간 관계 병목 해결 및 대화 규칙 재정비</li>
+                <li><strong>성과 보장:</strong> 수료 시 사내 의사소통 오류 지표 **45% 이상 개선** 확인 및 정렬 수료증 교부</li>
+              </ul>
+              <p>리더십의 오차를 최소화하고 속도를 높여 비즈니스의 정점(Alto)을 쟁취할 조직 체계를 지금 도입해 보십시오.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 12 -->
+        <div class="nt-item">
+          <div class="nt-header-row" onclick="toggleNotice(this)">
+            <div><span class="nt-tag mono">REPORT</span></div>
+            <div class="nt-title-text">'고객 유지율(Retention) 극대화를 위한 LTV 구조화 모델' 전략 리포트 <span class="nt-toggle-icon">↓</span></div>
+            <div class="nt-date mono">2026.02.02</div>
+          </div>
+          <div class="nt-body">
+            <div class="nt-body-content">
+              <p>최근의 가파른 신규 고객 획득 비용(CAC) 상승 환경에서 기업이 생존하는 유일한 해법은 **기존 고객 유지율(Retention)**의 극대화입니다. 이를 실증적으로 설계할 수 있는 계량적 리포트가 발행되었습니다.</p>
+              <ul>
+                <li><strong>리포트 골자:</strong> 이탈 고객의 4가지 주요 이탈 신호(Indicator)를 정의하는 조기 경보 예측 매트릭스</li>
+                <li><strong>수식 모델:</strong> LTV 대 CAC의 황금 비율 3:1 공식을 깨부수고 하이엔드 기업이 5:1 이상의 마진을 사수하는 이윤 구조</li>
+                <li><strong>실사례 연구:</strong> 이탈률이 40%에 육박하던 플랫폼 브랜드를 벨토의 마일스톤 재배치로 8.5%까지 안정화한 궤적 복원사</li>
+              </ul>
+              <p>오직 논리적이고 입증된 데이터로만 기업의 기초 체력을 단련하십시오. 리포트는 회원 포털 라이브러리에서 즉시 인쇄 및 열람할 수 있습니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 13 -->
+        <div class="nt-item">
+          <div class="nt-header-row" onclick="toggleNotice(this)">
+            <div><span class="nt-tag mono">SUMMIT</span></div>
+            <div class="nt-title-text">B2B 엔터프라이즈 컨설팅 상반기 쿼터 정원 마감 및 대기 등록 신청 <span class="nt-toggle-icon">↓</span></div>
+            <div class="nt-date mono">2026.01.20</div>
+          </div>
+          <div class="nt-body">
+            <div class="nt-body-content">
+              <p>벨토의 **B2B 하이엔드 엔터프라이즈 컨설팅** 서비스는 파트너 위원진들의 1:1 밀착 집행 집중도를 유지하기 위해, 연간 수임할 수 있는 프로젝트의 개수를 엄격히 규제하고 있습니다.</p>
+              <p>감사하게도 많은 리더분들의 지지와 성공 사례 입소문으로 인해, **2026년도 상반기 신규 기업 컨설팅 쿼터(8개사 제한)가 전체 조기 마감**되었습니다.</p>
+              <ul>
+                <li><strong>대기 등록 신청:</strong> 2026년 하반기(7월 이후 착수) 선착순 대기 신청 접수 개시</li>
+                <li><strong>사전 오디트 예약:</strong> 대기 기간 동안 간이 지표 자가 진단 및 1회성 사전 비즈니스 오디트 1시간 무료 슬롯 제공</li>
+                <li><strong>신청 경로:</strong> B2B 문의 폼을 통해 '하반기 대기 등록' 선택 후 제출</li>
+              </ul>
+              <p>빠르게 변해가는 시장 환경 속에서 지체하지 마시고 미리 자리를 선점하시어, 비즈니스의 성장 추진력에 오차가 발생하지 않도록 조치하시길 권장합니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 14 -->
+        <div class="nt-item">
+          <div class="nt-header-row" onclick="toggleNotice(this)">
+            <div><span class="nt-tag mono">NOTICE</span></div>
+            <div class="nt-title-text">벨토 얼라이언스 회원 포털 'Milestone Board' 시스템 마이그레이션 안내 <span class="nt-toggle-icon">↓</span></div>
+            <div class="nt-date mono">2026.01.05</div>
+          </div>
+          <div class="nt-body">
+            <div class="nt-body-content">
+              <p>벨토 회원사들이 각자의 훈련 지표 및 성장 트랙의 진척도를 시각적으로 기록하고 모니터링하는 플랫폼 시스템, **'Milestone Board'**의 데이터베이스 확장 마이그레이션이 아래 일정 동안 진행됩니다.</p>
+              <ul>
+                <li><strong>점검 일시:</strong> 2026년 1월 10일 (토) 01:00 - 06:00 (5시간)</li>
+                <li><strong>해당 작업:</strong> 신규 인프라 서버 가동 및 대용량 지표 로딩 속도 최적화 패치</li>
+                <li><strong>영향 범위:</strong> 점검 시간 중 벨토 공식 웹사이트 멤버 포털 로그인 및 마일스톤 보드 접속 일시 중단</li>
+              </ul>
+              <p>데이터 전송 및 궤적 오차가 발생하지 않도록 안전한 환경에서 점검을 신속히 끝마치겠습니다. 회원사 리더분들의 넓은 양해 부탁드립니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 15 -->
+        <div class="nt-item">
+          <div class="nt-header-row" onclick="toggleNotice(this)">
+            <div><span class="nt-tag mono">ALLIANCE</span></div>
+            <div class="nt-title-text">글로벌 파트너십 강화를 위한 APAC 전략 리더십 연합 협약 체결 <span class="nt-toggle-icon">↓</span></div>
+            <div class="nt-date mono">2025.12.18</div>
+          </div>
+          <div class="nt-body">
+            <div class="nt-body-content">
+              <p>벨토 시스템즈가 싱가포르, 도쿄, 홍콩을 거점으로 하는 아시아-태평양 지역의 탑 클래스 전략 컨설팅 연합체인 **APAC Strategy Alliance**의 공식 한국 단독 회원사로 등재 및 파트너십 협약을 체결하였습니다.</p>
+              <p>이번 글로벌 연대를 통해 벨토 고객사 분들께 다음과 같은 비교우위 혜택이 즉시 제공됩니다:</p>
+              <ul>
+                <li><strong>글로벌 크로스보더 판로 연계:</strong> 동남아 및 일본 시장 진출 시 현지 최정상 유통망 및 벤더사 다이렉트 연결 파이프라인 형성</li>
+                <li><strong>글로벌 벤처 캐피탈 라운드테이블:</strong> 해외 기관 투자를 유치하고자 하는 스케일업 기업의 피치북 설계 및 데모데이 연계 지원</li>
+                <li><strong>해외 비즈니스 로컬라이징 지표 공유:</strong> 각 국가별 시장 진입 시 반드시 사수해야 할 정량적 마케팅 벤치마크 원시 데이터 교환</li>
+              </ul>
+              <p>벨토와 함께하는 성장의 끝은 국내 시장에 머물지 않습니다. 세계 최고 수준의 전략 매트릭스를 지속적으로 이식하겠습니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 16 -->
+        <div class="nt-item">
+          <div class="nt-header-row" onclick="toggleNotice(this)">
+            <div><span class="nt-tag mono">REPORT</span></div>
+            <div class="nt-title-text">투자 유치(Series A-B) 창업가를 위한 'Valuation 방어 프레임워크' 리포트 <span class="nt-toggle-icon">↓</span></div>
+            <div class="nt-date mono">2025.12.02</div>
+          </div>
+          <div class="nt-body">
+            <div class="nt-body-content">
+              <p>시장의 유동성이 위축되는 혹한기 속에서 스타트업 리더가 회사의 가치(Valuation)를 냉철하게 사수하고 자금을 효율적으로 조달할 수 있도록 돕는 **'Valuation 방어 프레임워크'** 특수 보고서가 발행되었습니다.</p>
+              <ul>
+                <li><strong>내용 요점 1:</strong> 투자사(VC)가 경영 지표를 들여다볼 때 절대 속일 수 없는 3가지 핵심 건전성(Health Score) 항목</li>
+                <li><strong>내용 요점 2:</strong> 매출 성장률의 둔화를 감수하더라도 공헌 이익(Contribution Margin)을 플러스로 정렬해 가치를 방어하는 로직</li>
+                <li><strong>내용 요점 3:</strong> 투자 계약 조건(Term Sheet) 중 창업자의 미래 지분 권한을 훼손하는 독소 조항의 정밀 판독법</li>
+              </ul>
+              <p>본 자료는 고성장 궤도 위에 놓인 스타트업 대표들이 생존을 넘어 확실한 정점에 도달하게 도울 필수 무기입니다. 회원 로그인 후 다운로드 받으실 수 있습니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 17 -->
+        <div class="nt-item">
+          <div class="nt-header-row" onclick="toggleNotice(this)">
+            <div><span class="nt-tag mono">UPDATE</span></div>
+            <div class="nt-title-text">관계 이해와 소통 훈련을 위한 '리커넥트 트랙(Reconnect Track)' 워크시트 리뉴얼 <span class="nt-toggle-icon">↓</span></div>
+            <div class="nt-date mono">2025.11.15</div>
+          </div>
+          <div class="nt-body">
+            <div class="nt-body-content">
+              <p>벨토의 두 번째 핵심 궤도 훈련 코스인 **'리커넥트 트랙(Reconnect Track)'**의 심리 진단 도구 및 소통 행동 교정 워크시트가 대대적으로 개편되었습니다.</p>
+              <p>자기 자신에 대한 객관적 인지를 바탕으로, 조직과 타인의 심리적 역동을 정확히 이해하고 올바른 경계 설정과 대화 패턴을 체화하는 특수 훈련입니다.</p>
+              <ul>
+                <li><strong>신규 검사 도입:</strong> 'Relational Habit Profiling' (관계적 습관 및 언어 패턴 프로파일링) 검사 패키지 추가</li>
+                <li><strong>대화 방식 해체 분석:</strong> 비효율적이고 반복되는 파괴적 대화 방식을 6단계 데이터로 해체하여 재구성하는 훈련 도구 개편</li>
+                <li><strong>현장 적용 시뮬레이션:</strong> 사내 갈등 상황을 상정한 역할 극화 훈련 세션 강화</li>
+              </ul>
+              <p>조직의 불필요한 감정 소모를 제거하고 소통의 속도를 무한히 높이고 싶은 경영자 및 팀장급 리더분들의 참여를 독려합니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 18 -->
+        <div class="nt-item">
+          <div class="nt-header-row" onclick="toggleNotice(this)">
+            <div><span class="nt-tag mono">REPORT</span></div>
+            <div class="nt-title-text">벨토 얼라이언스 VIP 비공개 연례 리셉션 파티 공식 초청장 발송 <span class="nt-toggle-icon">↓</span></div>
+            <div class="nt-date mono">2025.11.02</div>
+          </div>
+          <div class="nt-body">
+            <div class="nt-body-content">
+              <p>한 해 동안 극한의 시장 관성을 물리치고 눈부신 수치적 성장을 이룩해 낸 벨토의 자랑스러운 회원사 대표님들을 모시고 서로의 무용담과 실전에 근거한 통찰을 나누는 **연례 프라이빗 리셉션 파티**가 열립니다.</p>
+              <ul>
+                <li><strong>일시:</strong> 2025년 12월 10일 (수요일) 18:00 - 22:00</li>
+                <li><strong>참가 자격:</strong> 벨토 트랙 과정 졸업 멤버, 현임 B2B 컨설팅 고객사, 클럽 벨로시티 회원에 한함 (동반 1인 제한)</li>
+                <li><strong>진행 내용:</strong> 1부 - 스케일업 리더들의 우수 성장 데이터 토크 / 2부 - 하이엔드 샴페인 네트워킹 리셉션</li>
+              </ul>
+              <p>대상 리더분들께는 실물 봉인 도장이 날인된 최고급 패브릭 초청 카드가 발송 완료되었사오니, 우편함 및 RSVP 링크를 즉시 확인해 주시길 바랍니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 19 -->
+        <div class="nt-item">
+          <div class="nt-header-row" onclick="toggleNotice(this)">
+            <div><span class="nt-tag mono">NOTICE</span></div>
+            <div class="nt-title-text">하이엔드 성장 궤적 자가 진단 사전 인터뷰 질문지 무료 배포 안내 <span class="nt-toggle-icon">↓</span></div>
+            <div class="nt-date mono">2025.10.15</div>
+          </div>
+          <div class="nt-body">
+            <div class="nt-body-content">
+              <p>벨토의 강력한 1:1 오프라인 오디트 진단을 받기 전, 자신의 비즈니스 상태를 스스로 객관화하여 기록해 볼 수 있는 **'성장 궤적 자가 진단 사전 인터뷰 질문지'**가 대중에게 무료로 최초 오픈되었습니다.</p>
+              <p>대부분의 창업자들은 주관적인 감정이나 낙관적인 매출 전망에 사로잡혀 진짜 파멸하고 있는 병목 지점을 망각하곤 합니다. 본 질문지는 다음 항목들을 냉정하게 자가 검토하게 설계되었습니다:</p>
+              <ul>
+                <li><strong>LTV / CAC 역산 검토:</strong> 내 마케팅 비용이 진짜 유의미한 가치를 창출하고 있는지 여부 체크</li>
+                <li><strong>전략 방향성 오차 측정:</strong> 창업주의 원래 설립 비전과 현재 실무 오퍼레이션 지표 간의 오차 정량 측정</li>
+                <li><strong>관계 및 소통 낭비 수치화:</strong> 사내 감정 소모 및 리스크로 인해 낭비되는 인건비 환산 공식</li>
+              </ul>
+              <p>홈페이지 메인 하단의 'Start' 섹션 또는 진단 페이지를 통해 지금 무료 다운로드하여 냉철한 스스로의 민낯을 마주하십시오.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 20 -->
+        <div class="nt-item">
+          <div class="nt-header-row" onclick="toggleNotice(this)">
+            <div><span class="nt-tag mono">NOTICE</span></div>
+            <div class="nt-title-text">벨토 ESG 경영 및 하이엔드 사회적 가치 기여 로드맵 발표 <span class="nt-toggle-icon">↓</span></div>
+            <div class="nt-date mono">2025.10.02</div>
+          </div>
+          <div class="nt-body">
+            <div class="nt-body-content">
+              <p>벨토 시스템즈는 비즈니스의 최정점(Alto)을 밟은 리더들이 마땅히 실천해야 할 사회적 책무와 하이엔드 지식의 사회 환원 체계를 정비한 **'VELTO ESG & Social Value Roadmap'**을 공개합니다.</p>
+              <ul>
+                <li><strong>지식 자산 무상 이식:</strong> 매년 전국의 대학생 창업 학회 및 예비 청년 기업가 5개 팀을 엄선하여 벨토의 성장 궤적 컨설팅 인프라를 전액 무상(Pro-Bono) 기부 수련 진행</li>
+                <li><strong>투명한 거버넌스 사수:</strong> 모든 파트너십 체결 기업의 부조리 및 세무 낭비를 예방하는 정기 재무 무결성 감사 지원 프로그램 탑재</li>
+                <li><strong>친환경 오피스 운영:</strong> 여의도 본사 내 페이퍼리스(Paperless) 디지털 스마트 보드 전면 배치로 종이 낭비 연간 80% 감축</li>
+              </ul>
+              <p>높은 성장의 책임만큼이나 거시적인 사회적 정렬을 도모할 때, 벨토와 리더들의 연대는 비로소 영속적인 가치를 창출하게 됩니다. 더 나은 내일로 빠르게 가속하겠습니다.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
@@ -202,6 +644,27 @@
     </div>
   </footer>
 
+  <!-- Script for toggle details -->
+  <script>
+    function toggleNotice(header) {
+      const item = header.parentElement;
+      const isActive = item.classList.contains('active');
+      
+      // Close all notices
+      document.querySelectorAll('.nt-item').forEach(el => {
+        el.classList.remove('active');
+        el.querySelector('.nt-body').style.maxHeight = null;
+      });
+
+      // If the clicked one wasn't active, open it
+      if (!isActive) {
+        item.classList.add('active');
+        const body = item.querySelector('.nt-body');
+        const content = item.querySelector('.nt-body-content');
+        body.style.maxHeight = content.scrollHeight + 80 + "px"; // padding offset
+      }
+    }
+  </script>
   <script src="main.js"></script>
 </body>
 </html>
