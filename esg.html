@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VELTO — ESG Management</title>
+  <meta name="description" content="Structured ESG Strategy Matrix. 벨토의 3대 ESG 경영 처방 프레임워크와 지속 가능한 성장을 위한 지표를 공유합니다." />
+  <link rel="canonical" href="https://veltosystems.site/esg.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://veltosystems.site/esg.html" />
+  <meta property="og:title" content="VELTO — ESG Management" />
+  <meta property="og:description" content="Structured ESG Strategy Matrix. 벨토의 3대 ESG 경영 처방 프레임워크와 지속 가능한 성장을 위한 지표를 공유합니다." />
+
+  <!-- Verification -->
+  <meta name="naver-site-verification" content="56974ddf1dfdcd8288a07e6dfc5c67225853b134" />
+  <meta name="google-site-verification" content="W1GxoxSp41agCeeNMjRAjtEisWBnynQYvN0eF-MSJB8" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* Custom ESG Styling */
+    .esg-grid {
+      max-width: var(--max);
+      margin: 0 auto 100px;
+      padding: 0 48px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+    .esg-card {
+      border: 1px solid var(--BD);
+      border-radius: 4px;
+      padding: 48px 40px;
+      background: var(--W);
+      transition: transform 0.3s var(--ease), border-color 0.3s var(--ease);
+    }
+    .esg-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--C);
+    }
+    .esg-tag {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--Y);
+      background: rgba(255,214,0,0.05);
+      padding: 4px 10px;
+      border-radius: 2px;
+      display: inline-block;
+      margin-bottom: 24px;
+    }
+    .esg-title {
+      font-family: var(--man);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--C);
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+    .esg-desc {
+      font-size: 0.88rem;
+      line-height: 1.8;
+      color: var(--M);
+      margin-bottom: 28px;
+    }
+    .esg-indicator {
+      border-top: 1px solid var(--BD);
+      padding-top: 20px;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--L);
+    }
+    .esg-indicator strong {
+      color: var(--C);
+      font-size: 0.95rem;
+    }
+
+    /* Metric Visualization */
+    .esg-visual-section {
+      padding: 100px 0;
+      background: var(--BG);
+      border-top: 1px solid var(--BD);
+      border-bottom: 1px solid var(--BD);
+    }
+    .esg-visual-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 48px;
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .esg-visual-left h2 {
+      font-family: var(--man);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--C);
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+    .esg-visual-left p {
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: var(--M);
+    }
+    .esg-chart-box {
+      border: 1px solid var(--BD);
+      border-radius: 6px;
+      background: var(--W);
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+    }
+    .esg-bar-group {
+      margin-bottom: 24px;
+    }
+    .esg-bar-group:last-child {
+      margin-bottom: 0;
+    }
+    .esg-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--C);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .esg-bar-bg {
+      height: 8px;
+      background: var(--BG);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .esg-bar-fill {
+      height: 100%;
+      background: var(--C);
+      border-radius: 4px;
+      width: 0;
+      transition: width 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .esg-bar-fill.green { background: #4cd964; }
+    .esg-bar-fill.gold { background: var(--Y); }
+
+    @media (max-width: 960px) {
+      .esg-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 0 24px;
+      }
+      .esg-visual-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 0 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SECURITY AUTH GATEWAY -->
+  <script>
+    if (localStorage.getItem('veltoMember') !== 'true') {
+      alert('로그인이 필요한 프라이빗 멤버십 전용 ESG 경영 페이지입니다.');
+      location.href = 'index.html';
+    }
+  </script>
+
+  <!-- NAV -->
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">VELTO</a>
+      <div class="nav-center mono">HIGH-END STRATEGY PARTNER</div>
+      <nav class="nav-right">
+        <div class="nav-item-dropdown">
+          <a href="story.html" class="nl">About <span class="arrow">↓</span></a>
+          <div class="dropdown-menu">
+            <a href="story.html" class="dm-link">VELTO 스토리</a>
+            <a href="philosophy.html" class="dm-link">기업 이념</a>
+          </div>
+        </div>
+        <a href="track.html" class="nl">Track</a>
+        <a href="b2b.html" class="nl">B2B</a>
+        <div class="nav-item-dropdown">
+          <a href="community.html" class="nl">Community <span class="arrow">↓</span></a>
+          <div class="dropdown-menu">
+            <a href="community.html" class="dm-link">커뮤니티 소개</a>
+            <a href="notice.html" class="dm-link">공지사항</a>
+            <a href="faq.html" class="dm-link">자주하는 질문</a>
+          </div>
+        </div>
+        <a href="index.html#process" class="nl">Process</a>
+      </nav>
+      <button class="burger" id="burger" aria-label="메뉴">
+        <span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-rule"></div>
+  </header>
+
+  <div class="mob-menu" id="mobMenu">
+    <a href="story.html" class="mob-l">About</a>
+    <a href="story.html" class="mob-l mob-sub-l">└ VELTO 스토리</a>
+    <a href="philosophy.html" class="mob-l mob-sub-l">└ 기업 이념</a>
+    <a href="track.html" class="mob-l">Track</a>
+    <a href="b2b.html" class="mob-l">B2B</a>
+    <a href="community.html" class="mob-l">Community</a>
+    <a href="community.html" class="mob-l mob-sub-l">└ 커뮤니티 소개</a>
+    <a href="notice.html" class="mob-l mob-sub-l">└ 공지사항</a>
+    <a href="faq.html" class="mob-l mob-sub-l">└ 자주하는 질문</a>
+    <a href="index.html#process" class="mob-l">Process</a>
+  </div>
+
+  <!-- ESG HERO -->
+  <section class="about-hero">
+    <div class="ab-hero-inner">
+      <p class="section-label mono">[ PRIVATE MEMBER PORTAL // ESG ]</p>
+      <h1 class="ab-hero-h1">구조화된 ESG 전략 매트릭스<br>Structured ESG Strategy Matrix</h1>
+      <p class="ab-hero-lead">
+        벨토가 지향하는 ESG 경영은 단순한 사회 공헌이나 윤리적 선언을 넘어섭니다.<br>
+        성장 지표와 조화를 이루는 냉철한 친환경 공정 설계, 투명한 지배구조가 만드는 리스크 통제 법칙을 선사합니다.
+      </p>
+    </div>
+    <div class="ab-hero-line"></div>
+  </section>
+
+  <!-- ESG Pillars Grid -->
+  <section class="esg-pillars-section">
+    <div class="esg-grid">
+      <!-- Environmental Card -->
+      <div class="esg-card">
+        <span class="esg-tag">ENVIRONMENTAL</span>
+        <h3 class="esg-title">Carbon Reduction Velocity<br><span style="font-size:0.95rem; font-weight:500; color:var(--L);">탄소 배출 저감 속도 지표</span></h3>
+        <p class="esg-desc">
+          스마트 제조 및 물류 프로세스의 불필요한 공정 마찰을 제어하여 물리적 리드타임을 최소화하고, 이를 탄소 저감 효율로 변환합니다. 정량화된 지표 기반의 저감 가속도를 산출합니다.
+        </p>
+        <div class="esg-indicator">
+          TARGET REDUCTION INDEX<br>
+          <strong>Delta 45% (by 2027)</strong>
+        </div>
+      </div>
+
+      <!-- Social Card -->
+      <div class="esg-card">
+        <span class="esg-tag">SOCIAL</span>
+        <h3 class="esg-title">Social Friction Minimizer<br><span style="font-size:0.95rem; font-weight:500; color:var(--L);">사회적 구성원 상생 지표</span></h3>
+        <p class="esg-desc">
+          조직 구성원의 업무 지체를 초래하는 인사 노이즈와 심리적 Friction을 진단 및 제거합니다. 리더와 조직원 간의 불투명한 인지 편차를 복구하고 투명한 복지 체계를 설계합니다.
+        </p>
+        <div class="esg-indicator">
+          ORGANIZATION FRICTION DELTA<br>
+          <strong>Friction ↓ 65% Optimized</strong>
+        </div>
+      </div>
+
+      <!-- Governance Card -->
+      <div class="esg-card">
+        <span class="esg-tag">GOVERNANCE</span>
+        <h3 class="esg-title">Structure & Trust Audit<br><span style="font-size:0.95rem; font-weight:500; color:var(--L);">지배구조 투명성 및 감사 매트릭스</span></h3>
+        <p class="esg-desc">
+          경영진(C-Level)의 의사결정 편향을 예방하고 감사 프로세스를 디지털화합니다. 지배구조 리스크를 원천 차단하고 최고 수준의 투명성과 파트너사 신뢰를 구축합니다.
+        </p>
+        <div class="esg-indicator">
+          COMPLIANCE SCORE INDEX<br>
+          <strong>Audit Grade: AAA Premium</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESG Metric Visualization -->
+  <section class="esg-visual-section">
+    <div class="esg-visual-inner">
+      <div class="esg-visual-left">
+        <p class="section-label mono">[ FACT SHEET & METRICS ]</p>
+        <h2>지속 가능한 성장의 궤적</h2>
+        <p>
+          벨토 컨설팅 고객사들의 통합 ESG 정렬 상태 및 가속화 지표입니다. 숫자로 입증된 무결한 ESG 전환 속도와 사회적 가치의 조화를 확인하십시오.
+        </p>
+      </div>
+
+      <div class="esg-chart-box">
+        <div class="esg-bar-group">
+          <div class="esg-bar-label"><span>Carbon Footprint Reduction Velocity</span><span>88%</span></div>
+          <div class="esg-bar-bg"><div class="esg-bar-fill green" style="width: 88%;"></div></div>
+        </div>
+        <div class="esg-bar-group">
+          <div class="esg-bar-label"><span>Social Alliance & Welfare Integration</span><span>94%</span></div>
+          <div class="esg-bar-bg"><div class="esg-bar-fill gold" style="width: 94%;"></div></div>
+        </div>
+        <div class="esg-bar-group">
+          <div class="esg-bar-label"><span>Governance Compliance Audit Passed</span><span>100%</span></div>
+          <div class="esg-bar-bg"><div class="esg-bar-fill" style="width: 100%;"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="ft-inner">
+      <div class="ft-top">
+        <div>
+          <span class="ft-logo">VELTO</span>
+          <p class="mono ft-sub">Velocity × Alto — 가장 빠른 성장의 궤적</p>
+          <p class="mono ft-addr">서울특별시 영등포구 여의대로 108 파크원타워1</p>
+        </div>
+        <div class="ft-links">
+          <a href="index.html">Home</a>
+          <a href="story.html">Story</a>
+          <a href="philosophy.html">Philosophy</a>
+          <a href="track.html">Track</a>
+          <a href="b2b.html">B2B</a>
+          <a href="community.html">Community</a>
+        </div>
+      </div>
+      <div class="ft-rule"></div>
+      <div class="ft-bottom">
+        <span class="mono">© 2025 VELTO. All rights reserved.</span>
+        <span class="mono ft-tag">HIGH-END STRATEGY PARTNER</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

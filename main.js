@@ -398,6 +398,26 @@
         if (mobPortalBtn) {
           mobPortalBtn.innerHTML = '└ Logout (Active)';
         }
+
+        // Dynamically add ESG link to GNB
+        if (navRight && portalBtn && !document.getElementById('esgNavBtn')) {
+          const esgBtn = document.createElement('a');
+          esgBtn.href = 'esg.html';
+          esgBtn.className = 'nl';
+          esgBtn.id = 'esgNavBtn';
+          esgBtn.innerHTML = 'ESG';
+          navRight.insertBefore(esgBtn, portalBtn);
+        }
+
+        // Dynamically add ESG link to Mobile Menu
+        if (mobMenu && mobPortalBtn && !document.getElementById('mobEsgNavBtn')) {
+          const mobEsgBtn = document.createElement('a');
+          mobEsgBtn.href = 'esg.html';
+          mobEsgBtn.className = 'mob-l';
+          mobEsgBtn.id = 'mobEsgNavBtn';
+          mobEsgBtn.innerHTML = 'ESG 경영';
+          mobMenu.insertBefore(mobEsgBtn, mobPortalBtn);
+        }
       } else {
         if (portalBtn) {
           portalBtn.innerHTML = 'Login';
@@ -406,6 +426,13 @@
         if (mobPortalBtn) {
           mobPortalBtn.innerHTML = 'Login';
         }
+
+        // Remove ESG GNB links if exists
+        const existingEsgBtn = document.getElementById('esgNavBtn');
+        if (existingEsgBtn) existingEsgBtn.remove();
+
+        const existingMobEsgBtn = document.getElementById('mobEsgNavBtn');
+        if (existingMobEsgBtn) existingMobEsgBtn.remove();
       }
     }
 
