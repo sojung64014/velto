@@ -344,19 +344,19 @@
           <div class="login-form-subtitle">벨토 멤버십 고객 전용 프라이빗 포털</div>
           <form id="portalLoginForm">
             <div class="login-fg">
-              <label for="p-email">MEMBER EMAIL</label>
-              <input type="email" id="p-email" placeholder="member@velto.com" required />
+              <label for="p-email">MEMBER ID</label>
+              <input type="text" id="p-email" placeholder="toqn1" required />
             </div>
             <div class="login-fg">
               <label for="p-password">ACCESS PASSWORD</label>
               <input type="password" id="p-password" placeholder="••••••••" required />
             </div>
             <button type="submit" class="login-submit-btn" id="loginSubmitBtn">SECURE SIGN IN</button>
-            <div class="login-error-msg" id="loginErrorMsg">⚠ 이메일 또는 비밀번호가 올바르지 않습니다.</div>
+            <div class="login-error-msg" id="loginErrorMsg">⚠ 아이디 또는 비밀번호가 올바르지 않습니다.</div>
           </form>
           <div class="login-helper-text">
-            [ DEMO ACCOUNT ]<br>
-            Email: member@velto.com | Password: velto
+            [ ACCESS ]<br>
+            ID: toqn1 | Password: toqn1!
           </div>
         </div>
       </div>
@@ -456,7 +456,7 @@
         const email = document.getElementById('p-email').value.trim();
         const pass  = document.getElementById('p-password').value;
 
-        if (email === 'member@velto.com' && pass === 'velto') {
+        if (email === 'toqn1' && pass === 'toqn1!') {
           const submitBtn = document.getElementById('loginSubmitBtn');
           submitBtn.textContent = 'AUTHENTICATING...';
           submitBtn.disabled = true;
