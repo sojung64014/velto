@@ -84,7 +84,8 @@ a { text-decoration: none; color: inherit; }
   border: 1px solid var(--BD);
   border-radius: 4px;
   padding: 8px 0;
-  width: 140px;
+  min-width: 140px;
+  width: max-content;
   box-shadow: 0 8px 24px rgba(0,0,0,0.06);
   opacity: 0;
   pointer-events: none;

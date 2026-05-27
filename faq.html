@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VELTO — FAQ</title>
+  <meta name="description" content="성장 정체 돌파와 마일스톤에 대한 벨토의 냉철한 팩트 답변을 확인하십시오." />
+  <link rel="canonical" href="https://veltosystems.site/faq.html" />
+
+  <!-- Open Graph / Naver / Kakao -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://veltosystems.site/faq.html" />
+  <meta property="og:title" content="VELTO — FAQ" />
+  <meta property="og:description" content="성장 정체 돌파와 마일스톤에 대한 벨토의 냉철한 팩트 답변을 확인하십시오." />
+
+  <!-- Search Engine Ownership Verification Placeholders -->
+  <meta name="naver-site-verification" content="56974ddf1dfdcd8288a07e6dfc5c67225853b134" />
+  <meta name="google-site-verification" content="W1GxoxSp41agCeeNMjRAjtEisWBnynQYvN0eF-MSJB8" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .faq-grid {
+      max-width: var(--max);
+      margin: 0 auto 100px;
+      padding: 0 48px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+    .faq-card {
+      border: 1px solid var(--BD);
+      border-radius: 4px;
+      padding: 40px;
+      background: var(--W);
+      transition: transform 0.3s var(--ease), border-color 0.3s var(--ease);
+    }
+    .faq-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--L);
+    }
+    .faq-q {
+      font-family: var(--man);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--C);
+      line-height: 1.4;
+      margin-bottom: 20px;
+      letter-spacing: -0.015em;
+      display: flex;
+      gap: 12px;
+    }
+    .faq-q .q-mark {
+      color: var(--Y);
+    }
+    .faq-a {
+      font-size: 0.88rem;
+      line-height: 1.8;
+      color: var(--M);
+    }
+    @media (max-width: 960px) {
+      .faq-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">VELTO</a>
+      <div class="nav-center mono">HIGH-END STRATEGY PARTNER</div>
+      <nav class="nav-right">
+        <div class="nav-item-dropdown">
+          <a href="story.html" class="nl">About <span class="arrow">↓</span></a>
+          <div class="dropdown-menu">
+            <a href="story.html" class="dm-link">VELTO 스토리</a>
+            <a href="philosophy.html" class="dm-link">기업 이념</a>
+          </div>
+        </div>
+        <a href="track.html" class="nl">Track</a>
+        <a href="b2b.html" class="nl">B2B</a>
+        <div class="nav-item-dropdown">
+          <a href="community.html" class="nl active-nav">Community <span class="arrow">↓</span></a>
+          <div class="dropdown-menu">
+            <a href="community.html" class="dm-link">커뮤니티 소개</a>
+            <a href="notice.html" class="dm-link">공지사항</a>
+            <a href="faq.html" class="dm-link">자주하는 질문</a>
+          </div>
+        </div>
+        <a href="index.html#process" class="nl">Process</a>
+        <a href="index.html#intake" class="nav-cta" id="navCta">Start ↗</a>
+      </nav>
+      <button class="burger" id="burger" aria-label="메뉴">
+        <span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-rule"></div>
+  </header>
+
+  <div class="mob-menu" id="mobMenu">
+    <a href="story.html" class="mob-l">About</a>
+    <a href="story.html" class="mob-l mob-sub-l">└ VELTO 스토리</a>
+    <a href="philosophy.html" class="mob-l mob-sub-l">└ 기업 이념</a>
+    <a href="track.html" class="mob-l">Track</a>
+    <a href="b2b.html" class="mob-l">B2B</a>
+    <a href="community.html" class="mob-l">Community</a>
+    <a href="community.html" class="mob-l mob-sub-l">└ 커뮤니티 소개</a>
+    <a href="notice.html" class="mob-l mob-sub-l">└ 공지사항</a>
+    <a href="faq.html" class="mob-l mob-sub-l">└ 자주하는 질문</a>
+    <a href="index.html#process" class="mob-l">Process</a>
+    <a href="index.html#intake" class="mob-l mob-cta">Start ↗</a>
+  </div>
+
+  <!-- FAQ HERO -->
+  <section class="about-hero">
+    <div class="ab-hero-inner">
+      <p class="section-label mono">[ FAQ ]</p>
+      <h1 class="ab-hero-h1">자주하는 질문</h1>
+      <p class="ab-hero-lead">
+        벨토의 마인드셋과 얼라이언스 가입 조건, 그리고 엄밀한 비즈니스 마일스톤 설계에 대한 냉철한 팩트 답변입니다.
+      </p>
+    </div>
+    <div class="ab-hero-line"></div>
+  </section>
+
+  <!-- FAQ GRID -->
+  <section class="faq-section">
+    <div class="faq-grid">
+      
+      <!-- Q1 -->
+      <div class="faq-card">
+        <div class="faq-q">
+          <span class="q-mark mono">Q.</span>
+          <span>벨토 얼라이언스(커뮤니티)의 가입 기준은 어떻게 됩니까?</span>
+        </div>
+        <p class="faq-a">
+          연매출 50억 이상의 법인 대표 및 C-레벨 경영진, 혹은 기관 투자를 성공적으로 유치하여 성장의 가속 궤도를 밟고 있는 스타트업 창업가를 대상으로 합니다. 철저한 경영 팩트 심사와 면접을 거쳐 입회가 정식 승인됩니다.
+        </p>
+      </div>
+
+      <!-- Q2 -->
+      <div class="faq-card">
+        <div class="faq-q">
+          <span class="q-mark mono">Q.</span>
+          <span>컨설팅(B2B)과 트랙(Track) 교육 과정의 차이점은 무엇인가요?</span>
+        </div>
+        <p class="faq-a">
+          <strong>트랙 과정</strong>은 리더 개인 및 조직 내부의 인지적 오류와 소통 관계를 구조적으로 교정하여 자생력 있는 고속 성장 마인드셋을 내재화하는 훈련 코스입니다.<br><br>
+          반면 <strong>B2B 컨설팅</strong>은 벨토의 전문 위원들이 직접 기업 내부로 투입되어 재무 병목 해체, 마케팅/영업 파이프라인의 디지털 재구축 등 즉각적인 솔루션을 처방 및 설계하는 직무 대행 성격의 파트너십입니다.
+        </p>
+      </div>
+
+      <!-- Q3 -->
+      <div class="faq-card">
+        <div class="faq-q">
+          <span class="q-mark mono">Q.</span>
+          <span>컨설팅 또는 진단 시 비밀 유지(Confidentiality)는 확실한가요?</span>
+        </div>
+        <p class="faq-a">
+          벨토의 모든 파트너십은 상호 엄격한 법적 NDA(비밀유지계약) 체결 후 시작됩니다. 커뮤니티 세션이나 전략 진단 과정에서 노출되는 회사의 내부 재무 지표와 퍼널 리드 데이터는 별도의 특수 보안 서버에서 관리되며, 외부 유출은 물리적으로 원천 차단됩니다.
+        </p>
+      </div>
+
+      <!-- Q4 -->
+      <div class="faq-card">
+        <div class="faq-q">
+          <span class="q-mark mono">Q.</span>
+          <span>진단이나 파트너십 첫 신청 시 무엇을 준비해야 하나요?</span>
+        </div>
+        <p class="faq-a">
+          벨토는 입에 발린 격려나 추상적인 진단을 완전히 거부합니다(Zero Consolation). 따라서 첫 미팅(Audit)이 잡히면 **현재 비즈니스의 6개월간 실제 재무 제표와 가용 가능한 마케팅/세일즈 전환율 지표(Raw Data)**를 반드시 준비해 주셔야 하며, 이를 바탕으로 냉철하고 오차 없는 궤도 진단을 집행합니다.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="ft-inner">
+      <div class="ft-top">
+        <div>
+          <span class="ft-logo">VELTO</span>
+          <p class="mono ft-sub">Velocity × Alto — 가장 빠른 성장의 궤적</p>
+          <p class="mono ft-addr">서울특별시 영등포구 여의대로 108 파크원타워1</p>
+        </div>
+        <div class="ft-links">
+          <a href="index.html">Home</a>
+          <a href="story.html">Story</a>
+          <a href="philosophy.html">Philosophy</a>
+          <a href="track.html">Track</a>
+          <a href="b2b.html">B2B</a>
+          <a href="community.html">Community</a>
+          <a href="index.html#intake">Start</a>
+        </div>
+      </div>
+      <div class="ft-rule"></div>
+      <div class="ft-bottom">
+        <span class="mono">© 2025 VELTO. All rights reserved.</span>
+        <span class="mono ft-tag">HIGH-END STRATEGY PARTNER</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
