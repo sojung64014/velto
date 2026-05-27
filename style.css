@@ -1209,3 +1209,165 @@ a { text-decoration: none; color: inherit; }
   .hero-actions { flex-direction: column; align-items: flex-start; }
   .prc-top { flex-direction: column; align-items: flex-start; }
 }
+
+/* ─── PREMIUM LOGIN MODAL & AUTH STATES ─── */
+.login-modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(17, 18, 18, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.login-modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.login-modal-card {
+  background: #ffffff;
+  border: 1px solid var(--BD);
+  border-radius: 6px;
+  width: 100%;
+  max-width: 420px;
+  padding: 48px 40px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.12);
+  transform: translateY(20px);
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.login-modal-overlay.open .login-modal-card {
+  transform: translateY(0);
+}
+.login-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+}
+.login-modal-logo {
+  font-family: var(--man);
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: -0.03em;
+  color: var(--C);
+}
+.login-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--L);
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+.login-modal-close:hover {
+  color: var(--C);
+}
+.login-form-title {
+  font-family: var(--man);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--C);
+  margin-bottom: 8px;
+}
+.login-form-subtitle {
+  font-size: 0.8rem;
+  color: var(--L);
+  margin-bottom: 28px;
+}
+.login-fg {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.login-fg label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--C);
+  letter-spacing: 0.05em;
+}
+.login-fg input {
+  height: 48px;
+  border: 1px solid var(--BD);
+  border-radius: 4px;
+  padding: 0 16px;
+  font-size: 0.88rem;
+  font-family: inherit;
+  transition: border-color 0.25s var(--ease);
+}
+.login-fg input:focus {
+  outline: none;
+  border-color: var(--C);
+}
+.login-submit-btn {
+  width: 100%;
+  height: 50px;
+  background: var(--C);
+  color: var(--W);
+  border: none;
+  border-radius: 4px;
+  font-family: var(--man);
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: background-color 0.25s var(--ease);
+  margin-top: 12px;
+}
+.login-submit-btn:hover {
+  background: #333333;
+}
+.login-error-msg {
+  color: #ff3b30;
+  font-size: 0.78rem;
+  margin-top: 12px;
+  display: none;
+  text-align: center;
+}
+.login-helper-text {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--L);
+  text-align: center;
+  margin-top: 24px;
+}
+
+/* Nav Item Styling for Member Portal Status */
+.nl-portal {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--M);
+  cursor: pointer;
+  transition: color 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nl-portal:hover {
+  color: var(--Y);
+}
+.portal-dot {
+  width: 6px;
+  height: 6px;
+  background: #4cd964;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px #4cd964;
+}
+
+.mob-portal-l {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+

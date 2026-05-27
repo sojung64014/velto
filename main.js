@@ -330,4 +330,154 @@
     }, 250);
   };
 
+  /* ── DYNAMIC PREMIUM LOGIN SYSTEM ── */
+  (function initPortalAuth() {
+    // 1. Inject Login Modal HTML dynamically
+    const modalHtml = `
+      <div class="login-modal-overlay" id="loginModal">
+        <div class="login-modal-card">
+          <div class="login-modal-header">
+            <span class="login-modal-logo">VELTO</span>
+            <button class="login-modal-close" id="closeLogin">&times;</button>
+          </div>
+          <div class="login-form-title">MEMBER PORTAL LOGIN</div>
+          <div class="login-form-subtitle">벨토 멤버십 고객 전용 프라이빗 포털</div>
+          <form id="portalLoginForm">
+            <div class="login-fg">
+              <label for="p-email">MEMBER EMAIL</label>
+              <input type="email" id="p-email" placeholder="member@velto.com" required />
+            </div>
+            <div class="login-fg">
+              <label for="p-password">ACCESS PASSWORD</label>
+              <input type="password" id="p-password" placeholder="••••••••" required />
+            </div>
+            <button type="submit" class="login-submit-btn" id="loginSubmitBtn">SECURE SIGN IN</button>
+            <div class="login-error-msg" id="loginErrorMsg">⚠ 이메일 또는 비밀번호가 올바르지 않습니다.</div>
+          </form>
+          <div class="login-helper-text">
+            [ DEMO ACCOUNT ]<br>
+            Email: member@velto.com | Password: velto
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+    const loginModal = document.getElementById('loginModal');
+    const closeLogin = document.getElementById('closeLogin');
+    const loginForm  = document.getElementById('portalLoginForm');
+    const errorMsg   = document.getElementById('loginErrorMsg');
+
+    // 2. Add Login buttons dynamically to GNB and Mobile menu
+    const navRight = document.querySelector('.nav-right');
+    const navCta   = document.getElementById('navCta');
+    if (navRight && navCta) {
+      const loginBtn = document.createElement('a');
+      loginBtn.href = '#';
+      loginBtn.className = 'nl nl-portal';
+      loginBtn.id = 'portalBtn';
+      loginBtn.innerHTML = 'Login';
+      navRight.insertBefore(loginBtn, navCta);
+    }
+
+    const mobMenu = document.getElementById('mobMenu');
+    const mobCta  = document.querySelector('.mob-cta');
+    if (mobMenu && mobCta) {
+      const mobLoginBtn = document.createElement('a');
+      mobLoginBtn.href = '#';
+      mobLoginBtn.className = 'mob-l mob-portal-l';
+      mobLoginBtn.id = 'mobPortalBtn';
+      mobLoginBtn.innerHTML = 'Login';
+      mobMenu.insertBefore(mobLoginBtn, mobCta);
+    }
+
+    const portalBtn    = document.getElementById('portalBtn');
+    const mobPortalBtn = document.getElementById('mobPortalBtn');
+
+    function updateAuthState() {
+      const isLogged = localStorage.getItem('veltoMember') === 'true';
+      if (isLogged) {
+        if (portalBtn) {
+          portalBtn.innerHTML = '<span class="portal-dot"></span> Active';
+          portalBtn.title = '클릭 시 로그아웃';
+        }
+        if (mobPortalBtn) {
+          mobPortalBtn.innerHTML = '└ Logout (Active)';
+        }
+      } else {
+        if (portalBtn) {
+          portalBtn.innerHTML = 'Login';
+          portalBtn.title = '';
+        }
+        if (mobPortalBtn) {
+          mobPortalBtn.innerHTML = 'Login';
+        }
+      }
+    }
+
+    function handlePortalClick(e) {
+      e.preventDefault();
+      const isLogged = localStorage.getItem('veltoMember') === 'true';
+      if (isLogged) {
+        if (confirm('로그아웃 하시겠습니까?')) {
+          localStorage.removeItem('veltoMember');
+          updateAuthState();
+          alert('로그아웃 되었습니다.');
+          location.reload();
+        }
+      } else {
+        loginModal.classList.add('open');
+      }
+    }
+
+    if (portalBtn) portalBtn.addEventListener('click', handlePortalClick);
+    if (mobPortalBtn) mobPortalBtn.addEventListener('click', handlePortalClick);
+
+    if (closeLogin) {
+      closeLogin.addEventListener('click', () => {
+        loginModal.classList.remove('open');
+        errorMsg.style.display = 'none';
+      });
+    }
+
+    // Close when overlay is clicked
+    if (loginModal) {
+      loginModal.addEventListener('click', (e) => {
+        if (e.target === loginModal) {
+          loginModal.classList.remove('open');
+          errorMsg.style.display = 'none';
+        }
+      });
+    }
+
+    if (loginForm) {
+      loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = document.getElementById('p-email').value.trim();
+        const pass  = document.getElementById('p-password').value;
+
+        if (email === 'member@velto.com' && pass === 'velto') {
+          const submitBtn = document.getElementById('loginSubmitBtn');
+          submitBtn.textContent = 'AUTHENTICATING...';
+          submitBtn.disabled = true;
+          errorMsg.style.display = 'none';
+
+          setTimeout(() => {
+            localStorage.setItem('veltoMember', 'true');
+            updateAuthState();
+            loginModal.classList.remove('open');
+            submitBtn.textContent = 'SECURE SIGN IN';
+            submitBtn.disabled = false;
+            alert('로그인에 성공했습니다. 벨토 프라이빗 멤버십 포털이 활성화되었습니다.');
+          }, 1000);
+        } else {
+          errorMsg.style.display = 'block';
+        }
+      });
+    }
+
+    // Initial check
+    updateAuthState();
+  })();
+
 })();
