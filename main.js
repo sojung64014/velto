@@ -345,19 +345,15 @@
           <form id="portalLoginForm">
             <div class="login-fg">
               <label for="p-email">MEMBER ID</label>
-              <input type="text" id="p-email" placeholder="toqn1" required />
+              <input type="text" id="p-email" placeholder="" required />
             </div>
             <div class="login-fg">
               <label for="p-password">ACCESS PASSWORD</label>
-              <input type="password" id="p-password" placeholder="••••••••" required />
+              <input type="password" id="p-password" placeholder="" required />
             </div>
             <button type="submit" class="login-submit-btn" id="loginSubmitBtn">SECURE SIGN IN</button>
             <div class="login-error-msg" id="loginErrorMsg">⚠ 아이디 또는 비밀번호가 올바르지 않습니다.</div>
           </form>
-          <div class="login-helper-text">
-            [ ACCESS ]<br>
-            ID: toqn1 | Password: toqn1!
-          </div>
         </div>
       </div>
     `;
@@ -370,25 +366,23 @@
 
     // 2. Add Login buttons dynamically to GNB and Mobile menu
     const navRight = document.querySelector('.nav-right');
-    const navCta   = document.getElementById('navCta');
-    if (navRight && navCta) {
+    if (navRight) {
       const loginBtn = document.createElement('a');
       loginBtn.href = '#';
       loginBtn.className = 'nl nl-portal';
       loginBtn.id = 'portalBtn';
       loginBtn.innerHTML = 'Login';
-      navRight.insertBefore(loginBtn, navCta);
+      navRight.appendChild(loginBtn);
     }
 
     const mobMenu = document.getElementById('mobMenu');
-    const mobCta  = document.querySelector('.mob-cta');
-    if (mobMenu && mobCta) {
+    if (mobMenu) {
       const mobLoginBtn = document.createElement('a');
       mobLoginBtn.href = '#';
       mobLoginBtn.className = 'mob-l mob-portal-l';
       mobLoginBtn.id = 'mobPortalBtn';
       mobLoginBtn.innerHTML = 'Login';
-      mobMenu.insertBefore(mobLoginBtn, mobCta);
+      mobMenu.appendChild(mobLoginBtn);
     }
 
     const portalBtn    = document.getElementById('portalBtn');
