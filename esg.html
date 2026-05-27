@@ -148,19 +148,149 @@
     .esg-bar-fill.green { background: #4cd964; }
     .esg-bar-fill.gold { background: var(--Y); }
 
-    @media (max-width: 960px) {
-      .esg-grid, .esg-track-grid {
-        grid-template-columns: 1fr !important;
-        gap: 24px !important;
-        padding: 0 24px !important;
-      }
-      .esg-visual-inner {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        padding: 0 24px;
-      }
-    }
-  </style>
+     /* Track Apply Button styles */
+     .esg-track-apply-btn {
+       margin-top: 24px;
+       width: 100%;
+       border: 1px solid var(--C);
+       background: transparent;
+       color: var(--C);
+       padding: 12px;
+       font-family: var(--man);
+       font-size: 0.82rem;
+       font-weight: 700;
+       cursor: pointer;
+       transition: background 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease);
+     }
+     .esg-track-apply-btn:hover {
+       background: var(--C);
+       color: var(--W);
+     }
+
+     /* Private Apply Modal Overlay */
+     .private-modal-overlay {
+       position: fixed;
+       top: 0; left: 0; right: 0; bottom: 0;
+       background: rgba(0,0,0,0.6);
+       backdrop-filter: blur(10px);
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       z-index: 10000;
+       opacity: 0;
+       pointer-events: none;
+       transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+     }
+     .private-modal-overlay.open {
+       opacity: 1;
+       pointer-events: auto;
+     }
+     .private-modal-card {
+       width: 480px;
+       max-width: 90%;
+       background: var(--W);
+       border: 1px solid var(--BD);
+       border-radius: 4px;
+       padding: 48px 40px;
+       position: relative;
+       transform: scale(0.95) translateY(10px);
+       transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+     }
+     .private-modal-overlay.open .private-modal-card {
+       transform: scale(1) translateY(0);
+     }
+     .private-modal-header {
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+       margin-bottom: 24px;
+     }
+     .private-modal-logo {
+       font-family: var(--man);
+       font-size: 1.1rem;
+       font-weight: 800;
+       letter-spacing: -0.02em;
+     }
+     .private-modal-close {
+       border: none; background: transparent;
+       font-size: 1.5rem; cursor: pointer; color: var(--M);
+       transition: color 0.2s var(--ease);
+     }
+     .private-modal-close:hover { color: var(--C); }
+     
+     .private-form-title {
+       font-family: var(--man);
+       font-size: 1.4rem;
+       font-weight: 800;
+       color: var(--C);
+       margin-bottom: 8px;
+       letter-spacing: -0.02em;
+     }
+     .private-form-subtitle {
+       font-size: 0.82rem;
+       color: var(--M);
+       margin-bottom: 32px;
+       line-height: 1.5;
+     }
+     .private-fg {
+       margin-bottom: 20px;
+     }
+     .private-fg label {
+       display: block;
+       font-family: var(--mono);
+       font-size: 0.65rem;
+       font-weight: 700;
+       color: var(--L);
+       margin-bottom: 8px;
+       letter-spacing: 0.05em;
+     }
+     .private-fg input, .private-fg select, .private-fg textarea {
+       width: 100%;
+       border: 1px solid var(--BD);
+       border-radius: 2px;
+       padding: 12px;
+       font-size: 0.88rem;
+       font-family: inherit;
+       background: var(--BG);
+       color: var(--C);
+       transition: border-color 0.2s var(--ease);
+     }
+     .private-fg input:focus, .private-fg select:focus, .private-fg textarea:focus {
+       outline: none;
+       border-color: var(--C);
+       background: var(--W);
+     }
+     .private-submit-btn {
+       width: 100%;
+       background: var(--C);
+       color: var(--W);
+       border: 1px solid var(--C);
+       padding: 16px;
+       font-family: var(--man);
+       font-size: 0.88rem;
+       font-weight: 800;
+       cursor: pointer;
+       letter-spacing: 0.05em;
+       margin-top: 10px;
+       transition: opacity 0.3s var(--ease);
+     }
+     .private-submit-btn:hover {
+       opacity: 0.9;
+     }
+
+     @media (max-width: 960px) {
+       .esg-grid, .esg-track-grid {
+         grid-template-columns: 1fr !important;
+         gap: 24px !important;
+         padding: 0 24px !important;
+       }
+       .esg-visual-inner {
+         grid-template-columns: 1fr;
+         gap: 40px;
+         padding: 0 24px;
+       }
+     }
+   </style>
 </head>
 <body>
 
@@ -288,45 +418,54 @@
 
       <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px;" class="esg-track-grid">
         <!-- Environmental Integration -->
-        <div style="border: 1px solid var(--BD); padding: 40px; background: var(--BG); border-radius: 4px;">
-          <div style="font-family: var(--mono); font-size: 0.65rem; color: var(--L); margin-bottom: 20px;">[ TRACK 01 × ENVIRONMENTAL ]</div>
-          <h4 style="font-family: var(--man); font-size: 1.15rem; font-weight: 800; color: var(--C); margin-bottom: 16px;">
-            Process Optimization Track
-          </h4>
-          <p style="font-size: 0.85rem; line-height: 1.7; color: var(--M); margin-bottom: 20px;">
-            물류 및 공급망 공정의 낭비를 제거하고 연쇄 지연을 통제하여 <strong>최적 가속도(Optimal Velocity)</strong>를 확보합니다. 공정 단계의 군더더기를 도려내는 가속화 트랙이 곧바로 에너지 소비 및 탄소 발자국 45% 저감 지표와 일치됩니다.
-          </p>
-          <div style="font-size: 0.72rem; font-family: var(--mono); color: var(--C);">
-            🎯 탄소 저감 연동율: <strong>92.4% Direct Sync</strong>
+        <div style="border: 1px solid var(--BD); padding: 40px; background: var(--BG); border-radius: 4px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="font-family: var(--mono); font-size: 0.65rem; color: var(--L); margin-bottom: 20px;">[ TRACK 01 × ENVIRONMENTAL ]</div>
+            <h4 style="font-family: var(--man); font-size: 1.15rem; font-weight: 800; color: var(--C); margin-bottom: 16px;">
+              Process Optimization Track
+            </h4>
+            <p style="font-size: 0.85rem; line-height: 1.7; color: var(--M); margin-bottom: 20px;">
+              물류 및 공급망 공정의 낭비를 제거하고 연쇄 지연을 통제하여 <strong>최적 가속도(Optimal Velocity)</strong>를 확보합니다. 공정 단계의 군더더기를 도려내는 가속화 트랙이 곧바로 에너지 소비 및 탄소 발자국 45% 저감 지표와 일치됩니다.
+            </p>
+            <div style="font-size: 0.72rem; font-family: var(--mono); color: var(--C); margin-bottom: 20px;">
+              🎯 탄소 저감 연동율: <strong>92.4% Direct Sync</strong>
+            </div>
           </div>
+          <button class="esg-track-apply-btn" data-track="process">TRACK 01 신청하기 ↗</button>
         </div>
 
         <!-- Social Integration -->
-        <div style="border: 1px solid var(--BD); padding: 40px; background: var(--BG); border-radius: 4px;">
-          <div style="font-family: var(--mono); font-size: 0.65rem; color: var(--L); margin-bottom: 20px;">[ TRACK 02 × SOCIAL ]</div>
-          <h4 style="font-family: var(--man); font-size: 1.15rem; font-weight: 800; color: var(--C); margin-bottom: 16px;">
-            Friction Alignment Track
-          </h4>
-          <p style="font-size: 0.85rem; line-height: 1.7; color: var(--M); margin-bottom: 20px;">
-            조직 내부 구성원들의 소통 왜곡과 심리 마찰(Noise Nodes)을 구조적으로 진단·교정하는 리더십 훈련 트랙입니다. 리더의 마인드셋 교정으로 핵심 인재 이탈을 40% 이상 감소시키며, 지속 가능하고 안전한 사회적 근로 환경(S)을 직접 설계합니다.
-          </p>
-          <div style="font-size: 0.72rem; font-family: var(--mono); color: var(--C);">
-            🎯 임직원 신뢰도 증대율: <strong>Friction ↓ 65% Optimized</strong>
+        <div style="border: 1px solid var(--BD); padding: 40px; background: var(--BG); border-radius: 4px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="font-family: var(--mono); font-size: 0.65rem; color: var(--L); margin-bottom: 20px;">[ TRACK 02 × SOCIAL ]</div>
+            <h4 style="font-family: var(--man); font-size: 1.15rem; font-weight: 800; color: var(--C); margin-bottom: 16px;">
+              Friction Alignment Track
+            </h4>
+            <p style="font-size: 0.85rem; line-height: 1.7; color: var(--M); margin-bottom: 20px;">
+              조직 내부 구성원들의 소통 왜곡과 심리 마찰(Noise Nodes)을 구조적으로 진단·교정하는 리더십 훈련 트랙입니다. 리더의 마인드셋 교정으로 핵심 인재 이탈을 40% 이상 감소시키며, 지속 가능하고 안전한 사회적 근로 환경(S)을 직접 설계합니다.
+            </p>
+            <div style="font-size: 0.72rem; font-family: var(--mono); color: var(--C); margin-bottom: 20px;">
+              🎯 임직원 신뢰도 증대율: <strong>Friction ↓ 65% Optimized</strong>
+            </div>
           </div>
+          <button class="esg-track-apply-btn" data-track="friction">TRACK 02 신청하기 ↗</button>
         </div>
 
         <!-- Governance Integration -->
-        <div style="border: 1px solid var(--BD); padding: 40px; background: var(--BG); border-radius: 4px;">
-          <div style="font-family: var(--mono); font-size: 0.65rem; color: var(--L); margin-bottom: 20px;">[ TRACK 03 × GOVERNANCE ]</div>
-          <h4 style="font-family: var(--man); font-size: 1.15rem; font-weight: 800; color: var(--C); margin-bottom: 16px;">
-            Strategic Decision-Making Track
-          </h4>
-          <p style="font-size: 0.85rem; line-height: 1.7; color: var(--M); margin-bottom: 20px;">
-            이사회 및 C-레벨 결정 과정에서 발생하는 휴리스틱 오류와 인지 편향(Cognitive Bias)을 데이터 기반 진단 모델로 통제합니다. 독단적 경영 리스크를 방지하여 지배구조의 신뢰성과 투명성(G)을 이뤄냅니다.
-          </p>
-          <div style="font-size: 0.72rem; font-family: var(--mono); color: var(--C);">
-            🎯 투명 통제 의사결정률: <strong>AAA Premium Audited</strong>
+        <div style="border: 1px solid var(--BD); padding: 40px; background: var(--BG); border-radius: 4px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="font-family: var(--mono); font-size: 0.65rem; color: var(--L); margin-bottom: 20px;">[ TRACK 03 × GOVERNANCE ]</div>
+            <h4 style="font-family: var(--man); font-size: 1.15rem; font-weight: 800; color: var(--C); margin-bottom: 16px;">
+              Strategic Decision-Making Track
+            </h4>
+            <p style="font-size: 0.85rem; line-height: 1.7; color: var(--M); margin-bottom: 20px;">
+              이사회 및 C-레벨 결정 과정에서 발생하는 휴리스틱 오류와 인지 편향(Cognitive Bias)을 데이터 기반 진단 모델로 통제합니다. 독단적 경영 리스크를 방지하여 지배구조의 신뢰성과 투명성(G)을 이뤄냅니다.
+            </p>
+            <div style="font-size: 0.72rem; font-family: var(--mono); color: var(--C); margin-bottom: 20px;">
+              🎯 투명 통제 의사결정률: <strong>AAA Premium Audited</strong>
+            </div>
           </div>
+          <button class="esg-track-apply-btn" data-track="governance">TRACK 03 신청하기 ↗</button>
         </div>
       </div>
     </div>
@@ -386,6 +525,91 @@
     </div>
   </footer>
 
+  <!-- PRIVATE TRACK APPLICATION MODAL -->
+  <div class="private-modal-overlay" id="privateApplyModal">
+    <div class="private-modal-card">
+      <div class="private-modal-header">
+        <span class="private-modal-logo">VELTO</span>
+        <button class="private-modal-close" id="closePrivateApply">&times;</button>
+      </div>
+      <div class="private-form-title">PRIVATE TRACK PATHWAY</div>
+      <div class="private-form-subtitle">멤버십 전용 고속 성장 트랙 교육과정 신청</div>
+      <form id="privateApplyForm">
+        <div class="private-fg">
+          <label for="pa-track">SELECTED TRAJECTORY COURSE</label>
+          <select id="pa-track" required>
+            <option value="process">Track 01 — Process Optimization (E)</option>
+            <option value="friction">Track 02 — Friction Alignment (S)</option>
+            <option value="governance">Track 03 — Strategic Decision-Making (G)</option>
+          </select>
+        </div>
+        <div class="private-fg">
+          <label for="pa-member-id">ACTIVE MEMBER ID</label>
+          <input type="text" id="pa-member-id" value="toqn1" readonly required />
+        </div>
+        <div class="private-fg">
+          <label for="pa-bottleneck">CURRENT BUSINESS BOTTLENECK</label>
+          <textarea id="pa-bottleneck" rows="3" placeholder="현재 직면한 비즈니스의 최대 저해 요소를 팩트 중심 기술" required></textarea>
+        </div>
+        <div class="private-fg">
+          <label for="pa-target">GOAL FOR TARGET INDEX</label>
+          <textarea id="pa-target" rows="2" placeholder="도달하고자 하는 정량적 정점(Alto) 목표 지표 기술" required></textarea>
+        </div>
+        <button type="submit" class="private-submit-btn" id="paSubmitBtn">SUBMIT APPLICATION</button>
+      </form>
+    </div>
+  </div>
+
   <script src="main.js"></script>
+  <script>
+    (function initPrivateApplication() {
+      const modal = document.getElementById('privateApplyModal');
+      const closeBtn = document.getElementById('closePrivateApply');
+      const form = document.getElementById('privateApplyForm');
+      const trackSelect = document.getElementById('pa-track');
+      const submitBtn = document.getElementById('paSubmitBtn');
+      const buttons = document.querySelectorAll('.esg-track-apply-btn');
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const selectedTrack = btn.getAttribute('data-track');
+          if (selectedTrack) {
+            trackSelect.value = selectedTrack;
+          }
+          modal.classList.add('open');
+        });
+      });
+
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          modal.classList.remove('open');
+        });
+      }
+
+      if (modal) {
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            modal.classList.remove('open');
+          }
+        });
+      }
+
+      if (form) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          submitBtn.textContent = 'REGISTERING COURSE...';
+          submitBtn.disabled = true;
+
+          setTimeout(() => {
+            alert('프라이빗 트랙 입과 신청이 성공적으로 접수되었습니다. 담당 위원진이 24시간 이내로 연락을 드리겠습니다.');
+            form.reset();
+            submitBtn.textContent = 'SUBMIT APPLICATION';
+            submitBtn.disabled = false;
+            modal.classList.remove('open');
+          }, 1500);
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
