@@ -149,10 +149,10 @@
     .esg-bar-fill.gold { background: var(--Y); }
 
     @media (max-width: 960px) {
-      .esg-grid {
-        grid-template-columns: 1fr;
-        gap: 24px;
-        padding: 0 24px;
+      .esg-grid, .esg-track-grid {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+        padding: 0 24px !important;
       }
       .esg-visual-inner {
         grid-template-columns: 1fr;
@@ -269,6 +269,64 @@
         <div class="esg-indicator">
           COMPLIANCE SCORE INDEX<br>
           <strong>Audit Grade: AAA Premium</strong>
+        </div>
+      </div>
+    </div>
+  <!-- ESG x TRACK INTEGRATION MATRIX -->
+  <section class="esg-track-section" style="padding: 100px 0; border-top: 1px solid var(--BD);">
+    <div style="max-width: var(--max); margin: 0 auto; padding: 0 48px;">
+      <div style="margin-bottom: 60px;">
+        <p class="section-label mono">[ ESG × VELTO TRACK INTEGRATION ]</p>
+        <h2 style="font-family: var(--man); font-size: 2.2rem; font-weight: 800; color: var(--C); letter-spacing: -0.02em; margin-top: 10px;">
+          트랙 프로그램과 결합된 실질적 ESG 실행 매트릭스
+        </h2>
+        <p style="font-size: 0.95rem; line-height: 1.8; color: var(--M); max-width: 720px; margin-top: 16px;">
+          벨토의 ESG 경영은 허공에 떠도는 도덕적 구호나 불투명한 기부 활동을 단호히 배제합니다. 
+          우리는 리더의 마인드셋을 바꾸고 조직의 비효율 병목을 해제하는 <strong>벨토의 3대 독점적 트랙 프로그램</strong>과 결합하여, 실제 비즈니스 가용성 속에서 실질적인 ESG 가치를 강제 동기화합니다.
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px;" class="esg-track-grid">
+        <!-- Environmental Integration -->
+        <div style="border: 1px solid var(--BD); padding: 40px; background: var(--BG); border-radius: 4px;">
+          <div style="font-family: var(--mono); font-size: 0.65rem; color: var(--L); margin-bottom: 20px;">[ TRACK 01 × ENVIRONMENTAL ]</div>
+          <h4 style="font-family: var(--man); font-size: 1.15rem; font-weight: 800; color: var(--C); margin-bottom: 16px;">
+            Process Optimization Track
+          </h4>
+          <p style="font-size: 0.85rem; line-height: 1.7; color: var(--M); margin-bottom: 20px;">
+            물류 및 공급망 공정의 낭비를 제거하고 연쇄 지연을 통제하여 <strong>최적 가속도(Optimal Velocity)</strong>를 확보합니다. 공정 단계의 군더더기를 도려내는 가속화 트랙이 곧바로 에너지 소비 및 탄소 발자국 45% 저감 지표와 일치됩니다.
+          </p>
+          <div style="font-size: 0.72rem; font-family: var(--mono); color: var(--C);">
+            🎯 탄소 저감 연동율: <strong>92.4% Direct Sync</strong>
+          </div>
+        </div>
+
+        <!-- Social Integration -->
+        <div style="border: 1px solid var(--BD); padding: 40px; background: var(--BG); border-radius: 4px;">
+          <div style="font-family: var(--mono); font-size: 0.65rem; color: var(--L); margin-bottom: 20px;">[ TRACK 02 × SOCIAL ]</div>
+          <h4 style="font-family: var(--man); font-size: 1.15rem; font-weight: 800; color: var(--C); margin-bottom: 16px;">
+            Friction Alignment Track
+          </h4>
+          <p style="font-size: 0.85rem; line-height: 1.7; color: var(--M); margin-bottom: 20px;">
+            조직 내부 구성원들의 소통 왜곡과 심리 마찰(Noise Nodes)을 구조적으로 진단·교정하는 리더십 훈련 트랙입니다. 리더의 마인드셋 교정으로 핵심 인재 이탈을 40% 이상 감소시키며, 지속 가능하고 안전한 사회적 근로 환경(S)을 직접 설계합니다.
+          </p>
+          <div style="font-size: 0.72rem; font-family: var(--mono); color: var(--C);">
+            🎯 임직원 신뢰도 증대율: <strong>Friction ↓ 65% Optimized</strong>
+          </div>
+        </div>
+
+        <!-- Governance Integration -->
+        <div style="border: 1px solid var(--BD); padding: 40px; background: var(--BG); border-radius: 4px;">
+          <div style="font-family: var(--mono); font-size: 0.65rem; color: var(--L); margin-bottom: 20px;">[ TRACK 03 × GOVERNANCE ]</div>
+          <h4 style="font-family: var(--man); font-size: 1.15rem; font-weight: 800; color: var(--C); margin-bottom: 16px;">
+            Strategic Decision-Making Track
+          </h4>
+          <p style="font-size: 0.85rem; line-height: 1.7; color: var(--M); margin-bottom: 20px;">
+            이사회 및 C-레벨 결정 과정에서 발생하는 휴리스틱 오류와 인지 편향(Cognitive Bias)을 데이터 기반 진단 모델로 통제합니다. 독단적 경영 리스크를 방지하여 지배구조의 신뢰성과 투명성(G)을 이뤄냅니다.
+          </p>
+          <div style="font-size: 0.72rem; font-family: var(--mono); color: var(--C);">
+            🎯 투명 통제 의사결정률: <strong>AAA Premium Audited</strong>
+          </div>
         </div>
       </div>
     </div>
