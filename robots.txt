@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /esg.html
+Disallow: /status.html
 
 Sitemap: https://veltosystems.site/sitemap.xml
