@@ -569,6 +569,63 @@
          padding: 0 24px;
        }
      }
+    /* ── Redesigned Form Styles ── */
+    .pf-header { padding: 28px 28px 20px; border-bottom: 1px solid #e5e7eb; }
+    .pf-header-top { display: flex; justify-content: space-between; align-items: flex-start; }
+    .pf-title { font-size: 1.4rem; font-weight: 800; color: #111; margin-bottom: 6px; letter-spacing: -0.03em; }
+    .pf-subtitle { font-size: 0.82rem; color: #888; line-height: 1.5; }
+    .pf-close { border: none; background: none; font-size: 1.5rem; cursor: pointer; color: #999; line-height: 1; padding: 0; }
+    .pf-close:hover { color: #111; }
+    .pf-body { padding: 24px 28px 32px; }
+    .pf-section-box { background: #f8f9fa; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+    .pf-section-label { font-size: 0.88rem; font-weight: 700; color: #111; margin-bottom: 16px; }
+    .pf-label { font-size: 0.82rem; font-weight: 700; color: #111; margin-bottom: 6px; display: block; }
+    .pf-hint { font-size: 0.78rem; color: #888; margin-bottom: 10px; }
+    .pf-field { margin-bottom: 20px; }
+    .pf-row { display: flex; gap: 14px; margin-bottom: 20px; }
+    .pf-row .pf-field { flex: 1; margin-bottom: 0; }
+    .pf-input { width: 100%; border: 1.5px solid #e5e7eb; border-radius: 10px; padding: 13px 14px; font-size: 0.88rem; background: #fff; color: #111; font-family: inherit; transition: border-color 0.2s; box-sizing: border-box; }
+    .pf-input:focus { outline: none; border-color: #2563eb; }
+    .pf-select { width: 100%; border: 1.5px solid #e5e7eb; border-radius: 10px; padding: 13px 14px; font-size: 0.88rem; background: #fff; color: #111; font-family: inherit; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath fill='%23999' d='M1 1l5 5 5-5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; cursor: pointer; box-sizing: border-box; }
+    .pf-select:focus { outline: none; border-color: #2563eb; }
+    .pf-btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .pf-btn-row { display: flex; gap: 10px; }
+    .pf-btn-row.three { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+    .pf-choice-btn { border: 1.5px solid #e5e7eb; border-radius: 10px; padding: 13px 10px; font-size: 0.88rem; font-weight: 500; background: #fff; color: #333; cursor: pointer; transition: all 0.15s; font-family: inherit; width: 100%; }
+    .pf-choice-btn:hover { border-color: #2563eb; color: #2563eb; }
+    .pf-choice-btn.active { border-color: #2563eb; background: #2563eb; color: #fff; font-weight: 700; }
+    .pf-meds-box { background: #fffbeb; border-radius: 8px; padding: 14px 16px; margin-bottom: 12px; }
+    .pf-meds-text { font-size: 0.85rem; font-weight: 600; color: #111; line-height: 1.6; margin-bottom: 6px; }
+    .pf-meds-notice { font-size: 0.75rem; color: #e55; }
+    .pf-calendar { border: 1.5px solid #e5e7eb; border-radius: 12px; padding: 16px; margin-bottom: 10px; }
+    .pf-cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .pf-cal-nav { border: none; background: none; font-size: 1rem; cursor: pointer; color: #555; padding: 4px 10px; border-radius: 6px; }
+    .pf-cal-nav:hover { background: #f0f0f0; }
+    .pf-cal-month { font-size: 1rem; font-weight: 700; color: #111; }
+    .pf-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+    .pf-cal-day-name { text-align: center; font-size: 0.72rem; color: #aaa; padding: 4px 0; font-weight: 600; }
+    .pf-cal-day { text-align: center; padding: 8px 0; font-size: 0.85rem; border-radius: 8px; cursor: pointer; color: #333; transition: all 0.15s; }
+    .pf-cal-day:hover:not(.empty):not(.past) { background: #eff6ff; color: #2563eb; }
+    .pf-cal-day.selected { background: #2563eb; color: #fff; font-weight: 700; }
+    .pf-cal-day.past { color: #ccc; cursor: default; }
+    .pf-cal-day.empty { cursor: default; }
+    .pf-time-select { width: 100%; border: 1.5px solid #e5e7eb; border-radius: 10px; padding: 12px 14px; font-size: 0.88rem; background: #fff; font-family: inherit; margin-bottom: 10px; box-sizing: border-box; }
+    .pf-referral-row { display: flex; gap: 8px; }
+    .pf-referral-row .pf-input { flex: 1; }
+    .pf-referral-btn { background: #2563eb; color: #fff; border: none; border-radius: 10px; padding: 13px 18px; font-size: 0.88rem; font-weight: 700; cursor: pointer; white-space: nowrap; font-family: inherit; }
+    .pf-referral-btn:hover { background: #1d4ed8; }
+    .pf-price-box { background: #fffbeb; border: 1.5px solid #fde68a; border-radius: 10px; padding: 16px 18px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .pf-price-label { font-size: 0.9rem; font-weight: 700; color: #b45309; }
+    .pf-price-value { font-size: 1.15rem; font-weight: 800; color: #b45309; }
+    .pf-price-value.free { color: #16a34a; }
+    .pf-agree-label { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #555; cursor: pointer; margin-bottom: 16px; }
+    .pf-agree-label input[type="checkbox"] { width: 16px; height: 16px; flex-shrink: 0; }
+    .pf-submit-btn { width: 100%; background: #2563eb; color: #fff; border: none; border-radius: 12px; padding: 17px; font-size: 1rem; font-weight: 700; cursor: pointer; font-family: inherit; transition: background 0.2s; }
+    .pf-submit-btn:hover { background: #1d4ed8; }
+    .pf-submit-btn:disabled { background: #94a3b8; cursor: not-allowed; }
+    .pf-discount-notice { display: none; font-size: 0.78rem; color: #16a34a; font-weight: 700; margin-bottom: 6px; }
+    .pf-chip { display: inline-flex; align-items: center; gap: 6px; background: #eff6ff; border: 1px solid #bfdbfe; color: #2563eb; border-radius: 20px; padding: 5px 12px; font-size: 0.78rem; font-weight: 600; cursor: pointer; margin: 3px; }
+    .pf-chip:hover { background: #fee2e2; border-color: #fca5a5; color: #dc2626; }
    </style>
 </head>
 <body>
@@ -879,142 +936,141 @@
 
   <!-- PRIVATE TRACK APPLICATION MODAL -->
   <div class="private-modal-overlay" id="privateApplyModal">
-    <div class="private-modal-card">
-      <div class="private-modal-header">
-        <span class="private-modal-logo">VELTO</span>
-        <button class="private-modal-close" id="closePrivateApply">&times;</button>
+    <div class="private-modal-card" style="padding:0; width:560px; max-width:95%; border-radius:16px;">
+      <!-- Header -->
+      <div class="pf-header">
+        <div class="pf-header-top">
+          <div>
+            <div class="pf-title">온라인 신청서</div>
+            <div class="pf-subtitle">성장의 경로를 설계하는 스트럭처드 그로스 로드맵 신청서입니다.</div>
+          </div>
+          <button class="pf-close" id="closePrivateApply">&times;</button>
+        </div>
       </div>
-      <div class="private-form-title">PRIVATE TRACK PATHWAY</div>
-      <div class="private-form-subtitle">프라이빗 매칭 및 진단을 위한 심층 입과 신청서</div>
+
+      <div class="pf-body">
       <form id="privateApplyForm">
-        
-        <!-- STEP 1: APPLICANT PROFILE -->
-        <div class="private-section-title">01 / APPLICANT PROFILE</div>
-        
-        <div class="private-row">
-          <!-- 이름 -->
-          <div class="private-fg">
-            <label for="pa-name">이름 <span style="color:#ff3b30;">*</span></label>
-            <input type="text" id="pa-name" placeholder="실명을 입력해주세요" required />
-          </div>
-          <!-- 나이 (만) -->
-          <div class="private-fg">
-            <label for="pa-age">나이 (만) <span style="color:#ff3b30;">*</span></label>
-            <input type="number" id="pa-age" placeholder="만 나이" min="1" max="120" required />
-          </div>
-        </div>
 
-        <div class="private-row">
-          <!-- 성별 (라디오) -->
-          <div class="private-fg">
-            <label>성별 <span style="color:#ff3b30;">*</span></label>
-            <div class="private-radios">
-              <label class="private-radio-label">
-                <input type="radio" name="pa-gender" value="male" required /> 남성
-              </label>
-              <label class="private-radio-label">
-                <input type="radio" name="pa-gender" value="female" /> 여성
-              </label>
-              <label class="private-radio-label">
-                <input type="radio" name="pa-gender" value="other" /> 기타
-              </label>
+        <!-- 사전 정보 확인 -->
+        <div class="pf-section-box">
+          <div class="pf-section-label">사전 정보 확인 (커넥팅 매칭 참고용)</div>
+
+          <div class="pf-field">
+            <div class="pf-label">현재 상태</div>
+            <div class="pf-hint">현재 상황에 가장 가까운 항목을 선택해주세요.</div>
+            <div class="pf-btn-grid" id="statusBtnGrid">
+              <button type="button" class="pf-choice-btn" data-value="student">대학생</button>
+              <button type="button" class="pf-choice-btn" data-value="jobseeker">취업준비생</button>
+              <button type="button" class="pf-choice-btn" data-value="worker">직장인</button>
+              <button type="button" class="pf-choice-btn" data-value="other">기타</button>
             </div>
+            <input type="hidden" id="pa-status" required />
           </div>
-          <!-- 연락처 -->
-          <div class="private-fg">
-            <label for="pa-phone">연락처 <span style="color:#ff3b30;">*</span></label>
-            <input type="tel" id="pa-phone" placeholder="010-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" required />
+
+          <div class="pf-field" style="margin-bottom:0;">
+            <div class="pf-label">약물 복용 여부</div>
+            <div class="pf-meds-box">
+              <div class="pf-meds-text">2년 이내 의사의 처방을 받아 복용 중인 <strong>정신건강 관련 약물</strong>이 있다면 체크해주세요.</div>
+              <div class="pf-meds-notice">*해당 정보는 보다 적합한 커넥터 매칭을 위한 참고 용도로만 철저히 보호되어 사용됩니다.</div>
+            </div>
+            <div class="pf-btn-row" id="medsBtnRow">
+              <button type="button" class="pf-choice-btn" data-value="yes">있음</button>
+              <button type="button" class="pf-choice-btn active" data-value="no">없음</button>
+            </div>
+            <input type="hidden" id="pa-meds" value="no" />
           </div>
         </div>
 
-        <!-- STEP 2: PREFERENCE & SCHEDULES -->
-        <div class="private-section-title">02 / PREFERENCE & SCHEDULES</div>
-
-        <div class="private-row">
-          <!-- 사전 정보 확인 (현재 상태) -->
-          <div class="private-fg">
-            <label for="pa-status">현재 상태 <span style="color:#ff3b30;">*</span></label>
-            <select id="pa-status" required>
-              <option value="" disabled selected>선택해주세요</option>
-              <option value="student">대학생</option>
-              <option value="jobseeker">취업준비생</option>
-              <option value="worker">직장인</option>
-              <option value="other">기타</option>
-            </select>
+        <!-- 이름 + 나이 -->
+        <div class="pf-row">
+          <div class="pf-field">
+            <label class="pf-label" for="pa-name">이름</label>
+            <input class="pf-input" type="text" id="pa-name" placeholder="성함을 입력해주세요" required />
           </div>
-          <!-- 희망 장소 -->
-          <div class="private-fg">
-            <label for="pa-location">희망 장소 <span style="color:#ff3b30;">*</span></label>
-            <select id="pa-location" required>
-              <option value="" disabled selected>장소 선택</option>
-              <option value="mapo">마포점</option>
-              <option value="yeouido">여의도점</option>
-              <option value="namguro">남구로점</option>
-            </select>
+          <div class="pf-field">
+            <label class="pf-label" for="pa-age">나이 (만)</label>
+            <input class="pf-input" type="number" id="pa-age" placeholder="예: 25" min="1" max="120" required />
           </div>
         </div>
 
-        <!-- 희망 일자 및 시간 선택 (중복 선택 가능) -->
-        <div class="private-fg">
-          <label>희망 일자 및 시간 선택 (중복 선택 가능) <span style="color:#ff3b30;">*</span></label>
-          <div style="display: flex; gap: 8px; margin-bottom: 8px;">
-            <input type="date" id="pa-date-picker" style="cursor: pointer; flex: 1.2;" />
-            <select id="pa-time-slot" style="flex: 1.2;">
-              <option value="" disabled selected>시간대 선택</option>
-              <option value="10:00 - 12:00">10:00 - 12:00</option>
-              <option value="13:00 - 15:00">13:00 - 15:00</option>
-              <option value="16:00 - 18:00">16:00 - 18:00</option>
-              <option value="19:00 - 21:00">19:00 - 21:00</option>
-            </select>
-            <button type="button" id="pa-add-datetime-btn" style="background: var(--C); color: var(--W); border: none; padding: 0 16px; font-weight: bold; cursor: pointer; border-radius: 2px; font-size: 0.85rem;">추가</button>
+        <!-- 성별 -->
+        <div class="pf-field">
+          <div class="pf-label">성별</div>
+          <div class="pf-btn-row three" id="genderBtnRow">
+            <button type="button" class="pf-choice-btn" data-value="male">남성</button>
+            <button type="button" class="pf-choice-btn" data-value="female">여성</button>
+            <button type="button" class="pf-choice-btn" data-value="other">기타</button>
           </div>
-          <span class="private-notice">*날짜와 시간대를 각각 고른 후 [추가]를 클릭하시면 하단에 칩으로 결합되어 누적됩니다.</span>
-          <div class="date-chips-container" id="dateChipsContainer"></div>
-          <!-- 숨겨진 필드로 검증 용도 -->
+          <input type="hidden" id="pa-gender" required />
+        </div>
+
+        <!-- 연락처 -->
+        <div class="pf-field">
+          <label class="pf-label" for="pa-phone">연락처</label>
+          <input class="pf-input" type="tel" id="pa-phone" placeholder="010-0000-0000" required />
+        </div>
+
+        <!-- 희망 장소 -->
+        <div class="pf-field">
+          <label class="pf-label" for="pa-location">희망 장소</label>
+          <select class="pf-select" id="pa-location" required>
+            <option value="" disabled selected>장소를 선택해주세요</option>
+            <option value="mapo">마포점</option>
+            <option value="yeouido">여의도점</option>
+            <option value="namguro">남구로점</option>
+          </select>
+        </div>
+
+        <!-- 희망 일자 캘린더 -->
+        <div class="pf-field">
+          <div class="pf-label">희망 일자 (복수 선택 가능) <span style="color:#ff3b30;">*</span></div>
+          <div class="pf-calendar" id="pfCalendar"></div>
+          <select class="pf-time-select" id="pa-time-slot">
+            <option value="" disabled selected>시간대 선택</option>
+            <option value="10:00 - 12:00">10:00 - 12:00</option>
+            <option value="13:00 - 15:00">13:00 - 15:00</option>
+            <option value="16:00 - 18:00">16:00 - 18:00</option>
+            <option value="19:00 - 21:00">19:00 - 21:00</option>
+          </select>
+          <div id="dateChipsContainer" style="margin-top:4px;"></div>
           <input type="hidden" id="pa-dates-data" required />
         </div>
 
-        <!-- STEP 3: PROGRAM CORES & DISCLAIMERS -->
-        <div class="private-section-title">03 / PROGRAM CORES & DISCLAIMERS</div>
-
-        <div class="private-row">
-          <!-- 트랙 코스 선택 -->
-          <div class="private-fg">
-            <label for="pa-track">SELECTED TRAJECTORY COURSE <span style="color:#ff3b30;">*</span></label>
-            <select id="pa-track" required>
-              <option value="process">Track 01 — Process Optimization (E)</option>
-              <option value="friction">Track 02 — Friction Alignment (S)</option>
-              <option value="governance">Track 03 — Strategic Decision-Making (G)</option>
-            </select>
-            <!-- 금액 표시 영역 -->
-            <div id="track-price-display" style="margin-top: 12px; padding: 14px 18px; border: 1px solid var(--BD); border-radius: 4px; background: var(--BG); display: flex; align-items: center; justify-content: space-between;">
-              <span style="font-family: var(--mono); font-size: 0.72rem; color: var(--L); letter-spacing: 0.05em;">COURSE FEE</span>
-              <span id="track-price-value" style="font-family: var(--man); font-size: 1.3rem; font-weight: 800; color: var(--C); letter-spacing: -0.02em;">3,300,000원</span>
-            </div>
-            <div id="referral-discount-notice" style="display: none; margin-top: 8px; font-family: var(--mono); font-size: 0.72rem; color: #34c759; font-weight: 700;">✓ 추천인 코드 적용 — 전액 면제 (0원)</div>
-          </div>
-          <!-- 추천인 코드 -->
-          <div class="private-fg">
-            <label for="pa-referral">추천인 코드</label>
-            <input type="text" id="pa-referral" placeholder="추천인 코드 입력 (선택)" autocomplete="off" />
-          </div>
+        <!-- 프로그램 선택 -->
+        <div class="pf-field">
+          <label class="pf-label" for="pa-track">프로그램 선택 <span style="color:#ff3b30;">*</span></label>
+          <select class="pf-select" id="pa-track" required>
+            <option value="" disabled selected>참여를 희망하는 프로그램을 선택해주세요</option>
+            <option value="process">Track 01 — Process Optimization (E)</option>
+            <option value="friction">Track 02 — Friction Alignment (S)</option>
+            <option value="governance">Track 03 — Strategic Decision-Making (G)</option>
+          </select>
         </div>
 
-        <!-- 약물 복용 여부 (체크박스 & 박스 데코레이션) -->
-        <div class="private-notice-box">
-          <div class="private-fg" style="margin-bottom: 0;">
-            <label style="display: flex; align-items: flex-start; gap: 8px; cursor: pointer; font-size: 0.85rem; font-family: inherit; color: var(--C); margin-bottom: 0; font-weight: 500;">
-              <input type="checkbox" id="pa-meds" style="width: auto; margin-top: 4px;" />
-              <span>2년 이내 의사의 처방을 받아 복용 중인 정신건강 관련 약물이 있다면 체크해주세요.</span>
-            </label>
-            <span class="private-notice" style="margin-left: 22px; color: #ff3b30; font-size: 0.72rem; font-weight: 600;">*해당 정보는 보다 적합한 커넥터 매칭을 위한 참고 용도로만 철저히 보호되어 사용됩니다.</span>
+        <!-- 추천 코드 -->
+        <div class="pf-field">
+          <label class="pf-label" for="pa-referral">추천 코드 (선택)</label>
+          <div class="pf-referral-row">
+            <input class="pf-input" type="text" id="pa-referral" placeholder="추천인 코드가 있다면 입력해주세요" autocomplete="off" />
+            <button type="button" class="pf-referral-btn" id="pa-referral-apply">조회</button>
           </div>
+          <div class="pf-discount-notice" id="referral-discount-notice">✓ 추천인 코드 적용 — 전액 면제 (0원)</div>
         </div>
 
-        <button type="submit" class="private-submit-btn" id="paSubmitBtn" style="margin-top: 30px;">SUBMIT APPLICATION</button>
+        <!-- 결제 예정 금액 -->
+        <div class="pf-price-box" id="track-price-display">
+          <span class="pf-price-label">결제 예정 금액</span>
+          <span class="pf-price-value" id="track-price-value">—</span>
+        </div>
+
+        <!-- 개인정보 동의 -->
+        <label class="pf-agree-label">
+          <input type="checkbox" id="pa-agree" required />
+          <span>(필수) 개인정보 수집 및 이용에 동의합니다.</span>
+        </label>
+
+        <button type="submit" class="pf-submit-btn" id="paSubmitBtn">신청서 제출하기</button>
       </form>
-    </div>
-  </div>
 
   <script src="main.js"></script>
   <script>
@@ -1024,69 +1080,94 @@
       const form = document.getElementById('privateApplyForm');
       const trackSelect = document.getElementById('pa-track');
       const submitBtn = document.getElementById('paSubmitBtn');
-      const buttons = document.querySelectorAll('.esg-track-apply-btn');
-
-      // 날짜 & 시간대 복수 선택 핸들러
-      const datePicker = document.getElementById('pa-date-picker');
-      const timeSlotSelect = document.getElementById('pa-time-slot');
-      const addDateTimeBtn = document.getElementById('pa-add-datetime-btn');
+      const applyBtns = document.querySelectorAll('.esg-track-apply-btn');
       const chipsContainer = document.getElementById('dateChipsContainer');
       const datesDataInput = document.getElementById('pa-dates-data');
+      const timeSlotSelect = document.getElementById('pa-time-slot');
       let selectedDateTimes = [];
+      let calYear, calMonth;
 
-      function updateDateTimesInput() {
-        datesDataInput.value = selectedDateTimes.join(',');
-        // 필수 값 검증 트리거용
-        if (selectedDateTimes.length > 0) {
-          datesDataInput.removeAttribute('required');
-        } else {
-          datesDataInput.setAttribute('required', 'true');
+      // ── Calendar ──
+      function renderCalendar() {
+        const cal = document.getElementById('pfCalendar');
+        if (!cal) return;
+        const today = new Date(); today.setHours(0,0,0,0);
+        const firstDay = new Date(calYear, calMonth, 1).getDay();
+        const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+        const monthNames = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+        let html = `<div class="pf-cal-header">
+          <button type="button" class="pf-cal-nav" id="calPrev">&lt;</button>
+          <span class="pf-cal-month">${calYear}년 ${monthNames[calMonth]}</span>
+          <button type="button" class="pf-cal-nav" id="calNext">&gt;</button>
+        </div><div class="pf-cal-grid">`;
+        ['일','월','화','수','목','금','토'].forEach(d => { html += `<div class="pf-cal-day-name">${d}</div>`; });
+        for (let i = 0; i < firstDay; i++) html += `<div class="pf-cal-day empty"></div>`;
+        for (let d = 1; d <= daysInMonth; d++) {
+          const date = new Date(calYear, calMonth, d);
+          const dateStr = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+          const isPast = date < today;
+          const isSelected = selectedDateTimes.some(s => s.startsWith(dateStr));
+          html += `<div class="pf-cal-day${isPast?' past':''}${isSelected?' selected':''}" data-date="${dateStr}">${d}</div>`;
         }
-      }
-
-      if (addDateTimeBtn && datePicker && timeSlotSelect && chipsContainer) {
-        addDateTimeBtn.addEventListener('click', () => {
-          const dateVal = datePicker.value;
-          const timeVal = timeSlotSelect.value;
-
-          if (!dateVal || !timeVal) {
-            alert('희망 일자와 시간대를 모두 선택해 주세요.');
-            return;
-          }
-
-          const combinedVal = `${dateVal} (${timeVal})`;
-
-          if (selectedDateTimes.includes(combinedVal)) {
-            alert('이미 추가된 희망 일정입니다.');
-            return;
-          }
-
-          selectedDateTimes.push(combinedVal);
-
-          // 칩 엘리먼트 생성
-          const chip = document.createElement('div');
-          chip.className = 'date-chip';
-          chip.innerHTML = `${dateVal} [${timeVal}] <span style="font-weight:700; margin-left:4px;">&times;</span>`;
-          chip.addEventListener('click', () => {
-            selectedDateTimes = selectedDateTimes.filter(d => d !== combinedVal);
-            chip.remove();
-            updateDateTimesInput();
+        html += '</div>';
+        cal.innerHTML = html;
+        cal.querySelector('#calPrev').addEventListener('click', () => { calMonth--; if(calMonth<0){calMonth=11;calYear--;} renderCalendar(); });
+        cal.querySelector('#calNext').addEventListener('click', () => { calMonth++; if(calMonth>11){calMonth=0;calYear++;} renderCalendar(); });
+        cal.querySelectorAll('.pf-cal-day:not(.past):not(.empty)').forEach(el => {
+          el.addEventListener('click', () => {
+            const dateStr = el.getAttribute('data-date');
+            const timeVal = timeSlotSelect.value;
+            if (!timeVal) { alert('시간대를 먼저 선택해주세요.'); return; }
+            const combined = `${dateStr} (${timeVal})`;
+            if (selectedDateTimes.includes(combined)) { alert('이미 추가된 일정입니다.'); return; }
+            selectedDateTimes.push(combined);
+            addChip(combined);
+            updateDatesInput();
+            renderCalendar();
           });
-
-          chipsContainer.appendChild(chip);
-          updateDateTimesInput();
-
-          // 입력 초기화
-          datePicker.value = '';
-          timeSlotSelect.value = '';
         });
       }
 
-      // 트랙별 금액 정보
+      function addChip(combined) {
+        const chip = document.createElement('div');
+        chip.className = 'pf-chip';
+        chip.innerHTML = `${combined} <span>&times;</span>`;
+        chip.addEventListener('click', () => {
+          selectedDateTimes = selectedDateTimes.filter(d => d !== combined);
+          chip.remove(); updateDatesInput(); renderCalendar();
+        });
+        chipsContainer.appendChild(chip);
+      }
+
+      function updateDatesInput() {
+        datesDataInput.value = selectedDateTimes.join(',');
+        if (selectedDateTimes.length > 0) datesDataInput.removeAttribute('required');
+        else datesDataInput.setAttribute('required', 'true');
+      }
+
+      // ── Button group helper ──
+      function initBtnGroup(containerId, hiddenId) {
+        const container = document.getElementById(containerId);
+        const hidden = document.getElementById(hiddenId);
+        if (!container || !hidden) return;
+        container.querySelectorAll('.pf-choice-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            container.querySelectorAll('.pf-choice-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            hidden.value = btn.getAttribute('data-value');
+          });
+        });
+      }
+
+      initBtnGroup('statusBtnGrid', 'pa-status');
+      initBtnGroup('medsBtnRow', 'pa-meds');
+      initBtnGroup('genderBtnRow', 'pa-gender');
+
+      // ── Price ──
       const trackPrices = {
-        process:    { label: '380,000원', amount: 380000 },
-        friction:   { label: '400,000원', amount: 400000 },
-        governance: { label: '420,000원', amount: 420000 },
+        process:    { label: '380,000원' },
+        friction:   { label: '400,000원' },
+        governance: { label: '420,000원' },
       };
       const REFERRAL_CODE = 'g-614412';
       const priceValueEl = document.getElementById('track-price-value');
@@ -1094,123 +1175,87 @@
       const referralInput = document.getElementById('pa-referral');
 
       function updatePrice() {
-        const track = trackSelect.value;
-        const price = trackPrices[track] || trackPrices['process'];
-        const isDiscounted = referralInput.value.trim().toLowerCase() === REFERRAL_CODE;
+        const track = trackSelect ? trackSelect.value : '';
+        const price = trackPrices[track];
+        const isDiscounted = referralInput && referralInput.value.trim().toLowerCase() === REFERRAL_CODE;
         if (priceValueEl) {
-          priceValueEl.textContent = isDiscounted ? '0원' : price.label;
-          priceValueEl.style.color = isDiscounted ? '#34c759' : 'var(--C)';
+          priceValueEl.textContent = !price ? '—' : (isDiscounted ? '0원' : price.label);
+          priceValueEl.className = 'pf-price-value' + (isDiscounted ? ' free' : '');
         }
-        if (discountNotice) {
-          discountNotice.style.display = isDiscounted ? 'block' : 'none';
-        }
+        if (discountNotice) discountNotice.style.display = isDiscounted ? 'block' : 'none';
       }
 
       if (trackSelect) trackSelect.addEventListener('change', updatePrice);
-      if (referralInput) referralInput.addEventListener('input', updatePrice);
-      // 초기 렌더링
-      updatePrice();
+      if (referralInput) {
+        referralInput.addEventListener('input', updatePrice);
+        const applyBtn = document.getElementById('pa-referral-apply');
+        if (applyBtn) applyBtn.addEventListener('click', updatePrice);
+      }
 
-      buttons.forEach(btn => {
+      // ── Open modal from track buttons ──
+      applyBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-          const selectedTrack = btn.getAttribute('data-track');
-          if (selectedTrack) {
-            trackSelect.value = selectedTrack;
-          }
-          updatePrice();
+          const t = btn.getAttribute('data-track');
+          if (t && trackSelect) { trackSelect.value = t; updatePrice(); }
+          const now = new Date();
+          calYear = now.getFullYear(); calMonth = now.getMonth();
+          renderCalendar();
           modal.classList.add('open');
         });
       });
 
-      if (closeBtn) {
-        closeBtn.addEventListener('click', () => {
-          modal.classList.remove('open');
-        });
-      }
+      if (closeBtn) closeBtn.addEventListener('click', () => modal.classList.remove('open'));
+      if (modal) modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('open'); });
 
-      if (modal) {
-        modal.addEventListener('click', (e) => {
-          if (e.target === modal) {
-            modal.classList.remove('open');
-          }
-        });
-      }
-
+      // ── Submit ──
       if (form) {
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', e => {
           e.preventDefault();
-          
-          if (selectedDateTimes.length === 0) {
-            alert('희망 일자와 시간대를 최소 1개 이상 선택해 주세요.');
-            datePicker.focus();
-            return;
-          }
-
-          submitBtn.textContent = 'REGISTERING COURSE...';
+          if (!document.getElementById('pa-status').value) { alert('현재 상태를 선택해주세요.'); return; }
+          if (!document.getElementById('pa-gender').value) { alert('성별을 선택해주세요.'); return; }
+          if (selectedDateTimes.length === 0) { alert('희망 일자와 시간대를 최소 1개 선택해주세요.'); return; }
+          if (!trackSelect.value) { alert('프로그램을 선택해주세요.'); return; }
+          submitBtn.textContent = '제출 중...';
           submitBtn.disabled = true;
-
           setTimeout(() => {
-            // Save to localStorage
-            const nameVal = document.getElementById('pa-name').value;
-            const ageVal = document.getElementById('pa-age').value;
-            const genderVal = form.querySelector('input[name="pa-gender"]:checked').value;
-            const phoneVal = document.getElementById('pa-phone').value;
-            const statusVal = document.getElementById('pa-status').value;
-            const locationVal = document.getElementById('pa-location').value;
-            const referralVal = document.getElementById('pa-referral').value;
-            const medsChecked = document.getElementById('pa-meds').checked;
-            
             const newApp = {
               id: Date.now(),
-              name: nameVal,
-              age: parseInt(ageVal),
-              gender: genderVal,
-              phone: phoneVal,
-              status: statusVal,
-              location: locationVal,
+              name: document.getElementById('pa-name').value,
+              age: parseInt(document.getElementById('pa-age').value),
+              gender: document.getElementById('pa-gender').value,
+              phone: document.getElementById('pa-phone').value,
+              status: document.getElementById('pa-status').value,
+              location: document.getElementById('pa-location').value,
               dates: [...selectedDateTimes],
               track: trackSelect.value,
-              meds: medsChecked,
-              referral: referralVal,
+              meds: document.getElementById('pa-meds').value,
+              referral: referralInput ? referralInput.value : '',
               submittedAt: new Date().toLocaleString()
             };
-
-            let applications = JSON.parse(localStorage.getItem('veltoApplications') || '[]');
-            applications.unshift(newApp);
-            localStorage.setItem('veltoApplications', JSON.stringify(applications));
-
-            alert('정보가 전달되어 처방 분석 절차가 개시되었습니다.\n담당 위원진이 24시간 이내로 연락을 드리겠습니다.');
-            
+            let apps = JSON.parse(localStorage.getItem('veltoApplications') || '[]');
+            apps.unshift(newApp);
+            localStorage.setItem('veltoApplications', JSON.stringify(apps));
+            alert('신청이 완료되었습니다!\n담당 위원진이 24시간 이내로 연락드리겠습니다.');
             form.reset();
-            chipsContainer.innerHTML = '';
-            selectedDateTimes = [];
-            updateDateTimesInput();
-            submitBtn.textContent = 'SUBMIT APPLICATION';
-            submitBtn.disabled = false;
+            chipsContainer.innerHTML = ''; selectedDateTimes = []; updateDatesInput();
+            document.querySelectorAll('.pf-choice-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('pa-meds').value = 'no';
+            document.getElementById('medsBtnRow').querySelector('[data-value="no"]').classList.add('active');
+            submitBtn.textContent = '신청서 제출하기'; submitBtn.disabled = false;
             modal.classList.remove('open');
           }, 1500);
         });
       }
 
-      // Lightbox functionality
+      // ── Lightbox ──
       const lightbox = document.getElementById('esgLightbox');
       const lightboxImg = document.getElementById('esgLightboxImg');
-      const zoomableImgs = document.querySelectorAll('.zoomable-img');
-
-      if (lightbox && lightboxImg && zoomableImgs) {
-        zoomableImgs.forEach(img => {
-          img.addEventListener('click', () => {
-            lightboxImg.src = img.src;
-            lightboxImg.alt = img.alt;
-            lightbox.classList.add('open');
-          });
-        });
-
-        lightbox.addEventListener('click', () => {
-          lightbox.classList.remove('open');
-        });
-      }
+      document.querySelectorAll('.zoomable-img').forEach(img => {
+        img.addEventListener('click', () => { lightboxImg.src = img.src; lightboxImg.alt = img.alt; lightbox.classList.add('open'); });
+      });
+      if (lightbox) lightbox.addEventListener('click', () => lightbox.classList.remove('open'));
     })();
   </script>
 </body>
 </html>
+
