@@ -986,11 +986,17 @@
               <option value="friction">Track 02 — Friction Alignment (S)</option>
               <option value="governance">Track 03 — Strategic Decision-Making (G)</option>
             </select>
+            <!-- 금액 표시 영역 -->
+            <div id="track-price-display" style="margin-top: 12px; padding: 14px 18px; border: 1px solid var(--BD); border-radius: 4px; background: var(--BG); display: flex; align-items: center; justify-content: space-between;">
+              <span style="font-family: var(--mono); font-size: 0.72rem; color: var(--L); letter-spacing: 0.05em;">COURSE FEE</span>
+              <span id="track-price-value" style="font-family: var(--man); font-size: 1.3rem; font-weight: 800; color: var(--C); letter-spacing: -0.02em;">3,300,000원</span>
+            </div>
+            <div id="referral-discount-notice" style="display: none; margin-top: 8px; font-family: var(--mono); font-size: 0.72rem; color: #34c759; font-weight: 700;">✓ 추천인 코드 적용 — 전액 면제 (0원)</div>
           </div>
           <!-- 추천인 코드 -->
           <div class="private-fg">
             <label for="pa-referral">추천인 코드</label>
-            <input type="text" id="pa-referral" placeholder="추천인 코드 입력 (선택)" />
+            <input type="text" id="pa-referral" placeholder="추천인 코드 입력 (선택)" autocomplete="off" />
           </div>
         </div>
 
@@ -1076,12 +1082,42 @@
         });
       }
 
+      // 트랙별 금액 정보
+      const trackPrices = {
+        process:    { label: '3,300,000원', amount: 3300000 },
+        friction:   { label: '3,300,000원', amount: 3300000 },
+        governance: { label: '3,300,000원', amount: 3300000 },
+      };
+      const REFERRAL_CODE = 'g-614412';
+      const priceValueEl = document.getElementById('track-price-value');
+      const discountNotice = document.getElementById('referral-discount-notice');
+      const referralInput = document.getElementById('pa-referral');
+
+      function updatePrice() {
+        const track = trackSelect.value;
+        const price = trackPrices[track] || trackPrices['process'];
+        const isDiscounted = referralInput.value.trim().toLowerCase() === REFERRAL_CODE;
+        if (priceValueEl) {
+          priceValueEl.textContent = isDiscounted ? '0원' : price.label;
+          priceValueEl.style.color = isDiscounted ? '#34c759' : 'var(--C)';
+        }
+        if (discountNotice) {
+          discountNotice.style.display = isDiscounted ? 'block' : 'none';
+        }
+      }
+
+      if (trackSelect) trackSelect.addEventListener('change', updatePrice);
+      if (referralInput) referralInput.addEventListener('input', updatePrice);
+      // 초기 렌더링
+      updatePrice();
+
       buttons.forEach(btn => {
         btn.addEventListener('click', () => {
           const selectedTrack = btn.getAttribute('data-track');
           if (selectedTrack) {
             trackSelect.value = selectedTrack;
           }
+          updatePrice();
           modal.classList.add('open');
         });
       });
