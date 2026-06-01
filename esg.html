@@ -1059,9 +1059,9 @@
         </div>
 
         <!-- 결제 예정 금액 -->
-        <div class="pf-price-box" id="track-price-display">
+        <div class="pf-price-box" id="track-price-display" style="display:none;">
           <span class="pf-price-label">결제 예정 금액</span>
-          <span class="pf-price-value" id="track-price-value">—</span>
+          <span class="pf-price-value" id="track-price-value"></span>
         </div>
 
         <!-- 개인정보 동의 -->
@@ -1179,11 +1179,13 @@
         const track = trackSelect ? trackSelect.value : '';
         const price = trackPrices[track];
         const isDiscounted = referralInput && referralInput.value.trim().toLowerCase() === REFERRAL_CODE;
+        const priceBox = document.getElementById('track-price-display');
+        if (priceBox) priceBox.style.display = price ? 'flex' : 'none';
         if (priceValueEl) {
-          priceValueEl.textContent = !price ? '—' : (isDiscounted ? '0원' : price.label);
+          priceValueEl.textContent = isDiscounted ? '0원' : (price ? price.label : '');
           priceValueEl.className = 'pf-price-value' + (isDiscounted ? ' free' : '');
         }
-        if (discountNotice) discountNotice.style.display = isDiscounted ? 'block' : 'none';
+        if (discountNotice) discountNotice.style.display = (price && isDiscounted) ? 'block' : 'none';
       }
 
       if (trackSelect) trackSelect.addEventListener('change', updatePrice);
