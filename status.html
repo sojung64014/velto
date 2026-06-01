@@ -290,7 +290,7 @@
               <div class="app-grid-item" style="grid-column: span 2; margin-top: 10px; border-top: 1px dashed var(--BD); padding-top: 10px;">
                 <span class="app-item-label">약물 복용 & 추천인</span>
                 <span class="app-item-value" style="font-size:0.78rem; font-weight:500;">
-                  약물 복용 여부: ${app.meds ? '복용 중 (참고 사항 반영)' : '없음'} | 추천인 코드: ${app.referral || '없음'}
+                  약물 복용 여부: ${(app.meds === 'yes' || app.meds === true) ? '복용 중 (참고 사항 반영)' : '없음'} | 추천인 코드: ${app.referral || '없음'}
                 </span>
               </div>
               <div class="app-grid-item" style="text-align: right; justify-content: flex-end; margin-top: 10px; border-top: 1px dashed var(--BD); padding-top: 10px;">
