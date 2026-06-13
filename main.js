@@ -220,10 +220,21 @@
 
       const btn = document.getElementById('submitBtn');
       btn.textContent = '전송 중...'; btn.disabled = true;
-      setTimeout(() => {
+      
+      const formData = new FormData(form);
+      fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData).toString()
+      })
+      .then(() => {
         form.querySelectorAll('.f-row,.fg,.f-footer').forEach(el => el.style.display='none');
         ok.classList.add('show');
-      }, 900);
+      })
+      .catch(error => {
+        alert('전송에 실패했습니다. 잠시 후 다시 시도해주세요.');
+        btn.textContent = '궤적 정렬 시작하기 ↗'; btn.disabled = false;
+      });
     });
 
     form.querySelectorAll('input,textarea').forEach(inp =>

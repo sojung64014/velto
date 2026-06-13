@@ -950,7 +950,7 @@
       </div>
 
       <div class="pf-body">
-      <form id="privateApplyForm">
+      <form id="privateApplyForm" name="esg_track_apply" data-netlify="true">
 
         <!-- 사전 정보 확인 -->
         <div class="pf-section-box">
@@ -965,7 +965,7 @@
               <button type="button" class="pf-choice-btn" data-value="worker">직장인</button>
               <button type="button" class="pf-choice-btn" data-value="other">기타</button>
             </div>
-            <input type="hidden" id="pa-status" required />
+            <input type="hidden" id="pa-status" name="status" required />
           </div>
 
           <div class="pf-field" style="margin-bottom:0;">
@@ -978,7 +978,7 @@
               <button type="button" class="pf-choice-btn" data-value="yes">있음</button>
               <button type="button" class="pf-choice-btn active" data-value="no">없음</button>
             </div>
-            <input type="hidden" id="pa-meds" value="no" />
+            <input type="hidden" id="pa-meds" name="meds" value="no" />
           </div>
         </div>
 
@@ -986,11 +986,11 @@
         <div class="pf-row">
           <div class="pf-field">
             <label class="pf-label" for="pa-name">이름</label>
-            <input class="pf-input" type="text" id="pa-name" placeholder="성함을 입력해주세요" required />
+            <input class="pf-input" type="text" id="pa-name" name="name" placeholder="성함을 입력해주세요" required />
           </div>
           <div class="pf-field">
             <label class="pf-label" for="pa-age">나이 (만)</label>
-            <input class="pf-input" type="number" id="pa-age" placeholder="예: 25" min="1" max="120" required />
+            <input class="pf-input" type="number" id="pa-age" name="age" placeholder="예: 25" min="1" max="120" required />
           </div>
         </div>
 
@@ -1002,19 +1002,19 @@
             <button type="button" class="pf-choice-btn" data-value="female">여성</button>
             <button type="button" class="pf-choice-btn" data-value="other">기타</button>
           </div>
-          <input type="hidden" id="pa-gender" required />
+          <input type="hidden" id="pa-gender" name="gender" required />
         </div>
 
         <!-- 연락처 -->
         <div class="pf-field">
           <label class="pf-label" for="pa-phone">연락처</label>
-          <input class="pf-input" type="tel" id="pa-phone" placeholder="010-0000-0000" required />
+          <input class="pf-input" type="tel" id="pa-phone" name="phone" placeholder="010-0000-0000" required />
         </div>
 
         <!-- 희망 장소 -->
         <div class="pf-field">
           <label class="pf-label" for="pa-location">희망 장소</label>
-          <select class="pf-select" id="pa-location" required>
+          <select class="pf-select" id="pa-location" name="location" required>
             <option value="" disabled selected>장소를 선택해주세요</option>
             <option value="mapo">마포점</option>
             <option value="yeouido">여의도점</option>
@@ -1034,13 +1034,13 @@
             <option value="19:00 - 21:00">19:00 - 21:00</option>
           </select>
           <div id="dateChipsContainer" style="margin-top:4px;"></div>
-          <input type="hidden" id="pa-dates-data" required />
+          <input type="hidden" id="pa-dates-data" name="dates" required />
         </div>
 
         <!-- 프로그램 선택 -->
         <div class="pf-field">
           <label class="pf-label" for="pa-track">프로그램 선택 <span style="color:#ff3b30;">*</span></label>
-          <select class="pf-select" id="pa-track" required>
+          <select class="pf-select" id="pa-track" name="track" required>
             <option value="" disabled selected>참여를 희망하는 프로그램을 선택해주세요</option>
             <option value="process">Track 01 — Process Optimization (E)</option>
             <option value="friction">Track 02 — Friction Alignment (S)</option>
@@ -1052,7 +1052,7 @@
         <div class="pf-field">
           <label class="pf-label" for="pa-referral">추천 코드 (선택)</label>
           <div class="pf-referral-row">
-            <input class="pf-input" type="text" id="pa-referral" placeholder="추천인 코드가 있다면 입력해주세요" autocomplete="off" />
+            <input class="pf-input" type="text" id="pa-referral" name="referral" placeholder="추천인 코드가 있다면 입력해주세요" autocomplete="off" />
             <button type="button" class="pf-referral-btn" id="pa-referral-apply">조회</button>
           </div>
           <div class="pf-discount-notice" id="referral-discount-notice">✓ 추천인 코드 적용 — 전액 면제 (0원)</div>
@@ -1221,32 +1221,42 @@
           submitBtn.textContent = '제출 중...';
           submitBtn.disabled = true;
           setTimeout(() => {
-            const newApp = {
-              id: Date.now(),
-              name: document.getElementById('pa-name').value,
-              age: parseInt(document.getElementById('pa-age').value),
-              gender: document.getElementById('pa-gender').value,
-              phone: document.getElementById('pa-phone').value,
-              status: document.getElementById('pa-status').value,
-              location: document.getElementById('pa-location').value,
-              dates: [...selectedDateTimes],
-              track: trackSelect.value,
-              meds: document.getElementById('pa-meds').value,
-              referral: referralInput ? referralInput.value : '',
-              submittedAt: new Date().toLocaleString()
-            };
-            let apps = JSON.parse(localStorage.getItem('veltoApplications') || '[]');
-            apps.unshift(newApp);
-            localStorage.setItem('veltoApplications', JSON.stringify(apps));
-            alert('신청이 완료되었습니다!\n담당 위원진이 24시간 이내로 연락드리겠습니다.');
-            form.reset();
-            chipsContainer.innerHTML = ''; selectedDateTimes = []; updateDatesInput();
-            document.querySelectorAll('.pf-choice-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('pa-meds').value = 'no';
-            document.getElementById('medsBtnRow').querySelector('[data-value="no"]').classList.add('active');
-            submitBtn.textContent = '신청서 제출하기'; submitBtn.disabled = false;
-            modal.classList.remove('open');
-          }, 1500);
+            const formData = new FormData(form);
+            fetch("/", {
+              method: "POST",
+              headers: { "Content-Type": "application/x-www-form-urlencoded" },
+              body: new URLSearchParams(formData).toString()
+            }).then(() => {
+              const newApp = {
+                id: Date.now(),
+                name: document.getElementById('pa-name').value,
+                age: parseInt(document.getElementById('pa-age').value),
+                gender: document.getElementById('pa-gender').value,
+                phone: document.getElementById('pa-phone').value,
+                status: document.getElementById('pa-status').value,
+                location: document.getElementById('pa-location').value,
+                dates: [...selectedDateTimes],
+                track: trackSelect.value,
+                meds: document.getElementById('pa-meds').value,
+                referral: referralInput ? referralInput.value : '',
+                submittedAt: new Date().toLocaleString()
+              };
+              let apps = JSON.parse(localStorage.getItem('veltoApplications') || '[]');
+              apps.unshift(newApp);
+              localStorage.setItem('veltoApplications', JSON.stringify(apps));
+              alert('신청이 완료되었습니다!\n담당 위원진이 24시간 이내로 연락드리겠습니다.');
+              form.reset();
+              chipsContainer.innerHTML = ''; selectedDateTimes = []; updateDatesInput();
+              document.querySelectorAll('.pf-choice-btn').forEach(b => b.classList.remove('active'));
+              document.getElementById('pa-meds').value = 'no';
+              document.getElementById('medsBtnRow').querySelector('[data-value="no"]').classList.add('active');
+              submitBtn.textContent = '신청서 제출하기'; submitBtn.disabled = false;
+              modal.classList.remove('open');
+            }).catch(error => {
+              alert('전송에 실패했습니다. 잠시 후 다시 시도해주세요.');
+              submitBtn.textContent = '신청서 제출하기'; submitBtn.disabled = false;
+            });
+          }, 500);
         });
       }
 

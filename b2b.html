@@ -267,15 +267,15 @@
         <p class="intake-sub">기업 정보를 남겨주시면 24시간 이내에 전문 위원이 직접 검토 연락을 드립니다.</p>
       </div>
 
-      <form class="form" id="intakeForm" novalidate>
+      <form class="form" id="intakeForm" name="b2b_partnership" data-netlify="true" novalidate>
         <div class="f-row">
           <div class="fg" id="fg-name">
             <label for="f-name" class="mono">COMPANY & BRAND <span class="req">*</span></label>
-            <input type="text" id="f-name" placeholder="회사명 / 대표 브랜드명" required />
+            <input type="text" id="f-name" name="company" placeholder="회사명 / 대표 브랜드명" required />
           </div>
           <div class="fg" id="fg-email">
             <label for="f-email" class="mono">BUSINESS EMAIL <span class="req">*</span></label>
-            <input type="email" id="f-email" placeholder="partner@company.com" required />
+            <input type="email" id="f-email" name="email" placeholder="partner@company.com" required />
           </div>
         </div>
 
@@ -287,23 +287,23 @@
             <button type="button" class="chip" data-val="lifestyle" id="ch3">조직 얼라인먼트</button>
             <button type="button" class="chip" data-val="platform"  id="ch4">세일즈 퍼널 구축</button>
           </div>
-          <input type="hidden" id="f-domain" />
+          <input type="hidden" id="f-domain" name="solution" />
         </div>
 
         <div class="fg full" id="fg-cur">
           <label for="f-cur" class="mono">CURRENT STATUS & BOTTLENECK <span class="req">*</span></label>
-          <textarea id="f-cur" rows="4" placeholder="현재 기업의 당면 과제, 기존 컨설팅의 한계, 혹은 가장 해결이 시급한 병목 지점을 구체적으로 서술해 주세요." required></textarea>
+          <textarea id="f-cur" name="current_status" rows="4" placeholder="현재 기업의 당면 과제, 기존 컨설팅의 한계, 혹은 가장 해결이 시급한 병목 지점을 구체적으로 서술해 주세요." required></textarea>
         </div>
 
         <div class="fg full" id="fg-goal">
           <label for="f-goal" class="mono">TARGET MILESTONE <span class="req">*</span></label>
-          <textarea id="f-goal" rows="3" placeholder="협업을 통해 1년 이내 달성하고자 하는 정량적/정성적 스케일업 목표를 적어 주세요." required></textarea>
+          <textarea id="f-goal" name="target_milestone" rows="3" placeholder="협업을 통해 1년 이내 달성하고자 하는 정량적/정성적 스케일업 목표를 적어 주세요." required></textarea>
         </div>
 
         <div class="f-row">
           <div class="fg" id="fg-rev">
             <label for="f-rev" class="mono">ANNUAL REVENUE</label>
-            <select id="f-rev">
+            <select id="f-rev" name="revenue">
               <option value="" disabled selected>선택해 주세요</option>
               <option value="u50b">50억원 미만</option>
               <option value="u100b">50억 – 100억원</option>
