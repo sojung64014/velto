@@ -1371,3 +1371,120 @@ a { text-decoration: none; color: inherit; }
   gap: 8px;
 }
 
+/* ─── TRACK FIELD SKETCH SECTION ─── */
+.track-sketch-section {
+  padding: 120px 0;
+  background: var(--AS);
+  border-top: 1px solid var(--BD);
+  border-bottom: 1px solid var(--BD);
+}
+.sketch-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 48px;
+}
+.sketch-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 60px;
+}
+.sketch-h2 {
+  font-family: var(--man);
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--C);
+  margin-top: 10px;
+  letter-spacing: -0.02em;
+}
+.sketch-lead {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--M);
+  margin-top: 16px;
+}
+.sketch-content {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 50px;
+  align-items: center;
+}
+.sketch-img-wrapper {
+  position: relative;
+  border: 1px solid var(--BD);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--W);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.06);
+}
+.sketch-img {
+  width: 100%;
+  display: block;
+  transition: transform 0.5s var(--ease);
+}
+.sketch-img-wrapper:hover .sketch-img {
+  transform: scale(1.02);
+}
+.sketch-tag {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(17, 18, 18, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--W);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+.sketch-info {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+.info-block {
+  display: flex;
+  gap: 24px;
+}
+.info-num {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--Y);
+  line-height: 1;
+}
+.info-texts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.info-h3 {
+  font-family: var(--man);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--C);
+}
+.info-desc {
+  font-size: 0.85rem;
+  line-height: 1.75;
+  color: var(--M);
+}
+
+@media (max-width: 960px) {
+  .track-sketch-section {
+    padding: 80px 0;
+  }
+  .sketch-inner {
+    padding: 0 24px;
+  }
+  .sketch-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .sketch-img-wrapper {
+    max-width: 100%;
+  }
+}
+
