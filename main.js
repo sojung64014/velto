@@ -226,7 +226,7 @@
       dataObj.submittedAt = new Date().toISOString();
       dataObj.source = window.location.pathname || 'index.html';
 
-      db.collection('applications').add(dataObj)
+      window.db.collection('applications').add(dataObj)
       .then(() => {
         let apps = JSON.parse(localStorage.getItem('veltoApplications') || '[]');
         dataObj.id = Date.now();

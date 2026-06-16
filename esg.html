@@ -1241,7 +1241,7 @@
               source: window.location.pathname || 'esg.html'
             };
 
-            db.collection('applications').add(newApp).then(() => {
+            window.db.collection('applications').add(newApp).then(() => {
               let apps = JSON.parse(localStorage.getItem('veltoApplications') || '[]');
               apps.unshift(newApp);
               localStorage.setItem('veltoApplications', JSON.stringify(apps));

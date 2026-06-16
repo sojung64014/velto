@@ -123,7 +123,7 @@
     const loginError = document.getElementById('login-error');
 
     // Auth State Observer
-    auth.onAuthStateChanged(user => {
+    window.auth.onAuthStateChanged(user => {
       if (user) {
         loginScreen.style.display = 'none';
         dashScreen.style.display = 'block';
@@ -142,7 +142,7 @@
       if (!email || !pwd) return;
       
       loginBtn.textContent = 'Authenticating...';
-      auth.signInWithEmailAndPassword(email, pwd)
+      window.auth.signInWithEmailAndPassword(email, pwd)
         .then(() => {
           loginBtn.textContent = 'SIGN IN';
           loginError.style.display = 'none';
@@ -156,20 +156,20 @@
 
     // Logout Action
     logoutBtn.addEventListener('click', () => {
-      auth.signOut();
+      window.auth.signOut();
     });
 
     // Delete Action
     window.deleteApp = function(id) {
       if (confirm('이 신청 내역을 삭제하시겠습니까? (복구할 수 없습니다)')) {
-        db.collection('applications').doc(id).delete()
+        window.db.collection('applications').doc(id).delete()
           .catch(err => alert('삭제 실패: ' + err.message));
       }
     };
 
     // Load Data
     function loadApplications() {
-      db.collection('applications').orderBy('submittedAt', 'desc').onSnapshot(snapshot => {
+      window.db.collection('applications').orderBy('submittedAt', 'desc').onSnapshot(snapshot => {
         if (snapshot.empty) {
           tableBody.innerHTML = '<tr><td colspan="6" class="loading-state">제출된 신청 내역이 없습니다.</td></tr>';
           return;
