@@ -228,6 +228,11 @@
 
       db.collection('applications').add(dataObj)
       .then(() => {
+        let apps = JSON.parse(localStorage.getItem('veltoApplications') || '[]');
+        dataObj.id = Date.now();
+        apps.unshift(dataObj);
+        localStorage.setItem('veltoApplications', JSON.stringify(apps));
+
         form.querySelectorAll('.f-row,.fg,.f-footer').forEach(el => el.style.display='none');
         ok.classList.add('show');
       })

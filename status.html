@@ -262,43 +262,76 @@
           const card = document.createElement('div');
           card.className = 'app-history-card';
           
-          // Dates rendering as sub-chips
-          const dateChipsHtml = app.dates.map(d => `
-            <span style="font-family:var(--mono); font-size:0.72rem; background:rgba(0,0,0,0.03); border:1px solid var(--BD); padding:4px 10px; border-radius:4px; display:inline-block; margin-right:6px; margin-bottom:6px;">
-              ${d}
-            </span>
-          `).join('');
+          if (app.source && app.source.includes('esg.html') || app.track) {
+            // Dates rendering as sub-chips
+            const dateChipsHtml = (app.dates || []).map(d => `
+              <span style="font-family:var(--mono); font-size:0.72rem; background:rgba(0,0,0,0.03); border:1px solid var(--BD); padding:4px 10px; border-radius:4px; display:inline-block; margin-right:6px; margin-bottom:6px;">
+                ${d}
+              </span>
+            `).join('');
 
-          card.innerHTML = `
-            <div class="app-card-header">
-              <div class="app-card-title">${getTrackTitle(app.track)}</div>
-              <div class="app-card-status analyzing">서류 분석 및 처방 중</div>
-            </div>
-            <div class="app-card-grid">
-              <div class="app-grid-item">
-                <span class="app-item-label">신청자 정보</span>
-                <span class="app-item-value">${app.name} (만 ${app.age}세) / ${app.gender === 'male' ? '남성' : app.gender === 'female' ? '여성' : '기타'}</span>
+            card.innerHTML = `
+              <div class="app-card-header">
+                <div class="app-card-title">${getTrackTitle(app.track)}</div>
+                <div class="app-card-status analyzing">서류 분석 및 처방 중</div>
               </div>
-              <div class="app-grid-item">
-                <span class="app-item-label">현재 상황 & 장소</span>
-                <span class="app-item-value">${getStatusLabel(app.status)} / ${getLocationLabel(app.location)}</span>
+              <div class="app-card-grid">
+                <div class="app-grid-item">
+                  <span class="app-item-label">신청자 정보</span>
+                  <span class="app-item-value">${app.name} (만 ${app.age}세) / ${app.gender === 'male' ? '남성' : app.gender === 'female' ? '여성' : '기타'}</span>
+                </div>
+                <div class="app-grid-item">
+                  <span class="app-item-label">현재 상황 & 장소</span>
+                  <span class="app-item-value">${getStatusLabel(app.status)} / ${getLocationLabel(app.location)}</span>
+                </div>
+                <div class="app-grid-item" style="grid-column: span 2;">
+                  <span class="app-item-label">희망 진단 세션 일정</span>
+                  <div style="margin-top:6px;">${dateChipsHtml}</div>
+                </div>
+                <div class="app-grid-item" style="grid-column: span 2; margin-top: 10px; border-top: 1px dashed var(--BD); padding-top: 10px;">
+                  <span class="app-item-label">약물 복용 & 추천인</span>
+                  <span class="app-item-value" style="font-size:0.78rem; font-weight:500;">
+                    약물 복용 여부: ${(app.meds === 'yes' || app.meds === true) ? '복용 중 (참고 사항 반영)' : '없음'} | 추천인 코드: ${app.referral || '없음'}
+                  </span>
+                </div>
+                <div class="app-grid-item" style="text-align: right; justify-content: flex-end; margin-top: 10px; border-top: 1px dashed var(--BD); padding-top: 10px;">
+                  <span class="app-item-label">제출 일시</span>
+                  <span class="app-item-value" style="font-size:0.75rem; color:var(--L); font-family:var(--mono);">${app.submittedAt}</span>
+                </div>
               </div>
-              <div class="app-grid-item" style="grid-column: span 2;">
-                <span class="app-item-label">희망 진단 세션 일정</span>
-                <div style="margin-top:6px;">${dateChipsHtml}</div>
+            `;
+          } else {
+            const isB2B = app.source && app.source.includes('b2b');
+            const title = isB2B ? 'B2B Partnership Inquiry' : 'VELTO Growth Trajectory';
+            const nameLabel = isB2B ? '회사/브랜드명' : '신청자/브랜드명';
+            let formattedDate = app.submittedAt;
+            try { formattedDate = new Date(app.submittedAt).toLocaleString('ko-KR'); } catch(e){}
+
+            card.innerHTML = `
+              <div class="app-card-header">
+                <div class="app-card-title">${title}</div>
+                <div class="app-card-status analyzing">서류 분석 및 처방 중</div>
               </div>
-              <div class="app-grid-item" style="grid-column: span 2; margin-top: 10px; border-top: 1px dashed var(--BD); padding-top: 10px;">
-                <span class="app-item-label">약물 복용 & 추천인</span>
-                <span class="app-item-value" style="font-size:0.78rem; font-weight:500;">
-                  약물 복용 여부: ${(app.meds === 'yes' || app.meds === true) ? '복용 중 (참고 사항 반영)' : '없음'} | 추천인 코드: ${app.referral || '없음'}
-                </span>
+              <div class="app-card-grid">
+                <div class="app-grid-item">
+                  <span class="app-item-label">${nameLabel}</span>
+                  <span class="app-item-value">${app.name || app.company}</span>
+                </div>
+                <div class="app-grid-item">
+                  <span class="app-item-label">연락처 이메일</span>
+                  <span class="app-item-value">${app.email}</span>
+                </div>
+                <div class="app-grid-item" style="grid-column: span 2; margin-top: 10px; border-top: 1px dashed var(--BD); padding-top: 10px;">
+                  <span class="app-item-label">현재 상황 & 병목 지점</span>
+                  <span class="app-item-value" style="font-size:0.8rem; font-weight:400; line-height:1.5;">${app.current_state || app.current_status || '-'}</span>
+                </div>
+                <div class="app-grid-item" style="text-align: right; justify-content: flex-end; margin-top: 10px; border-top: 1px dashed var(--BD); padding-top: 10px;">
+                  <span class="app-item-label">제출 일시</span>
+                  <span class="app-item-value" style="font-size:0.75rem; color:var(--L); font-family:var(--mono);">${formattedDate}</span>
+                </div>
               </div>
-              <div class="app-grid-item" style="text-align: right; justify-content: flex-end; margin-top: 10px; border-top: 1px dashed var(--BD); padding-top: 10px;">
-                <span class="app-item-label">제출 일시</span>
-                <span class="app-item-value" style="font-size:0.75rem; color:var(--L); font-family:var(--mono);">${app.submittedAt}</span>
-              </div>
-            </div>
-          `;
+            `;
+          }
           
           applicationsContainer.appendChild(card);
         });
