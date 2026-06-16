@@ -627,7 +627,10 @@
     .pf-discount-notice { display: none; font-size: 0.78rem; color: #16a34a; font-weight: 700; margin-bottom: 6px; }
     .pf-chip { display: inline-flex; align-items: center; gap: 6px; background: #eff6ff; border: 1px solid #bfdbfe; color: #2563eb; border-radius: 20px; padding: 5px 12px; font-size: 0.78rem; font-weight: 600; cursor: pointer; margin: 3px; }
     .pf-chip:hover { background: #fee2e2; border-color: #fca5a5; color: #dc2626; }
-   </style>
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+  <script src="firebase-config.js"></script>
 </head>
 <body>
 
@@ -1221,26 +1224,23 @@
           submitBtn.textContent = '제출 중...';
           submitBtn.disabled = true;
           setTimeout(() => {
-            const formData = new FormData(form);
-            fetch("/", {
-              method: "POST",
-              headers: { "Content-Type": "application/x-www-form-urlencoded" },
-              body: new URLSearchParams(formData).toString()
-            }).then(() => {
-              const newApp = {
-                id: Date.now(),
-                name: document.getElementById('pa-name').value,
-                age: parseInt(document.getElementById('pa-age').value),
-                gender: document.getElementById('pa-gender').value,
-                phone: document.getElementById('pa-phone').value,
-                status: document.getElementById('pa-status').value,
-                location: document.getElementById('pa-location').value,
-                dates: [...selectedDateTimes],
-                track: trackSelect.value,
-                meds: document.getElementById('pa-meds').value,
-                referral: referralInput ? referralInput.value : '',
-                submittedAt: new Date().toLocaleString()
-              };
+            const newApp = {
+              id: Date.now(),
+              name: document.getElementById('pa-name').value,
+              age: parseInt(document.getElementById('pa-age').value),
+              gender: document.getElementById('pa-gender').value,
+              phone: document.getElementById('pa-phone').value,
+              status: document.getElementById('pa-status').value,
+              location: document.getElementById('pa-location').value,
+              dates: [...selectedDateTimes],
+              track: trackSelect.value,
+              meds: document.getElementById('pa-meds').value,
+              referral: referralInput ? referralInput.value : '',
+              submittedAt: new Date().toISOString(),
+              source: window.location.pathname || 'esg.html'
+            };
+
+            db.collection('applications').add(newApp).then(() => {
               let apps = JSON.parse(localStorage.getItem('veltoApplications') || '[]');
               apps.unshift(newApp);
               localStorage.setItem('veltoApplications', JSON.stringify(apps));
@@ -1253,6 +1253,7 @@
               submitBtn.textContent = '신청서 제출하기'; submitBtn.disabled = false;
               modal.classList.remove('open');
             }).catch(error => {
+              console.error("Error adding document: ", error);
               alert('전송에 실패했습니다. 잠시 후 다시 시도해주세요.');
               submitBtn.textContent = '신청서 제출하기'; submitBtn.disabled = false;
             });

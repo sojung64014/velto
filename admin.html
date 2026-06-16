@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VELTO — Admin Dashboard</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+  <script src="firebase-config.js"></script>
+
+  <style>
+    body { background: #f8f9fa; }
+    
+    /* Login Screen */
+    #login-screen {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      min-height: 100vh;
+    }
+    .login-card {
+      background: var(--W); border: 1px solid var(--BD); border-radius: 12px;
+      padding: 40px; width: 100%; max-width: 400px; box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+    .login-card h2 { font-family: var(--man); font-size: 1.5rem; color: var(--C); margin-bottom: 24px; font-weight: 800; }
+    .login-input {
+      width: 100%; padding: 14px; margin-bottom: 16px; border: 1px solid var(--BD); border-radius: 8px;
+      font-size: 0.9rem; outline: none; transition: border-color 0.2s; box-sizing: border-box;
+    }
+    .login-input:focus { border-color: #2563eb; }
+    .login-btn {
+      width: 100%; padding: 14px; background: var(--C); color: var(--W); border: none; border-radius: 8px;
+      font-family: var(--man); font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: background 0.2s;
+    }
+    .login-btn:hover { background: #333; }
+    #login-error { color: #ff3b30; font-size: 0.85rem; margin-top: 12px; display: none; }
+
+    /* Dashboard Screen */
+    #dashboard-screen { display: none; padding: 40px; max-width: 1400px; margin: 0 auto; }
+    .dash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+    .dash-title { font-family: var(--man); font-size: 2rem; font-weight: 800; color: var(--C); }
+    .logout-btn { background: transparent; border: 1px solid var(--BD); padding: 8px 16px; border-radius: 6px; cursor: pointer; font-family: var(--man); font-size: 0.85rem; font-weight: 600; }
+    .logout-btn:hover { background: rgba(0,0,0,0.05); }
+
+    /* Table */
+    .table-container { background: var(--W); border: 1px solid var(--BD); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th { background: #f1f3f5; padding: 16px 20px; font-size: 0.8rem; font-family: var(--mono); color: var(--L); text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--BD); }
+    td { padding: 16px 20px; font-size: 0.9rem; color: var(--C); border-bottom: 1px solid #f1f3f5; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #fafafa; }
+    
+    .source-badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; background: #e0e7ff; color: #3730a3; font-family: var(--mono); }
+    .source-badge.b2b { background: #fef3c7; color: #92400e; }
+    .source-badge.esg { background: #dcfce7; color: #166534; }
+    
+    .date-text { font-family: var(--mono); font-size: 0.8rem; color: var(--M); }
+    .detail-grid { display: flex; flex-direction: column; gap: 4px; font-size: 0.85rem; color: var(--M); }
+    .detail-grid span strong { color: var(--C); font-weight: 600; }
+    
+    .delete-btn { color: #ff3b30; background: transparent; border: none; cursor: pointer; font-size: 0.85rem; font-weight: 600; padding: 4px; }
+    .delete-btn:hover { text-decoration: underline; }
+
+    /* Loading state */
+    .loading-state { text-align: center; padding: 60px; color: var(--L); font-family: var(--mono); }
+  </style>
+</head>
+<body>
+
+  <!-- Login Screen -->
+  <div id="login-screen">
+    <div class="login-card">
+      <h2>VELTO Admin</h2>
+      <p style="font-size:0.85rem; color:var(--M); margin-bottom:20px;">파이어베이스에 등록된 관리자 계정으로 로그인하세요.</p>
+      <input type="email" id="adminEmail" class="login-input" placeholder="Admin Email" />
+      <input type="password" id="adminPwd" class="login-input" placeholder="Password" />
+      <button class="login-btn" id="loginBtn">SIGN IN</button>
+      <div id="login-error">로그인에 실패했습니다. 이메일/비밀번호를 확인해주세요.</div>
+    </div>
+  </div>
+
+  <!-- Dashboard Screen -->
+  <div id="dashboard-screen">
+    <div class="dash-header">
+      <div>
+        <span class="mono" style="font-size:0.75rem; color:var(--L); letter-spacing:0.05em;">[ MEMBERS PORTAL : ADMIN ]</span>
+        <h1 class="dash-title">신청 현황 대시보드</h1>
+      </div>
+      <button class="logout-btn" id="logoutBtn">Logout</button>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Source</th>
+            <th>Date</th>
+            <th>Name / Brand</th>
+            <th>Contact</th>
+            <th>Details & Goals</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <tr><td colspan="6" class="loading-state">데이터를 불러오는 중입니다...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const loginScreen = document.getElementById('login-screen');
+    const dashScreen = document.getElementById('dashboard-screen');
+    const loginBtn = document.getElementById('loginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const tableBody = document.getElementById('tableBody');
+    const loginError = document.getElementById('login-error');
+
+    // Auth State Observer
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        loginScreen.style.display = 'none';
+        dashScreen.style.display = 'block';
+        loadApplications();
+      } else {
+        loginScreen.style.display = 'flex';
+        dashScreen.style.display = 'none';
+        tableBody.innerHTML = '<tr><td colspan="6" class="loading-state">데이터를 불러오는 중입니다...</td></tr>';
+      }
+    });
+
+    // Login Action
+    loginBtn.addEventListener('click', () => {
+      const email = document.getElementById('adminEmail').value;
+      const pwd = document.getElementById('adminPwd').value;
+      if (!email || !pwd) return;
+      
+      loginBtn.textContent = 'Authenticating...';
+      auth.signInWithEmailAndPassword(email, pwd)
+        .then(() => {
+          loginBtn.textContent = 'SIGN IN';
+          loginError.style.display = 'none';
+        })
+        .catch(err => {
+          loginBtn.textContent = 'SIGN IN';
+          loginError.style.display = 'block';
+          console.error(err);
+        });
+    });
+
+    // Logout Action
+    logoutBtn.addEventListener('click', () => {
+      auth.signOut();
+    });
+
+    // Delete Action
+    window.deleteApp = function(id) {
+      if (confirm('이 신청 내역을 삭제하시겠습니까? (복구할 수 없습니다)')) {
+        db.collection('applications').doc(id).delete()
+          .catch(err => alert('삭제 실패: ' + err.message));
+      }
+    };
+
+    // Load Data
+    function loadApplications() {
+      db.collection('applications').orderBy('submittedAt', 'desc').onSnapshot(snapshot => {
+        if (snapshot.empty) {
+          tableBody.innerHTML = '<tr><td colspan="6" class="loading-state">제출된 신청 내역이 없습니다.</td></tr>';
+          return;
+        }
+
+        let html = '';
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          const id = doc.id;
+          
+          // Determine badge style
+          const src = data.source || 'Unknown';
+          let badgeClass = 'index';
+          let badgeLabel = 'TRAJECTORY';
+          if (src.includes('b2b')) { badgeClass = 'b2b'; badgeLabel = 'B2B'; }
+          else if (src.includes('esg')) { badgeClass = 'esg'; badgeLabel = 'ESG'; }
+          
+          // Format date
+          let dateStr = data.submittedAt;
+          try { dateStr = new Date(data.submittedAt).toLocaleString('ko-KR'); } catch(e){}
+
+          // Format Details
+          let detailsHtml = '';
+          if (badgeLabel === 'ESG') {
+            detailsHtml = `
+              <span><strong>나이/성별:</strong> 만 ${data.age}세 / ${data.gender}</span>
+              <span><strong>트랙:</strong> ${data.track}</span>
+              <span><strong>희망장소:</strong> ${data.location}</span>
+              <span><strong>희망일정:</strong> ${(data.dates||[]).join(', ')}</span>
+              <span><strong>상태/약물:</strong> ${data.status} / ${data.meds==='yes'?'복용중':'없음'}</span>
+            `;
+          } else {
+            detailsHtml = `
+              <span><strong>관심분야:</strong> ${data.domain || data.solution || '-'}</span>
+              <span><strong>매출/서비스:</strong> ${data.revenue || '-'} / ${data.svc || '-'}</span>
+              <div style="margin-top:8px; padding-top:8px; border-top:1px dashed #eee;">
+                <div style="margin-bottom:4px;"><strong>현재상황/병목:</strong><br>${data.current_state || data.current_status || '-'}</div>
+                <div><strong>목표 궤적/마일스톤:</strong><br>${data.target_goal || data.target_milestone || '-'}</div>
+              </div>
+            `;
+          }
+
+          html += `
+            <tr>
+              <td><span class="source-badge ${badgeClass}">${badgeLabel}</span></td>
+              <td><span class="date-text">${dateStr}</span></td>
+              <td style="font-weight:600;">${data.name || data.company || '-'}</td>
+              <td>
+                <div class="detail-grid">
+                  <span>${data.email || data.phone || '-'}</span>
+                  ${data.referral ? `<span style="color:#16a34a;">추천인: ${data.referral}</span>` : ''}
+                </div>
+              </td>
+              <td><div class="detail-grid">${detailsHtml}</div></td>
+              <td><button class="delete-btn" onclick="deleteApp('${id}')">삭제</button></td>
+            </tr>
+          `;
+        });
+        tableBody.innerHTML = html;
+      }, err => {
+        console.error(err);
+        tableBody.innerHTML = '<tr><td colspan="6" class="loading-state" style="color:#ff3b30;">데이터를 불러오는 중 오류가 발생했습니다.<br>권한이 없거나 파이어베이스 설정 문제일 수 있습니다.</td></tr>';
+      });
+    }
+  </script>
+</body>
+</html>

@@ -222,16 +222,17 @@
       btn.textContent = '전송 중...'; btn.disabled = true;
       
       const formData = new FormData(form);
-      fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(formData).toString()
-      })
+      const dataObj = Object.fromEntries(formData.entries());
+      dataObj.submittedAt = new Date().toISOString();
+      dataObj.source = window.location.pathname || 'index.html';
+
+      db.collection('applications').add(dataObj)
       .then(() => {
         form.querySelectorAll('.f-row,.fg,.f-footer').forEach(el => el.style.display='none');
         ok.classList.add('show');
       })
       .catch(error => {
+        console.error("Error adding document: ", error);
         alert('전송에 실패했습니다. 잠시 후 다시 시도해주세요.');
         btn.textContent = '궤적 정렬 시작하기 ↗'; btn.disabled = false;
       });
