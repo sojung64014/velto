@@ -179,9 +179,37 @@
         <span style="font-size: 0.9rem; font-weight: 600; color: var(--C);">
           접수된 스케줄 리스트
         </span>
-        <button id="clearHistoryBtn" style="background: transparent; border: 1px solid #ff3b30; color: #ff3b30; padding: 10px 18px; font-family: var(--man); font-size: 0.75rem; font-weight: 700; cursor: pointer; border-radius: 2px; transition: all 0.2s;">
-          신청 내역 전체 삭제
-        </button>
+        <div style="display: flex; gap: 10px;">
+          <button id="showSyncBtn" style="background: transparent; border: 1px solid var(--BD); color: var(--C); padding: 10px 18px; font-family: var(--man); font-size: 0.75rem; font-weight: 700; cursor: pointer; border-radius: 2px; transition: all 0.2s;">
+            신청 내역 동기화
+          </button>
+          <button id="clearHistoryBtn" style="background: transparent; border: 1px solid #ff3b30; color: #ff3b30; padding: 10px 18px; font-family: var(--man); font-size: 0.75rem; font-weight: 700; cursor: pointer; border-radius: 2px; transition: all 0.2s;">
+            신청 내역 전체 삭제
+          </button>
+        </div>
+      </div>
+
+      <!-- Sync Form Container -->
+      <div id="syncFormContainer" style="display: none; background: var(--AS); border: 1px solid var(--BD); border-radius: 4px; padding: 28px; margin-bottom: 40px; max-width: 520px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); animation: fadeIn 0.4s ease-out;">
+        <h4 style="font-family: var(--man); font-size: 1.05rem; font-weight: 800; color: var(--C); margin-bottom: 6px;">신청 내역 조회 및 동기화</h4>
+        <p style="font-size: 0.8rem; color: var(--M); margin-bottom: 20px; line-height: 1.5;">다른 기기나 브라우저에서 신청한 내역을 이 기기로 가져와 합칩니다.</p>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div>
+              <label style="font-size: 0.65rem; font-weight: 700; color: var(--C); display: block; margin-bottom: 6px; letter-spacing: 0.05em; font-family: var(--mono);">NAME</label>
+              <input type="text" id="lookupName" style="width: 100%; border: 1.5px solid var(--BD); padding: 12px 14px; border-radius: 4px; font-size: 0.8rem; outline: none; background: var(--W); color: var(--C); transition: border-color 0.2s;" placeholder="신청자명 혹은 회사명" />
+            </div>
+            <div>
+              <label style="font-size: 0.65rem; font-weight: 700; color: var(--C); display: block; margin-bottom: 6px; letter-spacing: 0.05em; font-family: var(--mono);">CONTACT (PHONE / EMAIL)</label>
+              <input type="text" id="lookupContact" style="width: 100%; border: 1.5px solid var(--BD); padding: 12px 14px; border-radius: 4px; font-size: 0.8rem; outline: none; background: var(--W); color: var(--C); transition: border-color 0.2s;" placeholder="전화번호 또는 이메일" />
+            </div>
+          </div>
+          <div style="display: flex; gap: 10px; align-items: center; margin-top: 6px;">
+            <button id="lookupBtn" style="background: var(--C); color: var(--W); border: none; padding: 12px 20px; border-radius: 4px; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: background 0.2s; font-family: var(--man); letter-spacing: 0.05em;">동기화 실행 ↗</button>
+            <button id="cancelSyncBtn" style="background: transparent; border: 1px solid var(--BD); color: var(--M); padding: 12px 16px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: var(--man);">취소</button>
+          </div>
+          <p id="lookupError" style="color: #ff3b30; font-size: 0.78rem; display: none; margin: 0; font-weight: 500;"></p>
+        </div>
       </div>
 
       <div id="applicationsContainer">
@@ -220,6 +248,36 @@
     (function initStatusPage() {
       const applicationsContainer = document.getElementById('applicationsContainer');
       const clearHistoryBtn = document.getElementById('clearHistoryBtn');
+      const showSyncBtn = document.getElementById('showSyncBtn');
+      const cancelSyncBtn = document.getElementById('cancelSyncBtn');
+      const syncFormContainer = document.getElementById('syncFormContainer');
+      const lookupBtn = document.getElementById('lookupBtn');
+
+      // Wire up toggle listeners
+      if (showSyncBtn && syncFormContainer) {
+        showSyncBtn.addEventListener('click', () => {
+          syncFormContainer.style.display = syncFormContainer.style.display === 'none' ? 'block' : 'none';
+        });
+      }
+      if (cancelSyncBtn && syncFormContainer) {
+        cancelSyncBtn.addEventListener('click', () => {
+          syncFormContainer.style.display = 'none';
+        });
+      }
+
+      // Wire up lookup listener globally
+      if (lookupBtn) {
+        lookupBtn.addEventListener('click', lookupApplications);
+      }
+
+      // Add focus event styling via inline JS styles
+      const inputs = [document.getElementById('lookupName'), document.getElementById('lookupContact')];
+      inputs.forEach(inp => {
+        if (inp) {
+          inp.addEventListener('focus', () => inp.style.borderColor = 'var(--Y)');
+          inp.addEventListener('blur', () => inp.style.borderColor = 'var(--BD)');
+        }
+      });
 
       function getTrackTitle(trackKey) {
         switch(trackKey) {
@@ -256,39 +314,13 @@
 
         if (apps.length === 0) {
           applicationsContainer.innerHTML = `
-            <div class="app-history-empty" style="padding: 40px 20px;">
-              <p style="margin-bottom: 24px;">현재 제출된 입과 신청 내역이 없습니다.</p>
-              <div style="margin: 0 auto; padding-top: 32px; border-top: 1px dashed var(--BD); max-width: 440px; text-align: left;">
-                <p style="font-size: 0.85rem; color: var(--M); margin-bottom: 20px; line-height: 1.6; text-align: center;">
-                  다른 기기나 브라우저에서 신청하셨나요?<br>
-                  이름과 연락처를 입력하여 신청 내역을 조회하고 이 브라우저와 동기화할 수 있습니다.
-                </p>
-                <div style="display: flex; flex-direction: column; gap: 14px;">
-                  <div>
-                    <label style="font-size: 0.72rem; font-weight: 700; color: var(--C); display: block; margin-bottom: 6px; letter-spacing: 0.05em; font-family: var(--mono);">NAME</label>
-                    <input type="text" id="lookupName" style="width: 100%; border: 1.5px solid var(--BD); padding: 12px 14px; border-radius: 4px; font-size: 0.85rem; outline: none; background: var(--W); color: var(--C); transition: border-color 0.2s;" placeholder="신청자명 혹은 회사명" />
-                  </div>
-                  <div>
-                    <label style="font-size: 0.72rem; font-weight: 700; color: var(--C); display: block; margin-bottom: 6px; letter-spacing: 0.05em; font-family: var(--mono);">CONTACT (PHONE / EMAIL)</label>
-                    <input type="text" id="lookupContact" style="width: 100%; border: 1.5px solid var(--BD); padding: 12px 14px; border-radius: 4px; font-size: 0.85rem; outline: none; background: var(--W); color: var(--C); transition: border-color 0.2s;" placeholder="010-0000-0000 또는 이메일" />
-                  </div>
-                  <button id="lookupBtn" style="background: var(--C); color: var(--W); border: none; padding: 14px; border-radius: 4px; font-size: 0.85rem; font-weight: 700; cursor: pointer; margin-top: 8px; transition: background 0.2s; font-family: var(--man); letter-spacing: 0.05em; text-align: center;">신청 내역 조회 및 동기화 ↗</button>
-                  <p id="lookupError" style="color: #ff3b30; font-size: 0.8rem; display: none; text-align: center; margin: 0; font-weight: 500;"></p>
-                </div>
-              </div>
+            <div class="app-history-empty" style="padding: 60px 20px;">
+              현재 제출된 입과 신청 내역이 없습니다.<br>
+              <span style="font-size: 0.82rem; color: var(--M); display: block; margin-top: 10px;">
+                다른 기기에서 신청하셨다면 상단의 <strong>[신청 내역 동기화]</strong> 버튼을 눌러 연동해주세요.
+              </span>
             </div>
           `;
-
-          // Add focus event styling via inline JS styles
-          const inputs = [document.getElementById('lookupName'), document.getElementById('lookupContact')];
-          inputs.forEach(inp => {
-            if (inp) {
-              inp.addEventListener('focus', () => inp.style.borderColor = 'var(--Y)');
-              inp.addEventListener('blur', () => inp.style.borderColor = 'var(--BD)');
-            }
-          });
-          
-          document.getElementById('lookupBtn').addEventListener('click', lookupApplications);
           return;
         }
 
@@ -389,7 +421,7 @@
         errorEl.style.display = 'none';
 
         if (!window.db) {
-          btn.textContent = '신청 내역 조회 및 동기화 ↗';
+          btn.textContent = '동기화 실행 ↗';
           btn.disabled = false;
           errorEl.textContent = '데이터베이스가 아직 연결되지 않았습니다. 잠시 후 다시 시도해주세요.';
           errorEl.style.display = 'block';
@@ -425,7 +457,7 @@
             });
 
             if (foundApps.length === 0) {
-              btn.textContent = '신청 내역 조회 및 동기화 ↗';
+              btn.textContent = '동기화 실행 ↗';
               btn.disabled = false;
               errorEl.textContent = '일치하는 신청 내역을 찾을 수 없습니다. 이름과 연락처를 다시 확인해주세요.';
               errorEl.style.display = 'block';
@@ -435,7 +467,7 @@
           })
           .catch(err => {
             console.error('Error looking up applications:', err);
-            btn.textContent = '신청 내역 조회 및 동기화 ↗';
+            btn.textContent = '동기화 실행 ↗';
             btn.disabled = false;
             errorEl.textContent = '조회 중 오류가 발생했습니다: ' + err.message;
             errorEl.style.display = 'block';
@@ -452,6 +484,9 @@
         existingApps.sort((a,b) => new Date(b.submittedAt) - new Date(a.submittedAt));
         localStorage.setItem('veltoApplications', JSON.stringify(existingApps));
         alert(`${foundApps.length}개의 신청 내역을 성공적으로 동기화했습니다.`);
+        if (syncFormContainer) {
+          syncFormContainer.style.display = 'none';
+        }
         renderApplicationsHistory();
       }
 
