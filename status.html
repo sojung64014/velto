@@ -396,43 +396,39 @@
           return;
         }
 
-        window.db.collection('applications').where('name', '==', name).get()
+        // Fetch all recent applications (up to 500) and perform client-side filtering
+        // This avoids exact match issues with trailing spaces (e.g. "박성수 ") and format differences in phone/email
+        window.db.collection('applications').limit(500).get()
           .then(snapshot => {
             let foundApps = [];
+            const cleanInputName = name.replace(/\s+/g, '').toLowerCase();
+            const cleanContact = contact.replace(/[- ]/g, '');
+            const inputEmail = contact.toLowerCase().trim();
+
             snapshot.forEach(doc => {
               const data = doc.data();
-              const cleanContact = contact.replace(/[- ]/g, '');
+              const cleanDbName = (data.name || '').replace(/\s+/g, '').toLowerCase();
+              const cleanDbCompany = (data.company || '').replace(/\s+/g, '').toLowerCase();
               const dbPhone = (data.phone || '').replace(/[- ]/g, '');
               const dbEmail = (data.email || '').toLowerCase().trim();
-              const inputEmail = contact.toLowerCase().trim();
 
-              if (dbPhone === cleanContact || dbEmail === inputEmail || data.phone === contact || data.email === contact) {
+              const nameMatches = (cleanDbName === cleanInputName || cleanDbCompany === cleanInputName);
+              const contactMatches = (dbPhone === cleanContact || dbEmail === inputEmail || data.phone === contact || data.email === contact);
+
+              if (nameMatches && contactMatches) {
+                // Ensure document has an ID
+                if (!data.id) {
+                  data.id = doc.id;
+                }
                 foundApps.push(data);
               }
             });
 
             if (foundApps.length === 0) {
-              // Try B2B company name too
-              return window.db.collection('applications').where('company', '==', name).get()
-                .then(b2bSnapshot => {
-                  b2bSnapshot.forEach(doc => {
-                    const data = doc.data();
-                    const dbEmail = (data.email || '').toLowerCase().trim();
-                    const inputEmail = contact.toLowerCase().trim();
-                    if (dbEmail === inputEmail || data.email === contact) {
-                      foundApps.push(data);
-                    }
-                  });
-
-                  if (foundApps.length === 0) {
-                    btn.textContent = '신청 내역 조회 및 동기화 ↗';
-                    btn.disabled = false;
-                    errorEl.textContent = '일치하는 신청 내역을 찾을 수 없습니다. 이름과 연락처를 다시 확인해주세요.';
-                    errorEl.style.display = 'block';
-                  } else {
-                    saveAndRender(foundApps);
-                  }
-                });
+              btn.textContent = '신청 내역 조회 및 동기화 ↗';
+              btn.disabled = false;
+              errorEl.textContent = '일치하는 신청 내역을 찾을 수 없습니다. 이름과 연락처를 다시 확인해주세요.';
+              errorEl.style.display = 'block';
             } else {
               saveAndRender(foundApps);
             }
