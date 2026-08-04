@@ -195,7 +195,7 @@
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
             <div>
               <label style="font-size: 0.65rem; font-weight: 700; color: var(--C); display: block; margin-bottom: 6px; letter-spacing: 0.05em; font-family: var(--mono);">NAME</label>
-              <input type="text" id="lookupName" style="width: 100%; border: 1.5px solid var(--BD); padding: 12px 14px; border-radius: 4px; font-size: 0.8rem; outline: none; background: var(--W); color: var(--C); transition: border-color 0.2s;" placeholder="신청자명 혹은 회사명" />
+              <input type="text" id="lookupName" style="width: 100%; border: 1.5px solid var(--BD); padding: 12px 14px; border-radius: 4px; font-size: 0.8rem; outline: none; background: var(--W); color: var(--C); transition: border-color 0.2s;" placeholder="신청자명 혹은 기관명" />
             </div>
             <div>
               <label style="font-size: 0.65rem; font-weight: 700; color: var(--C); display: block; margin-bottom: 6px; letter-spacing: 0.05em; font-family: var(--mono);">CONTACT (PHONE / EMAIL)</label>
@@ -367,7 +367,7 @@
           } else {
             const isB2B = app.source && app.source.includes('b2b');
             const title = isB2B ? 'B2B Partnership Inquiry' : 'VELTO Growth Trajectory';
-            const nameLabel = isB2B ? '회사/브랜드명' : '신청자/브랜드명';
+            const nameLabel = isB2B ? '기관/브랜드명' : '신청자/브랜드명';
             let formattedDate = app.submittedAt;
             try { formattedDate = new Date(app.submittedAt).toLocaleString('ko-KR'); } catch(e){}
 
